@@ -18,6 +18,8 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          image: string
+          is_active: boolean
           name_ar: string
           name_fr: string
           slug: string
@@ -26,6 +28,8 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          image?: string
+          is_active?: boolean
           name_ar: string
           name_fr: string
           slug: string
@@ -34,10 +38,45 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          image?: string
+          is_active?: boolean
           name_ar?: string
           name_fr?: string
           slug?: string
           sort_order?: number
+        }
+        Relationships: []
+      }
+      coupons: {
+        Row: {
+          code: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_active: boolean
+          kind: string
+          min_subtotal: number
+          value: number
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          min_subtotal?: number
+          value: number
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean
+          kind?: string
+          min_subtotal?: number
+          value?: number
         }
         Relationships: []
       }
@@ -87,8 +126,10 @@ export type Database = {
         Row: {
           address: string
           city: string
+          coupon_code: string | null
           created_at: string
           customer_name: string
+          discount: number
           email: string | null
           id: string
           notes: string | null
@@ -99,12 +140,15 @@ export type Database = {
           status: string
           subtotal: number
           total: number
+          user_id: string | null
         }
         Insert: {
           address: string
           city: string
+          coupon_code?: string | null
           created_at?: string
           customer_name: string
+          discount?: number
           email?: string | null
           id?: string
           notes?: string | null
@@ -115,12 +159,15 @@ export type Database = {
           status?: string
           subtotal: number
           total: number
+          user_id?: string | null
         }
         Update: {
           address?: string
           city?: string
+          coupon_code?: string | null
           created_at?: string
           customer_name?: string
+          discount?: number
           email?: string | null
           id?: string
           notes?: string | null
@@ -131,16 +178,21 @@ export type Database = {
           status?: string
           subtotal?: number
           total?: number
+          user_id?: string | null
         }
         Relationships: []
       }
       products: {
         Row: {
+          badge: string
+          benefits_ar: string
+          benefits_fr: string
           category_id: string | null
           compare_at_price: number | null
           created_at: string
           description_ar: string
           description_fr: string
+          gallery: string[]
           id: string
           image: string
           ingredients_ar: string
@@ -148,23 +200,32 @@ export type Database = {
           is_active: boolean
           is_bestseller: boolean
           is_featured: boolean
+          is_new: boolean
+          low_stock_threshold: number
           name_ar: string
           name_fr: string
           price: number
           size: string
+          sku: string
           slug: string
           stock: number
           tagline_ar: string
           tagline_fr: string
           usage_ar: string
           usage_fr: string
+          warnings_ar: string
+          warnings_fr: string
         }
         Insert: {
+          badge?: string
+          benefits_ar?: string
+          benefits_fr?: string
           category_id?: string | null
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
           description_fr?: string
+          gallery?: string[]
           id?: string
           image?: string
           ingredients_ar?: string
@@ -172,23 +233,32 @@ export type Database = {
           is_active?: boolean
           is_bestseller?: boolean
           is_featured?: boolean
+          is_new?: boolean
+          low_stock_threshold?: number
           name_ar: string
           name_fr: string
           price: number
           size?: string
+          sku?: string
           slug: string
           stock?: number
           tagline_ar?: string
           tagline_fr?: string
           usage_ar?: string
           usage_fr?: string
+          warnings_ar?: string
+          warnings_fr?: string
         }
         Update: {
+          badge?: string
+          benefits_ar?: string
+          benefits_fr?: string
           category_id?: string | null
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
           description_fr?: string
+          gallery?: string[]
           id?: string
           image?: string
           ingredients_ar?: string
@@ -196,16 +266,21 @@ export type Database = {
           is_active?: boolean
           is_bestseller?: boolean
           is_featured?: boolean
+          is_new?: boolean
+          low_stock_threshold?: number
           name_ar?: string
           name_fr?: string
           price?: number
           size?: string
+          sku?: string
           slug?: string
           stock?: number
           tagline_ar?: string
           tagline_fr?: string
           usage_ar?: string
           usage_fr?: string
+          warnings_ar?: string
+          warnings_fr?: string
         }
         Relationships: [
           {
@@ -217,15 +292,110 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          address: string
+          city: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+        }
+        Insert: {
+          address?: string
+          city?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id: string
+          phone?: string
+        }
+        Update: {
+          address?: string
+          city?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+        }
+        Relationships: []
+      }
+      shipping_zones: {
+        Row: {
+          city: string
+          created_at: string
+          fee: number
+          id: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          fee: number
+          id?: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          fee?: number
+          id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       place_order: {
         Args: {
           _address: string
           _city: string
+          _coupon?: string
           _customer_name: string
           _email: string
           _items: Json
@@ -234,9 +404,14 @@ export type Database = {
         }
         Returns: Json
       }
+      quote_order: {
+        Args: { _city: string; _coupon: string; _subtotal: number }
+        Returns: Json
+      }
+      track_order: { Args: { _number: string; _phone: string }; Returns: Json }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "customer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -363,6 +538,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "customer"],
+    },
   },
 } as const

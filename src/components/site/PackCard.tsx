@@ -32,7 +32,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
   return (
     <section className={`mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16 ${className}`}>
       <div className={`mx-auto grid ${grid}`}>
-        {packs.map((p, i) => {
+        {packs.map((p) => {
           const out = p.stock === 0;
           return (
             <article key={p.id} className="flex h-full min-w-0 flex-col border border-border/60 bg-card">

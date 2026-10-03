@@ -1,0 +1,40 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useI18n } from "@/lib/i18n";
+import { AuthShell, Field } from "@/components/site/AuthShell";
+
+export const Route = createFileRoute("/forgot-password")({
+  head: () => ({
+    meta: [
+      { title: "Mot de passe oublié — THÉRAVÉN" },
+      { name: "description", content: "Réinitialisez votre mot de passe THÉRAVÉN." },
+      { property: "og:title", content: "Mot de passe oublié — THÉRAVÉN" },
+      { property: "og:description", content: "Recevez un lien de réinitialisation." },
+    ],
+  }),
+  component: Forgot,
+});
+
+function Forgot() {
+  const { L } = useI18n();
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/reset-password` });
+    setSent(true);
+  };
+  return (
+    <AuthShell title={L("Mot de passe oublié", "نسيت كلمة المرور")}>
+      {sent ? (
+        <p className="text-center text-muted-foreground">{L("Si un compte existe, un lien vous a été envoyé.", "إذا كان الحساب موجوداً فقد أُرسل إليك رابط.")}</p>
+      ) : (
+        <form onSubmit={submit} className="space-y-7">
+          <Field label="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          <button className="btn-lux w-full">{L("Envoyer le lien", "إرسال الرابط")}</button>
+        </form>
+      )}
+    </AuthShell>
+  );
+}

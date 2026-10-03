@@ -42,7 +42,18 @@ export function Toggle({ checked, onChange, label }: { checked: boolean; onChang
   );
 }
 
-export function ImageUpload({ value, onChange, label = "Image" }: { value: string; onChange: (url: string) => void; label?: string }) {
+/** Center-crops an image file to the given width/height ratio. */
+async function cropFile(file: File, ratio: number): Promise<File> {
+  const bmp = await createImageBitmap(file);
+  let w = bmp.width, h = Math.round(w / ratio);
+  if (h > bmp.height) { h = bmp.height; w = Math.round(h * ratio); }
+  const c = document.createElement("canvas"); c.width = w; c.height = h;
+  c.getContext("2d")!.drawImage(bmp, (bmp.width - w) / 2, (bmp.height - h) / 2, w, h, 0, 0, w, h);
+  const blob = await new Promise<Blob>((r, j) => c.toBlob((b) => (b ? r(b) : j(new Error("Recadrage impossible"))), "image/jpeg", 0.9));
+  return new File([blob], "image.jpg", { type: "image/jpeg" });
+}
+
+export function ImageUpload({ value, onChange, label = "Image", crop }: { value: string; onChange: (url: string) => void; label?: string; crop?: number }) {
   const [busy, setBusy] = useState(false);
   return (
     <div>
@@ -60,7 +71,7 @@ export function ImageUpload({ value, onChange, label = "Image" }: { value: strin
               if (!f) return;
               setBusy(true);
               try {
-                onChange(await uploadMedia(f));
+                onChange(await uploadMedia(crop ? await cropFile(f, crop) : f));
               } catch (err) {
                 toast.error((err as Error).message);
               }

@@ -15,6 +15,13 @@
       "when": 1790984077129,
       "tag": "0001_admin_auth_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791024060742,
+      "tag": "0002_product_bundles",
+      "breakpoints": true
     }
   ]
 }

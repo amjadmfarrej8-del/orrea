@@ -39,41 +39,46 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="bg-primary py-2 text-center text-[0.62rem] tracking-[0.22em] uppercase text-primary-foreground">
-        {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
-      </div>
-      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-5 py-4 md:px-10 md:py-5">
-        <div className="flex items-center gap-6">
-          <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
-          <nav className="hidden gap-6 text-[0.7rem] tracking-[0.2em] uppercase md:flex">
-            {links.map((l) => <Link key={l.to} to={l.to} className="link-lux">{l.label}</Link>)}
-          </nav>
+    <>
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur">
+        <div className="bg-primary py-2 text-center text-[0.62rem] tracking-[0.22em] uppercase text-primary-foreground">
+          {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>
-        <Link to="/" className="text-center text-2xl md:text-3xl"><Logo /></Link>
-        <div className="flex items-center justify-end gap-4 text-[0.7rem] tracking-[0.2em] uppercase md:gap-5">
-          <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
-          <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
-          <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>
-          {isAdmin && <Link to="/admin" className="link-lux hidden lg:inline">Admin</Link>}
-          <Link to="/cart" className="relative" aria-label={t.cart}>
-            <ShoppingBag className="h-5 w-5" strokeWidth={1.2} />
-            {count > 0 && (
-              <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-champagne px-1 text-[0.6rem] text-primary">{count}</span>
-            )}
-          </Link>
-        </div>
-      </div>
-      {search && (
-        <form onSubmit={submit} className="border-t border-border">
-          <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-3">
-            <Search className="h-4 w-4 text-muted-foreground" />
-            <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} maxLength={80} placeholder={L("Rechercher un soin, un ingrédient…", "ابحثي عن منتج أو مكون…")} className="flex-1 bg-transparent py-2 text-sm outline-none" />
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-5 py-4 md:px-10 md:py-5">
+          <div className="flex items-center gap-6">
+            <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
+            <nav className="hidden gap-6 text-[0.7rem] tracking-[0.2em] uppercase md:flex">
+              {links.map((l) => <Link key={l.to} to={l.to} className="link-lux">{l.label}</Link>)}
+            </nav>
           </div>
-        </form>
-      )}
+          <Link to="/" className="text-center text-2xl md:text-3xl"><Logo /></Link>
+          <div className="flex items-center justify-end gap-4 text-[0.7rem] tracking-[0.2em] uppercase md:gap-5">
+            <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
+            <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
+            <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>
+            {isAdmin && <Link to="/admin" className="link-lux hidden lg:inline">Admin</Link>}
+            <Link to="/cart" className="relative" aria-label={t.cart}>
+              <ShoppingBag className="h-5 w-5" strokeWidth={1.2} />
+              {count > 0 && (
+                <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-champagne px-1 text-[0.6rem] text-primary">{count}</span>
+              )}
+            </Link>
+          </div>
+        </div>
+        {search && (
+          <form onSubmit={submit} className="border-t border-border">
+            <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-3">
+              <Search className="h-4 w-4 text-muted-foreground" />
+              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} maxLength={80} placeholder={L("Rechercher un soin, un ingrédient…", "ابحثي عن منتج أو مكون…")} className="flex-1 bg-transparent py-2 text-sm outline-none" />
+            </div>
+          </form>
+        )}
+      </header>
       {open && (
-        <div className="fixed inset-0 z-50 bg-background md:hidden">
+        <div
+          className="fixed inset-0 z-[9999] md:hidden"
+          style={{ background: "var(--color-background, #f8f5ef)" }}
+        >
           <div className="flex items-center justify-between px-5 py-5">
             <Logo className="text-2xl" />
             <button onClick={() => setOpen(false)} aria-label="Fermer"><X className="h-5 w-5" /></button>
@@ -89,6 +94,6 @@ export function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }

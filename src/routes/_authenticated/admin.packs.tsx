@@ -32,9 +32,9 @@ function PacksAdmin() {
   const save = async () => {
     if (!edit) return;
     const price = Number(edit.price);
-    if (edit.name_fr.trim().length < 2 || !edit.name_ar.trim()) return toast.error("Titre FR et AR requis");
-    if (!(price > 0)) return toast.error("Prix invalide");
-    if (!edit.bundle_items.length) return toast.error("Choisissez au moins un produit");
+    if (edit.name_fr.trim().length < 2 || !edit.name_ar.trim()) { toast.error("Titre FR et AR requis"); return; }
+    if (!(price > 0)) { toast.error("Prix invalide"); return; }
+    if (!edit.bundle_items.length) { toast.error("Choisissez au moins un produit"); return; }
     const row = {
       name_fr: edit.name_fr.trim(), name_ar: edit.name_ar.trim(), tagline_fr: edit.tagline_fr, tagline_ar: edit.tagline_ar, badge: edit.badge,
       price, compare_at_price: edit.compare_at_price ? Number(edit.compare_at_price) : null, free_shipping: edit.free_shipping,
@@ -43,7 +43,7 @@ function PacksAdmin() {
     const res = edit.id
       ? await supabase.from("products").update(row).eq("id", edit.id)
       : await supabase.from("products").insert({ ...row, slug: `${slugify(edit.name_fr)}-${Date.now().toString(36)}`, sku: "PACK", is_featured: true });
-    if (res.error) return toast.error(res.error.message);
+    if (res.error) { toast.error(res.error.message); return; }
     toast.success("Pack enregistré");
     setEdit(null); refresh();
   };

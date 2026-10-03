@@ -42,7 +42,7 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur">
-        <div className="bg-primary py-2 text-center text-[0.8rem] tracking-[0.16em] uppercase text-primary-foreground">
+        <div className="whitespace-nowrap bg-primary py-2 text-center text-[0.55rem] tracking-[0.08em] uppercase text-primary-foreground md:text-[0.8rem] md:tracking-[0.16em]">
           {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>
         <div className="mx-auto grid max-w-[1600px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-5 py-4 md:px-10 md:py-5 lg:px-12 xl:px-16">

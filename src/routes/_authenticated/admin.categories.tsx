@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { productImage } from "@/lib/catalog";
 import { Card, ImageUpload, Input, PageTitle, Toggle } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/categories")({ component: Categories });
@@ -44,7 +45,7 @@ function Row({ initial, onSave, onDelete }: { initial: Cat; onSave: (c: Cat) => 
   const [c, setC] = useState(initial);
   return (
     <Card className="grid items-end gap-4 md:grid-cols-[auto_1fr_1fr_80px_auto_auto]">
-      <ImageUpload label="Image" value={c.image} onChange={(v) => setC({ ...c, image: v })} />
+      <ImageUpload label="Image (recadrée 3:4)" crop={3 / 4} value={c.image ? productImage(c.image) : ""} onChange={(v) => setC({ ...c, image: v })} />
       <Input placeholder="Nom FR" value={c.name_fr} onChange={(e) => setC({ ...c, name_fr: e.target.value })} />
       <Input placeholder="Nom AR" dir="rtl" value={c.name_ar} onChange={(e) => setC({ ...c, name_ar: e.target.value })} />
       <Input type="number" title="Ordre" value={c.sort_order} onChange={(e) => setC({ ...c, sort_order: parseInt(e.target.value) || 0 })} />

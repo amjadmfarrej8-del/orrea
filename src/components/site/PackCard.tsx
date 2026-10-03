@@ -39,7 +39,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
                 {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-4 text-[0.8rem] tracking-[0.12em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto pt-7">
                   <div className="flex items-baseline justify-center gap-3">
-                    <span className="text-3xl" style={{ fontFamily: "var(--font-display)" }}>{formatMAD(Number(p.price), lang)}</span>
+                    <span className="text-2xl font-semibold">{formatMAD(Number(p.price), lang)}</span>
                     {p.compare_at_price && Number(p.compare_at_price) > Number(p.price) && (
                       <span className="text-sm text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
                     )}

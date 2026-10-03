@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink } from "@/lib/settings";
 import { Logo } from "./Header";
@@ -7,6 +8,8 @@ import { Logo } from "./Header";
 export function Footer() {
   const { t, L, lang } = useI18n();
   const { data: s } = useQuery(settingsQuery);
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
   const store = s?.store;
   const col = "flex flex-col gap-3 text-sm text-muted-foreground";
   return (
@@ -33,14 +36,14 @@ export function Footer() {
         </div>
         <div className={col}>
           <p className="eyebrow">{L("Nous joindre", "تواصلي معنا")}</p>
-          {store?.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`}>{store.phone}</a>}
-          {store?.email && <a href={`mailto:${store.email}`}>{store.email}</a>}
-          {store && <span>{lang === "ar" ? store.address_ar : store.address_fr}</span>}
+          {hydrated && store?.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`}>{store.phone}</a>}
+          {hydrated && store?.email && <a href={`mailto:${store.email}`}>{store.email}</a>}
+          {hydrated && store && <span>{lang === "ar" ? store.address_ar : store.address_fr}</span>}
           <div className="flex gap-4 pt-2">
-            {store?.whatsapp && <a href={waLink(store.whatsapp, "Bonjour THÉRAVÉN")} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a>}
-            {store?.instagram && <a href={store.instagram} target="_blank" rel="noreferrer" className="link-lux">Instagram</a>}
-            {store?.facebook && <a href={store.facebook} target="_blank" rel="noreferrer" className="link-lux">Facebook</a>}
-            {store?.tiktok && <a href={store.tiktok} target="_blank" rel="noreferrer" className="link-lux">TikTok</a>}
+            {hydrated && store?.whatsapp && <a href={waLink(store.whatsapp, "Bonjour THÉRAVÉN")} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a>}
+            {hydrated && store?.instagram && <a href={store.instagram} target="_blank" rel="noreferrer" className="link-lux">Instagram</a>}
+            {hydrated && store?.facebook && <a href={store.facebook} target="_blank" rel="noreferrer" className="link-lux">Facebook</a>}
+            {hydrated && store?.tiktok && <a href={store.tiktok} target="_blank" rel="noreferrer" className="link-lux">TikTok</a>}
           </div>
         </div>
       </div>
@@ -54,7 +57,9 @@ export function Footer() {
 export function WhatsAppFab() {
   const { data: s } = useQuery(settingsQuery);
   const { L } = useI18n();
-  if (!s?.store.whatsapp) return null;
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+  if (!hydrated || !s?.store.whatsapp) return null;
   return (
     <a
       href={waLink(s.store.whatsapp, L("Bonjour THÉRAVÉN, j'ai une question.", "مرحباً THÉRAVÉN، لدي سؤال."))}

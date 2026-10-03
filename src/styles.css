@@ -71,7 +71,7 @@
     -webkit-font-smoothing: antialiased;
   }
   [dir="rtl"] body { font-family: "Tajawal", system-ui, sans-serif; }
-  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 { font-family: "Tajawal", serif; font-weight: 500; letter-spacing: 0; }
 }
 

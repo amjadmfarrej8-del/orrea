@@ -130,7 +130,7 @@ function Checkout() {
       <Summary subtotal={subtotal} shipping={q?.shipping ?? 0} discount={q?.discount ?? 0}>
         <div className="mt-6 flex gap-2">
           <input value={coupon} onChange={(e) => setCoupon(e.target.value.slice(0, 30))} placeholder={L("Code promo", "رمز الخصم")} className="field-lux flex-1 !py-2 text-sm uppercase" />
-          <button type="button" onClick={() => setApplied(coupon.trim())} className="text-xs tracking-[0.2em] uppercase link-lux">{L("Appliquer", "تطبيق")}</button>
+          <button type="button" onClick={() => setApplied(coupon.trim())} className="text-xs tracking-[0.12em] uppercase link-lux">{L("Appliquer", "تطبيق")}</button>
         </div>
         {applied && q?.error && <p className="mt-2 text-xs text-destructive">{L("Code promo invalide.", "رمز الخصم غير صالح.")}</p>}
         {q?.coupon && <p className="mt-2 text-xs">✓ {q.coupon}</p>}

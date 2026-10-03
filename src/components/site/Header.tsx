@@ -10,7 +10,7 @@ import { settingsQuery } from "@/lib/settings";
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
   if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="THÉRAVÉN" className={`h-8 w-auto ${className}`} />;
-  return <span className={`tracking-[0.3em] ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>;
+  return <span className={`tracking-[0.16em] ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>;
 }
 
 export function Header() {
@@ -41,7 +41,7 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur">
-        <div className="bg-primary py-2 text-center text-[0.62rem] tracking-[0.22em] uppercase text-primary-foreground">
+        <div className="bg-primary py-2 text-center text-[0.8rem] tracking-[0.16em] uppercase text-primary-foreground">
           {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>
         <div className="mx-auto grid max-w-[1600px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-5 py-4 md:px-10 md:py-5 lg:px-12 xl:px-16">
@@ -49,10 +49,10 @@ export function Header() {
             <button onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
           </div>
           <Link to="/" className="col-start-2 text-center text-2xl md:col-start-1 md:row-start-1 md:justify-self-start md:text-3xl"><Logo /></Link>
-          <nav className="hidden items-center justify-center gap-7 text-[0.7rem] tracking-[0.2em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-9 xl:gap-11">
+          <nav className="hidden items-center justify-center gap-7 text-[0.8rem] tracking-[0.12em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-9 xl:gap-11">
             {links.map((l) => <Link key={l.to} to={l.to} className="link-lux whitespace-nowrap">{l.label}</Link>)}
           </nav>
-          <div className="col-start-3 row-start-1 flex min-w-0 items-center justify-end gap-4 text-[0.7rem] tracking-[0.2em] uppercase md:gap-5 lg:gap-6">
+          <div className="col-start-3 row-start-1 flex min-w-0 items-center justify-end gap-4 text-[0.8rem] tracking-[0.12em] uppercase md:gap-5 lg:gap-6">
             <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
             <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
             <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>
@@ -60,7 +60,7 @@ export function Header() {
             <Link to="/cart" className="relative" aria-label={t.cart}>
               <ShoppingBag className="h-5 w-5" strokeWidth={1.2} />
               {count > 0 && (
-                <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-champagne px-1 text-[0.6rem] text-primary">{count}</span>
+                <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-champagne px-1 text-[0.8rem] text-primary">{count}</span>
               )}
             </Link>
           </div>

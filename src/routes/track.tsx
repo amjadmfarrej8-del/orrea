@@ -53,7 +53,7 @@ function Track() {
               {ORDER_STATUSES.slice(0, 5).map((s, i) => (
                 <li key={s} className="text-center">
                   <div className={`h-0.5 ${i <= idx ? "bg-foreground" : "bg-border"}`} />
-                  <p className={`mt-3 text-[0.62rem] tracking-[0.1em] uppercase ${i <= idx ? "" : "text-muted-foreground"}`}>{statusText(s, lang)}</p>
+                  <p className={`mt-3 text-[0.8rem] tracking-[0.1em] uppercase ${i <= idx ? "" : "text-muted-foreground"}`}>{statusText(s, lang)}</p>
                 </li>
               ))}
             </ol>

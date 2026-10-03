@@ -60,7 +60,7 @@ function Account() {
     <div className="mx-auto max-w-6xl px-5 pt-16 md:px-10">
       <div className="flex items-end justify-between gap-4">
         <h1 className="text-5xl">{L("Mon compte", "حسابي")}</h1>
-        <button onClick={logout} className="link-lux text-xs tracking-[0.2em] uppercase">{L("Déconnexion", "تسجيل الخروج")}</button>
+        <button onClick={logout} className="link-lux text-xs tracking-[0.12em] uppercase">{L("Déconnexion", "تسجيل الخروج")}</button>
       </div>
       <div className="mt-14 grid gap-16 md:grid-cols-[1fr_1.4fr]">
         <form onSubmit={save} className="space-y-7">
@@ -82,7 +82,7 @@ function Account() {
                     <div className="tracking-[0.12em]">{o.order_number}</div>
                     <div className="text-xs text-muted-foreground">{new Date(o.created_at).toLocaleDateString(lang === "ar" ? "ar-MA" : "fr-FR")}</div>
                   </div>
-                  <span className="bg-secondary px-3 py-1 text-[0.65rem] tracking-[0.15em] uppercase">{statusText(o.status, lang)}</span>
+                  <span className="bg-secondary px-3 py-1 text-[0.76rem] tracking-[0.15em] uppercase">{statusText(o.status, lang)}</span>
                   <span className="text-sm">{formatMAD(Number(o.total), lang)}</span>
                 </button>
                 {open === o.id && (

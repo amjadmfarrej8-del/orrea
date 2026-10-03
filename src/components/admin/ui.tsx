@@ -89,5 +89,5 @@ export function StatusBadge({ status }: { status: string }) {
   const tone: Record<string, string> = {
     new: "bg-champagne/30", confirmed: "bg-accent", preparing: "bg-secondary", shipped: "bg-secondary", delivered: "bg-primary text-primary-foreground", cancelled: "bg-destructive/15 text-destructive",
   };
-  return <span className={`px-2 py-1 text-[0.62rem] tracking-[0.15em] uppercase ${tone[status] ?? "bg-secondary"}`}>{status}</span>;
+  return <span className={`px-2 py-1 text-[0.8rem] tracking-[0.15em] uppercase ${tone[status] ?? "bg-secondary"}`}>{status}</span>;
 }

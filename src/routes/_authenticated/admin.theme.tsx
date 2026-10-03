@@ -82,9 +82,9 @@ function Preview({ t }: { t: Theme }) {
       <link rel="stylesheet" href={fontHref(t)} />
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="flex items-center justify-between border-b border-border pb-4">
-        <span className="text-[0.65rem] tracking-[0.2em] uppercase">Boutique</span>
-        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.3em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>}
-        <span className="text-[0.65rem] tracking-[0.2em] uppercase">Panier</span>
+        <span className="text-[0.76rem] tracking-[0.12em] uppercase">Boutique</span>
+        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>}
+        <span className="text-[0.76rem] tracking-[0.12em] uppercase">Panier</span>
       </div>
       <p className="eyebrow mt-10">Collection 2026</p>
       <h2 className="mt-3 text-4xl leading-tight" style={{ fontFamily: "var(--font-display)" }}>La science de l'éclat.</h2>

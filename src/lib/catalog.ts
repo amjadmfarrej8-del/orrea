@@ -7,6 +7,7 @@ import gelEyeCreamPackAsset from "@/assets/theravene-pack-gel-contour-creme.png.
 import gelEyePackAsset from "@/assets/theravene-pack-gel-contour-yeux.png.asset.json";
 import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
+import eyeCategoryAsset from "@/assets/theravene-categorie-soins-yeux.png.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
@@ -20,6 +21,7 @@ Object.assign(localImages, {
   "t-pack-gel-eye": gelEyePackAsset.url,
   "t-pack": packAsset.url,
   "t-serum": serumAsset.url,
+  "t-cat-yeux": eyeCategoryAsset.url,
 });
 export const productImage = (key: string) => localImages[key] ?? key;
 

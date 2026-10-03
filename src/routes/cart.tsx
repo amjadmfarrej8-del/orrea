@@ -26,9 +26,9 @@ function CartPage() {
   const { items, setQty, remove, subtotal } = useCart();
   const { data: st } = useQuery(settingsQuery);
   const { data: all } = useQuery(productsQuery);
-  const pack = all?.find((p) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0);
-  const packIds = (pack?.bundle_items as { product_id: string }[] | undefined)?.map((b) => b.product_id) ?? [];
-  const showPack = !!pack && !items.some((i) => i.id === pack.id) && items.some((i) => packIds.includes(i.id));
+  const itemIds = items.map((item) => item.id);
+  const packIds = (all ?? []).filter((p) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0).map((p) => p.id);
+  const showPack = (all ?? []).some((p) => packIds.includes(p.id) && !itemIds.includes(p.id) && (p.bundle_items as { product_id: string }[]).some((item) => itemIds.includes(item.product_id)));
   const shipping = hasFreeShipping(items) ? 0 : shippingFor(subtotal, st?.store.shipping_fee, st?.store.free_shipping_threshold);
 
   if (items.length === 0)
@@ -71,7 +71,7 @@ function CartPage() {
       <Summary subtotal={subtotal} shipping={shipping}>
         <Link to="/checkout" className="btn-lux mt-8 w-full">{t.checkout}</Link>
       </Summary>
-      {showPack && <div className="md:col-span-2 -mx-5 md:-mx-10"><PackCard /></div>}
+      {showPack && <div className="md:col-span-2 -mx-5 md:-mx-10"><PackCard productIds={itemIds} excludeIds={itemIds} /></div>}
     </div>
   );
 }

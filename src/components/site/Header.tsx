@@ -26,6 +26,7 @@ export function Header() {
 
   const links = [
     { to: "/shop", label: t.shop },
+    { to: "/offres", label: L("Offres", "العروض") },
     { to: "/categories", label: L("Catégories", "الفئات") },
     { to: "/about", label: t.about },
     { to: "/contact", label: L("Contact", "اتصل بنا") },

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-export type CartItem = { id: string; slug: string; name_fr: string; name_ar: string; price: number; image: string; quantity: number; stock: number };
+export type CartItem = { id: string; slug: string; name_fr: string; name_ar: string; price: number; image: string; quantity: number; stock: number; free_shipping?: boolean };
 
 type Ctx = {
   items: CartItem[];
@@ -50,4 +50,5 @@ export function useCart() {
   return c;
 }
 
+export const hasFreeShipping = (items: { free_shipping?: boolean }[]) => items.some((i) => i.free_shipping);
 export const shippingFor = (subtotal: number, fee = 35, free = 500) => (subtotal >= free || subtotal === 0 ? 0 : fee);

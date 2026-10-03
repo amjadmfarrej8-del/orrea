@@ -4,6 +4,7 @@ import { z } from "zod";
 import { categoriesQuery, productsQuery } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
 import { ProductCard } from "@/components/site/ProductCard";
+import { PackCard } from "@/components/site/PackCard";
 
 export const Route = createFileRoute("/shop")({
   validateSearch: z.object({
@@ -66,6 +67,7 @@ function Shop() {
           <option value="price-desc">{L("Prix décroissant", "السعر تنازلياً")}</option>
         </select>
       </div>
+      {!q && (!c || c === "zones-sensibles") && <div className="-mx-5 mt-12 md:-mx-10"><PackCard /></div>}
       {list.length === 0 && <p className="mt-16 text-muted-foreground">{L("Aucun produit trouvé.", "لم يتم العثور على أي منتج.")}</p>}
       <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8">
         {list.map((p) => <ProductCard key={p.id} p={p} />)}

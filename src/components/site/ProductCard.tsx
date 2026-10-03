@@ -43,7 +43,7 @@ export function ProductCard({ p }: { p: Product }) {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          add({ id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock }, 1);
+          add({ id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping }, 1);
           setDone(true);
           setTimeout(() => setDone(false), 1500);
         }}

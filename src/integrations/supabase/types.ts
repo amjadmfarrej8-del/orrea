@@ -187,11 +187,13 @@ export type Database = {
           badge: string
           benefits_ar: string
           benefits_fr: string
+          bundle_items: Json
           category_id: string | null
           compare_at_price: number | null
           created_at: string
           description_ar: string
           description_fr: string
+          free_shipping: boolean
           gallery: string[]
           id: string
           image: string
@@ -220,11 +222,13 @@ export type Database = {
           badge?: string
           benefits_ar?: string
           benefits_fr?: string
+          bundle_items?: Json
           category_id?: string | null
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
           description_fr?: string
+          free_shipping?: boolean
           gallery?: string[]
           id?: string
           image?: string
@@ -253,11 +257,13 @@ export type Database = {
           badge?: string
           benefits_ar?: string
           benefits_fr?: string
+          bundle_items?: Json
           category_id?: string | null
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
           description_fr?: string
+          free_shipping?: boolean
           gallery?: string[]
           id?: string
           image?: string

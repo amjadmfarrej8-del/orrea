@@ -2,9 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { settingsQuery } from "@/lib/settings";
-import { shippingFor, useCart } from "@/lib/cart";
+import { hasFreeShipping, shippingFor, useCart } from "@/lib/cart";
 import { productImage } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
+import { PackCard } from "@/components/site/PackCard";
+import { productsQuery } from "@/lib/catalog";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -23,7 +25,11 @@ function CartPage() {
   const { t, lang } = useI18n();
   const { items, setQty, remove, subtotal } = useCart();
   const { data: st } = useQuery(settingsQuery);
-  const shipping = shippingFor(subtotal, st?.store.shipping_fee, st?.store.free_shipping_threshold);
+  const { data: all } = useQuery(productsQuery);
+  const pack = all?.find((p) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0);
+  const packIds = (pack?.bundle_items as { product_id: string }[] | undefined)?.map((b) => b.product_id) ?? [];
+  const showPack = !!pack && !items.some((i) => i.id === pack.id) && items.some((i) => packIds.includes(i.id));
+  const shipping = hasFreeShipping(items) ? 0 : shippingFor(subtotal, st?.store.shipping_fee, st?.store.free_shipping_threshold);
 
   if (items.length === 0)
     return (
@@ -65,6 +71,7 @@ function CartPage() {
       <Summary subtotal={subtotal} shipping={shipping}>
         <Link to="/checkout" className="btn-lux mt-8 w-full">{t.checkout}</Link>
       </Summary>
+      {showPack && <div className="md:col-span-2 -mx-5 md:-mx-10"><PackCard /></div>}
     </div>
   );
 }

@@ -96,7 +96,7 @@ function HomepageBuilder() {
         <select value={newType} onChange={(e) => setNewType(e.target.value)} className="border border-input bg-background px-3 py-2 text-sm">
           {SECTION_TYPES.map((t) => <option key={t} value={t}>{typeLabel[t]}</option>)}
         </select>
-        <button onClick={() => { const id = `${newType}-${Date.now()}`; setSecs([...secs, { id, type: newType, visible: true, title_fr: typeLabel[newType], title_ar: "" }]); setOpen(id); }} className="btn-ghost-lux !px-4 !py-2">Ajouter une section</button>
+        <button onClick={() => { const id = `${newType}-${Date.now()}`; setSecs([...secs, { id, type: newType, visible: true, title_fr: typeLabel[newType] ?? "", title_ar: "" }]); setOpen(id); }} className="btn-ghost-lux !px-4 !py-2">Ajouter une section</button>
       </Card>
     </div>
   );

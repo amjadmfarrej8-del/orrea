@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD, useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
-import { statusLabel } from "@/lib/orders";
+import { statusText } from "@/lib/orders";
 import { Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/_authenticated/account")({
@@ -82,7 +82,7 @@ function Account() {
                     <div className="tracking-[0.12em]">{o.order_number}</div>
                     <div className="text-xs text-muted-foreground">{new Date(o.created_at).toLocaleDateString(lang === "ar" ? "ar-MA" : "fr-FR")}</div>
                   </div>
-                  <span className="bg-secondary px-3 py-1 text-[0.65rem] tracking-[0.15em] uppercase">{statusLabel[o.status]?.[lang] ?? o.status}</span>
+                  <span className="bg-secondary px-3 py-1 text-[0.65rem] tracking-[0.15em] uppercase">{statusText(o.status, lang)}</span>
                   <span className="text-sm">{formatMAD(Number(o.total), lang)}</span>
                 </button>
                 {open === o.id && (

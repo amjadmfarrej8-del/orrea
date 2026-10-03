@@ -1,9 +1,20 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import creamAsset from "@/assets/theravene-creme-zones-intimes.png.asset.json";
+import eyeAsset from "@/assets/theravene-contour-yeux.png.asset.json";
+import gelAsset from "@/assets/theravene-gel-nettoyant.png.asset.json";
+import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
+
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
-  Object.entries(files).map(([path, url]) => [path.split("/").pop()!.replace(".jpg", ""), url]),
+  Object.entries(files).map(([path, url]) => [path.split("/").at(-1)?.replace(".jpg", "") ?? path, url]),
 );
+Object.assign(localImages, {
+  "t-cream": creamAsset.url,
+  "t-eye": eyeAsset.url,
+  "t-gel": gelAsset.url,
+  "t-serum": serumAsset.url,
+});
 export const productImage = (key: string) => localImages[key] ?? key;
 
 export const categoriesQuery = queryOptions({

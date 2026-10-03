@@ -206,6 +206,7 @@ export type Database = {
           low_stock_threshold: number
           name_ar: string
           name_fr: string
+          pack_sort_order: number
           price: number
           size: string
           sku: string
@@ -241,6 +242,7 @@ export type Database = {
           low_stock_threshold?: number
           name_ar: string
           name_fr: string
+          pack_sort_order?: number
           price: number
           size?: string
           sku?: string
@@ -276,6 +278,7 @@ export type Database = {
           low_stock_threshold?: number
           name_ar?: string
           name_fr?: string
+          pack_sort_order?: number
           price?: number
           size?: string
           sku?: string

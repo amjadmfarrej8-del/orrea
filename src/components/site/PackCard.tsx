@@ -25,33 +25,30 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
   };
   return (
     <section className={`mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16 ${className}`}>
-      <div className={`grid gap-8 ${packs.length > 1 ? "xl:grid-cols-2" : ""}`}>
+      <div className={`mx-auto grid gap-8 lg:gap-10 ${packs.length >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : packs.length === 2 ? "max-w-5xl md:grid-cols-2" : "max-w-md"}`}>
         {packs.map((p) => {
           const out = p.stock === 0;
           return (
-            <article key={p.id} className="grid overflow-hidden bg-card md:grid-cols-2">
-              <Link to="/products/$slug" params={{ slug: p.slug }} className="relative block">
-                <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square h-full w-full object-cover" />
-                <div className="absolute start-4 top-4 bg-foreground px-4 py-3 text-center text-background">
-                  <div className="text-[0.6rem] tracking-[0.3em] uppercase">Pack</div>
-                  <div className="mt-1 text-xl" style={{ fontFamily: "var(--font-display)" }}>{formatMAD(Number(p.price), lang)}</div>
-                  {p.free_shipping && <div className="mt-1 text-[0.55rem] tracking-[0.2em] uppercase">{L("Livraison gratuite", "توصيل مجاني")}</div>}
-                </div>
+            <article key={p.id} className="flex h-full flex-col border border-border/60 bg-card">
+              <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-background/60 p-6 lg:p-8">
+                <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full object-contain" />
               </Link>
-              <div className="flex flex-col justify-center p-8 md:p-10 xl:p-12">
-                <p className="eyebrow">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
-                <h2 className="mt-5 text-3xl leading-tight md:text-4xl xl:text-5xl">{ar ? p.name_ar : p.name_fr}</h2>
-                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-5 text-[0.72rem] tracking-[0.2em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
-                <div className="mt-6 flex items-baseline gap-4">
-                  <span className="text-3xl" style={{ fontFamily: "var(--font-display)" }}>{formatMAD(Number(p.price), lang)}</span>
-                  {p.compare_at_price && Number(p.compare_at_price) > Number(p.price) && (
-                    <span className="text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
-                  )}
+              <div className="flex flex-1 flex-col items-center border-t border-border/60 px-6 py-9 text-center lg:px-8 lg:py-10">
+                <p className="eyebrow text-champagne">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
+                <h3 className="mt-4 text-2xl leading-tight md:text-3xl">{ar ? p.name_ar : p.name_fr}</h3>
+                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-4 text-[0.7rem] tracking-[0.2em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
+                <div className="mt-auto pt-7">
+                  <div className="flex items-baseline justify-center gap-3">
+                    <span className="text-3xl" style={{ fontFamily: "var(--font-display)" }}>{formatMAD(Number(p.price), lang)}</span>
+                    {p.compare_at_price && Number(p.compare_at_price) > Number(p.price) && (
+                      <span className="text-sm text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
+                    )}
+                  </div>
+                  {p.free_shipping && <p className="mt-2 text-[0.68rem] tracking-[0.2em] uppercase text-muted-foreground">{L("Livraison gratuite", "توصيل مجاني")}</p>}
+                  <button onClick={() => buy(p)} disabled={out} className="btn-lux mt-7">
+                    {out ? L("Épuisé", "نفد المخزون") : L("Acheter le pack", "اشتري الباك")}
+                  </button>
                 </div>
-                {p.free_shipping && <p className="mt-2 text-xs tracking-[0.2em] uppercase text-muted-foreground">{L("Livraison gratuite", "توصيل مجاني")}</p>}
-                <button onClick={() => buy(p)} disabled={out} className="btn-lux mt-9 self-start">
-                  {out ? L("Épuisé", "نفد المخزون") : L("Acheter le pack", "اشتري الباك")}
-                </button>
               </div>
             </article>
           );

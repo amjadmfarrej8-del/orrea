@@ -116,10 +116,7 @@ function Checkout() {
         <h1 className="text-5xl">{t.checkoutTitle}</h1>
         {!user && <p className="text-sm text-muted-foreground">{L("Déjà cliente ?", "لديك حساب؟")} <Link to="/login" search={{ redirect: "/checkout" }} className="link-lux text-foreground">{L("Connectez-vous", "سجلي الدخول")}</Link></p>}
         {field("name", t.fullName)}
-        <div className="grid gap-8 sm:grid-cols-2">
-          {field("phone", t.phone, "tel")}
-          {field("email", t.email, "email")}
-        </div>
+        {field("phone", t.phone, "tel")}
         {field("city", t.city)}
         {field("address", t.address)}
         {field("notes", t.notes)}

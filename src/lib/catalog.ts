@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import creamAsset from "@/assets/theravene-creme-zones-intimes.png.asset.json";
 import eyeAsset from "@/assets/theravene-contour-yeux.png.asset.json";
 import gelAsset from "@/assets/theravene-gel-nettoyant.png.asset.json";
+import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
@@ -13,6 +14,7 @@ Object.assign(localImages, {
   "t-cream": creamAsset.url,
   "t-eye": eyeAsset.url,
   "t-gel": gelAsset.url,
+  "t-pack": packAsset.url,
   "t-serum": serumAsset.url,
 });
 export const productImage = (key: string) => localImages[key] ?? key;

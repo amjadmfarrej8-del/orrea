@@ -93,7 +93,7 @@ function SectionView({ sec }: { sec: Section }) {
             <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
               <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl xl:text-[5.5rem]">{title}</h1>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground lg:max-w-md lg:text-base">{text}</p>
+              <p className="mt-6 max-w-sm text-sm font-medium leading-relaxed text-foreground lg:max-w-md lg:text-base">{text}</p>
               {(sec.button_fr || sec.button_ar) && (
                 <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-9">{ar ? sec.button_ar : sec.button_fr}</a>
               )}

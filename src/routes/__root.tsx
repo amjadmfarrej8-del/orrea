@@ -15,7 +15,11 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "@/lib/i18n";
 import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/site/Header";
-import { Footer } from "@/components/site/Footer";
+import { Footer, WhatsAppFab } from "@/components/site/Footer";
+import { ThemeStyle } from "@/components/site/ThemeStyle";
+import { AuthProvider } from "@/lib/auth";
+import { Toaster } from "@/components/ui/sonner";
+import { useRouterState } from "@tanstack/react-router";
 
 function NotFoundComponent() {
   return (
@@ -120,17 +124,29 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const isAdmin = useRouterState({ select: (s) => s.location.pathname.startsWith("/admin") });
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ThemeStyle />
       <I18nProvider>
-        <CartProvider>
-          <Header />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            {isAdmin ? (
+              <Outlet />
+            ) : (
+              <>
+                <Header />
+                <main>
+                  <Outlet />
+                </main>
+                <Footer />
+                <WhatsAppFab />
+              </>
+            )}
+            <Toaster position="top-center" />
+          </CartProvider>
+        </AuthProvider>
       </I18nProvider>
     </QueryClientProvider>
   );

@@ -23,19 +23,19 @@ export function ProductCard({ p }: { p: Product }) {
           </span>
         )}
       </div>
-      <div className="mt-4 min-h-[5.5rem] md:min-h-[6rem]">
+      <div className="mt-3 min-h-[4.5rem] md:min-h-[5rem]">
         <h3 className="line-clamp-2 text-xl leading-tight md:text-[1.4rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
         {(lang === "ar" ? p.tagline_ar : p.tagline_fr) && (
           <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{lang === "ar" ? p.tagline_ar : p.tagline_fr}</p>
         )}
       </div>
-      <div className="mt-2 flex items-baseline gap-3 text-base">
+      <div className="mt-1 flex items-baseline gap-3 text-base">
         <span className="font-semibold">{formatMAD(Number(p.price), lang)}</span>
         {p.compare_at_price && (
           <span className="text-xs text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
         )}
       </div>
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-2.5">
       <button
         type="button"
         disabled={p.stock === 0}

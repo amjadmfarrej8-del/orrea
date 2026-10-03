@@ -23,29 +23,35 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
     add({ id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping }, 1);
     navigate({ to: "/cart" });
   };
+  const grid =
+    packs.length >= 3
+      ? "grid-cols-3 gap-3 md:gap-8 lg:gap-10"
+      : packs.length === 2
+        ? "max-w-5xl grid-cols-2 gap-3 md:gap-8"
+        : "max-w-md";
   return (
     <section className={`mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16 ${className}`}>
-      <div className={`mx-auto grid gap-8 lg:gap-10 ${packs.length >= 3 ? "md:grid-cols-2 lg:grid-cols-3" : packs.length === 2 ? "max-w-5xl md:grid-cols-2" : "max-w-md"}`}>
+      <div className={`mx-auto grid ${grid}`}>
         {packs.map((p) => {
           const out = p.stock === 0;
           return (
-            <article key={p.id} className="flex h-full flex-col border border-border/60 bg-card">
-              <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-background/60 p-6 lg:p-8">
+            <article key={p.id} className="flex h-full min-w-0 flex-col border border-border/60 bg-card">
+              <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-background/60 p-2 md:p-6 lg:p-8">
                 <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full object-contain" />
               </Link>
-              <div className="flex flex-1 flex-col items-center border-t border-border/60 px-6 py-9 text-center lg:px-8 lg:py-10">
-                <p className="eyebrow text-champagne">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
-                <h3 className="mt-4 text-2xl leading-tight md:text-3xl">{ar ? p.name_ar : p.name_fr}</h3>
-                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-4 text-[0.8rem] tracking-[0.12em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
-                <div className="mt-auto pt-7">
-                  <div className="flex items-baseline justify-center gap-3">
-                    <span className="text-2xl font-semibold">{formatMAD(Number(p.price), lang)}</span>
+              <div className="flex min-w-0 flex-1 flex-col items-center border-t border-border/60 px-2 py-4 text-center md:px-6 md:py-9 lg:px-8 lg:py-10">
+                <p className="eyebrow text-champagne text-[0.55rem]! tracking-[0.06em]! md:text-[0.78rem]! md:tracking-[0.14em]!">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
+                <h3 className="mt-2 min-w-0 text-[0.82rem] leading-snug md:mt-4 md:text-2xl md:leading-tight lg:text-3xl">{ar ? p.name_ar : p.name_fr}</h3>
+                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-1.5 min-w-0 text-[0.58rem] tracking-[0.04em] uppercase text-muted-foreground md:mt-4 md:text-[0.8rem] md:tracking-[0.12em]">{ar ? p.tagline_ar : p.tagline_fr}</p>}
+                <div className="mt-auto w-full pt-3 md:pt-7">
+                  <div className="flex items-baseline justify-center gap-2 md:gap-3">
+                    <span className="text-[0.9rem] font-semibold md:text-2xl">{formatMAD(Number(p.price), lang)}</span>
                     {p.compare_at_price && Number(p.compare_at_price) > Number(p.price) && (
-                      <span className="text-sm text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
+                      <span className="text-[0.62rem] text-muted-foreground line-through md:text-sm">{formatMAD(Number(p.compare_at_price), lang)}</span>
                     )}
                   </div>
-                  {p.free_shipping && <p className="mt-2 text-[0.76rem] tracking-[0.12em] uppercase text-muted-foreground">{L("Livraison gratuite", "توصيل مجاني")}</p>}
-                  <button onClick={() => buy(p)} disabled={out} className="btn-lux mt-7">
+                  {p.free_shipping && <p className="mt-1 text-[0.52rem] tracking-[0.06em] uppercase text-muted-foreground md:mt-2 md:text-[0.76rem] md:tracking-[0.12em]">{L("Livraison gratuite", "توصيل مجاني")}</p>}
+                  <button onClick={() => buy(p)} disabled={out} className="btn-lux mt-3 w-full px-1! py-2! text-[0.55rem]! tracking-[0.05em]! md:mt-7 md:w-auto md:px-8! md:py-3.5! md:text-[0.82rem]! md:tracking-[0.1em]!">
                     {out ? L("Épuisé", "نفد المخزون") : L("Acheter le pack", "اشتري الباك")}
                   </button>
                 </div>

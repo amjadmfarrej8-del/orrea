@@ -62,7 +62,7 @@ const dict = {
 } as const;
 
 type Dict = (typeof dict)["fr"];
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: Dict };
+type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: Dict; L: (fr: string, ar: string) => string };
 
 const I18nCtx = createContext<Ctx | null>(null);
 
@@ -80,7 +80,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("th-lang", l);
     setLangState(l);
   };
-  return <I18nCtx.Provider value={{ lang, setLang, t: dict[lang] as Dict }}>{children}</I18nCtx.Provider>;
+  return <I18nCtx.Provider value={{ lang, setLang, t: dict[lang] as Dict, L: (fr: string, ar: string) => (lang === "ar" ? ar : fr) }}>{children}</I18nCtx.Provider>;
 }
 
 export function useI18n() {

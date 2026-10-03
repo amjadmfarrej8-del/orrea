@@ -132,7 +132,8 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "featured": {
       const ids = sec.product_ids ?? [];
-      const list = ids.length ? ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[] : products.filter((p) => p.is_featured);
+      const isPack = (p: Product) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
+      const list = (ids.length ? ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[] : products.filter((p) => p.is_featured)).filter((p) => !isPack(p));
       return <Grid title={title} list={list.slice(0, 8)} />;
     }
     case "bestsellers":

@@ -36,7 +36,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
               <div className="flex flex-1 flex-col items-center border-t border-border/60 px-6 py-9 text-center lg:px-8 lg:py-10">
                 <p className="eyebrow text-champagne">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
                 <h3 className="mt-4 text-2xl leading-tight md:text-3xl">{ar ? p.name_ar : p.name_fr}</h3>
-                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-4 text-[0.7rem] tracking-[0.2em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
+                {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-4 text-[0.8rem] tracking-[0.12em] uppercase text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto pt-7">
                   <div className="flex items-baseline justify-center gap-3">
                     <span className="text-3xl" style={{ fontFamily: "var(--font-display)" }}>{formatMAD(Number(p.price), lang)}</span>
@@ -44,7 +44,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
                       <span className="text-sm text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
                     )}
                   </div>
-                  {p.free_shipping && <p className="mt-2 text-[0.68rem] tracking-[0.2em] uppercase text-muted-foreground">{L("Livraison gratuite", "توصيل مجاني")}</p>}
+                  {p.free_shipping && <p className="mt-2 text-[0.76rem] tracking-[0.12em] uppercase text-muted-foreground">{L("Livraison gratuite", "توصيل مجاني")}</p>}
                   <button onClick={() => buy(p)} disabled={out} className="btn-lux mt-7">
                     {out ? L("Épuisé", "نفد المخزون") : L("Acheter le pack", "اشتري الباك")}
                   </button>

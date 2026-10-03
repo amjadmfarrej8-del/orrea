@@ -66,7 +66,7 @@ function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?
     <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
       <div className="flex items-end justify-between">
         <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
-        <Link to="/shop" className="link-lux text-[0.72rem] tracking-[0.2em] uppercase">{t.viewAll}</Link>
+        <Link to="/shop" className="link-lux text-[0.8rem] tracking-[0.12em] uppercase">{t.viewAll}</Link>
       </div>
       <div className={`mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:gap-x-8 lg:mt-16 lg:gap-x-10 lg:gap-y-16 xl:gap-x-12 ${cols === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
         {list.map((p) => <ProductCard key={p.id} p={p} />)}
@@ -108,7 +108,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="border-b border-border">
           <ul className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
             {t.values.map((v) => (
-              <li key={v} className="border-border px-4 py-6 text-center text-[0.68rem] tracking-[0.2em] uppercase text-muted-foreground [&:not(:last-child)]:border-e">{v}</li>
+              <li key={v} className="border-border px-4 py-6 text-center text-[0.76rem] tracking-[0.12em] uppercase text-muted-foreground [&:not(:last-child)]:border-e">{v}</li>
             ))}
           </ul>
         </section>
@@ -182,7 +182,7 @@ function SectionView({ sec }: { sec: Section }) {
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" className="field-lux flex-1" />
             <button className="btn-lux">{L("S'inscrire", "اشتراك")}</button>
           </form>
-          {s.store.instagram && <a href={s.store.instagram} target="_blank" rel="noreferrer" className="link-lux mt-10 inline-block text-xs tracking-[0.25em] uppercase">Instagram · @theraven</a>}
+          {s.store.instagram && <a href={s.store.instagram} target="_blank" rel="noreferrer" className="link-lux mt-10 inline-block text-xs tracking-[0.16em] uppercase">Instagram · @theraven</a>}
         </section>
       );
     default:

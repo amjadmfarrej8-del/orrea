@@ -20,7 +20,7 @@ export function ProductCard({ p }: { p: Product }) {
           className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
         {(p.stock === 0 || p.badge || p.is_new) && (
-          <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.6rem] tracking-[0.2em] uppercase">
+          <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.8rem] tracking-[0.12em] uppercase">
             {p.stock === 0 ? t.outOfStock : p.badge || (lang === "ar" ? "جديد" : "Nouveau")}
           </span>
         )}
@@ -47,7 +47,7 @@ export function ProductCard({ p }: { p: Product }) {
           setDone(true);
           setTimeout(() => setDone(false), 1500);
         }}
-        className="btn-ghost-lux mt-4 w-full !py-2.5 text-[0.65rem]"
+        className="btn-ghost-lux mt-4 w-full !py-2.5 text-[0.76rem]"
       >
         {p.stock === 0 ? t.outOfStock : done ? t.added : t.addToCart}
       </button>

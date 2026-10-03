@@ -39,7 +39,7 @@ function Shop() {
   if (sort === "new") list = [...list].sort((a, b) => b.created_at.localeCompare(a.created_at));
 
   const pill = (active: boolean) =>
-    `whitespace-nowrap border px-4 py-2 text-[0.68rem] tracking-[0.2em] uppercase transition-colors ${
+    `whitespace-nowrap border px-4 py-2 text-[0.76rem] tracking-[0.12em] uppercase transition-colors ${
       active ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"
     }`;
 

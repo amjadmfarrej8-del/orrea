@@ -146,7 +146,7 @@ function ProductPage() {
           <div className="mt-12 border-t border-border">
             <div className="flex flex-wrap gap-x-7 gap-y-3 pt-6">
               {tabs.map((k) => (
-                <button key={k} onClick={() => setTab(k)} className={`text-[0.7rem] tracking-[0.2em] uppercase ${tab === k ? "text-foreground" : "text-muted-foreground"}`}>
+                <button key={k} onClick={() => setTab(k)} className={`text-[0.8rem] tracking-[0.12em] uppercase ${tab === k ? "text-foreground" : "text-muted-foreground"}`}>
                   {tabLabels[k]}
                 </button>
               ))}

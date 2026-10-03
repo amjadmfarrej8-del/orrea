@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import creamAsset from "@/assets/theravene-creme-zones-intimes.png.asset.json";
 import eyeAsset from "@/assets/theravene-contour-yeux.png.asset.json";
 import gelAsset from "@/assets/theravene-gel-nettoyant.png.asset.json";
+import gelEyeCreamPackAsset from "@/assets/theravene-pack-gel-contour-creme.png.asset.json";
 import gelEyePackAsset from "@/assets/theravene-pack-gel-contour-yeux.png.asset.json";
 import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
@@ -15,6 +16,7 @@ Object.assign(localImages, {
   "t-cream": creamAsset.url,
   "t-eye": eyeAsset.url,
   "t-gel": gelAsset.url,
+  "t-pack-gel-eye-cream": gelEyeCreamPackAsset.url,
   "t-pack-gel-eye": gelEyePackAsset.url,
   "t-pack": packAsset.url,
   "t-serum": serumAsset.url,

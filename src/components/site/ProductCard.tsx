@@ -1,9 +1,13 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { productImage, type Product } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
+import { useCart } from "@/lib/cart";
 
 export function ProductCard({ p }: { p: Product }) {
   const { lang, t } = useI18n();
+  const { add } = useCart();
+  const [done, setDone] = useState(false);
   return (
     <Link to="/products/$slug" params={{ slug: p.slug }} className="group block">
       <div className="relative aspect-[4/5] overflow-hidden bg-card">
@@ -33,6 +37,20 @@ export function ProductCard({ p }: { p: Product }) {
           )}
         </div>
       </div>
+      <button
+        type="button"
+        disabled={p.stock === 0}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          add({ id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock }, 1);
+          setDone(true);
+          setTimeout(() => setDone(false), 1500);
+        }}
+        className="btn-ghost-lux mt-4 w-full !py-2.5 text-[0.65rem]"
+      >
+        {p.stock === 0 ? t.outOfStock : done ? t.added : t.addToCart}
+      </button>
     </Link>
   );
 }

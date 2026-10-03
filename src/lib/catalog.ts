@@ -1,13 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import serum from "@/assets/p-serum.jpg";
-import cream from "@/assets/p-cream.jpg";
-import oil from "@/assets/p-oil.jpg";
-import cleanser from "@/assets/p-cleanser.jpg";
-import body from "@/assets/p-body.jpg";
-import perfume from "@/assets/p-perfume.jpg";
+import tSerum from "@/assets/t-serum.jpg";
+import tCream from "@/assets/t-cream.jpg";
+import tGel from "@/assets/t-gel.jpg";
+import tEye from "@/assets/t-eye.jpg";
 
-const localImages: Record<string, string> = { serum, cream, oil, cleanser, body, perfume };
+const localImages: Record<string, string> = { "t-serum": tSerum, "t-cream": tCream, "t-gel": tGel, "t-eye": tEye };
 export const productImage = (key: string) => localImages[key] ?? key;
 
 export const categoriesQuery = queryOptions({

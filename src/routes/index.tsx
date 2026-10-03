@@ -122,10 +122,10 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "offers":
       return (
-        <section className="pt-28 md:pt-32 xl:pt-40">
-          <div className="mx-auto mb-12 max-w-[1600px] px-5 text-center md:px-10 lg:mb-16 lg:px-12 xl:px-16">
+        <section className="pt-14 md:pt-32 xl:pt-40">
+          <div className="mx-auto mb-6 max-w-[1600px] px-5 text-center md:mb-12 md:px-10 lg:mb-16 lg:px-12 xl:px-16">
             <p className="eyebrow">{L("Packs THÉRAVÉN", "باكات THÉRAVÉN")}</p>
-            <h2 className="mt-4 text-4xl md:text-5xl xl:text-6xl">{title || L("Offres", "العروض")}</h2>
+            <h2 className="mt-3 text-4xl md:mt-4 md:text-5xl xl:text-6xl">{title || L("Offres", "العروض")}</h2>
           </div>
           <PackCard />
         </section>

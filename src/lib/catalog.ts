@@ -1,11 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import tSerum from "@/assets/t-serum.jpg";
-import tCream from "@/assets/t-cream.jpg";
-import tGel from "@/assets/t-gel.jpg";
-import tEye from "@/assets/t-eye.jpg";
-
-const localImages: Record<string, string> = { "t-serum": tSerum, "t-cream": tCream, "t-gel": tGel, "t-eye": tEye };
+const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
+const localImages: Record<string, string> = Object.fromEntries(
+  Object.entries(files).map(([path, url]) => [path.split("/").pop()!.replace(".jpg", ""), url]),
+);
 export const productImage = (key: string) => localImages[key] ?? key;
 
 export const categoriesQuery = queryOptions({

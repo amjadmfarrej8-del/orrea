@@ -23,6 +23,7 @@ Object.assign(localImages, {
   "t-pack": packAsset.url,
   "t-serum": serumAsset.url,
   "t-cat-yeux": eyeCategoryAsset.url,
+  "t-cat-visage": faceCategoryAsset.url,
 });
 export const productImage = (key: string) => localImages[key] ?? key;
 

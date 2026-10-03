@@ -15,8 +15,10 @@ export function ProductCard({ p }: { p: Product }) {
           height={1104}
           className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
-        {p.stock === 0 && (
-          <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.6rem] tracking-[0.2em] uppercase">{t.outOfStock}</span>
+        {(p.stock === 0 || p.badge || p.is_new) && (
+          <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.6rem] tracking-[0.2em] uppercase">
+            {p.stock === 0 ? t.outOfStock : p.badge || (lang === "ar" ? "جديد" : "Nouveau")}
+          </span>
         )}
       </div>
       <div className="mt-4 flex items-start justify-between gap-4">

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD, useI18n } from "@/lib/i18n";
-import { ORDER_STATUSES, statusLabel } from "@/lib/orders";
+import { ORDER_STATUSES, statusText } from "@/lib/orders";
 import { Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/track")({
@@ -47,13 +47,13 @@ function Track() {
         <div className="mt-14 animate-rise">
           <p className="eyebrow">{res.order_number}</p>
           {res.status === "cancelled" ? (
-            <p className="mt-4 text-2xl">{statusLabel.cancelled[lang]}</p>
+            <p className="mt-4 text-2xl">{statusText("cancelled", lang)}</p>
           ) : (
             <ol className="mt-6 grid grid-cols-5 gap-1">
               {ORDER_STATUSES.slice(0, 5).map((s, i) => (
                 <li key={s} className="text-center">
                   <div className={`h-0.5 ${i <= idx ? "bg-foreground" : "bg-border"}`} />
-                  <p className={`mt-3 text-[0.62rem] tracking-[0.1em] uppercase ${i <= idx ? "" : "text-muted-foreground"}`}>{statusLabel[s][lang]}</p>
+                  <p className={`mt-3 text-[0.62rem] tracking-[0.1em] uppercase ${i <= idx ? "" : "text-muted-foreground"}`}>{statusText(s, lang)}</p>
                 </li>
               ))}
             </ol>

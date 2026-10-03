@@ -7,7 +7,7 @@ import { useCart } from "@/lib/cart";
 export const isPack = (p: Pick<Product, "bundle_items">) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
 
 /** Featured bundle offers, optionally limited to packs containing selected products. */
-export function PackCard({ className = "", productIds, excludeIds = [] }: { className?: string; productIds?: string[]; excludeIds?: string[] }) {
+export function PackCard({ className = "", productIds, excludeIds = [] }: { className?: string; productIds?: string[] | undefined; excludeIds?: string[] }) {
   const { data: products } = useSuspenseQuery(productsQuery);
   const { lang, L } = useI18n();
   const { add } = useCart();

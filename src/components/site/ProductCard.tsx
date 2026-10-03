@@ -17,7 +17,7 @@ export function ProductCard({ p }: { p: Product }) {
           loading="lazy"
           width={912}
           height={1104}
-          className="h-full w-full object-contain transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
         {(p.stock === 0 || p.badge || p.is_new) && (
           <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.8rem] tracking-[0.12em] uppercase">

@@ -10,14 +10,12 @@ export function ProductCard({ p }: { p: Product }) {
   const [done, setDone] = useState(false);
   return (
     <Link to="/products/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col">
-      <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-card">
+      <div className="relative m-0 w-full shrink-0 overflow-hidden border-0 bg-transparent p-0">
         <img
           src={productImage(p.image)}
           alt={lang === "ar" ? p.name_ar : p.name_fr}
           loading="lazy"
-          width={912}
-          height={1104}
-          className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+          className="block h-auto w-full object-contain object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
         {(p.stock === 0 || p.badge || p.is_new) && (
           <span className="absolute start-3 top-3 bg-background px-2 py-1 text-[0.8rem] tracking-[0.12em] uppercase">

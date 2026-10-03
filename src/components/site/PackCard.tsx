@@ -32,10 +32,10 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
   return (
     <section className={`mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16 ${className}`}>
       <div className={`mx-auto grid ${grid}`}>
-        {packs.map((p, i) => {
+        {packs.map((p) => {
           const out = p.stock === 0;
           return (
-            <article key={p.id} className={`flex h-full min-w-0 flex-col border border-border/60 bg-card ${i === 2 && packs.length >= 3 ? "col-span-2 w-[calc(50%-0.375rem)] justify-self-center md:col-span-1 md:w-auto" : ""}`}>
+            <article key={p.id} className="flex h-full min-w-0 flex-col border border-border/60 bg-card">
               <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-transparent p-0 md:bg-background/60 md:p-6 lg:p-8">
                 <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full object-contain" />
               </Link>

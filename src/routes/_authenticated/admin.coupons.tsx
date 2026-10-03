@@ -16,9 +16,9 @@ function Coupons() {
   const add = async (e: React.FormEvent) => {
     e.preventDefault();
     const code = f.code.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, "");
-    if (!code || f.value <= 0) return toast.error("Code et valeur requis");
+    if (!code || f.value <= 0) return void toast.error("Code et valeur requis");
     const { error } = await supabase.from("coupons").insert({ code, kind: f.kind, value: f.value, min_subtotal: f.min_subtotal, expires_at: f.expires_at ? new Date(f.expires_at).toISOString() : null });
-    if (error) return toast.error(error.message.includes("duplicate") ? "Ce code existe déjà" : error.message);
+    if (error) return void toast.error(error.message.includes("duplicate") ? "Ce code existe déjà" : error.message);
     setF({ ...f, code: "" });
     refresh();
   };

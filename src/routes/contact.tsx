@@ -29,7 +29,7 @@ function Contact() {
   const send = (e: React.FormEvent) => {
     e.preventDefault();
     const r = schema.safeParse(f);
-    if (!r.success || !s?.store.whatsapp) return setErr(L("Veuillez remplir le formulaire.", "يرجى ملء النموذج."));
+    if (!r.success || !s?.store.whatsapp) return void setErr(L("Veuillez remplir le formulaire.", "يرجى ملء النموذج."));
     window.open(waLink(s.store.whatsapp, `${r.data.name} : ${r.data.message}`), "_blank", "noopener");
   };
   return (

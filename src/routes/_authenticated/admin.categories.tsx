@@ -16,10 +16,10 @@ function Categories() {
   const refresh = () => { qc.invalidateQueries({ queryKey: ["admin-cats"] }); qc.invalidateQueries({ queryKey: ["categories"] }); };
 
   const save = async (c: Cat) => {
-    if (!c.name_fr || !c.name_ar) return toast.error("Noms FR et AR requis");
+    if (!c.name_fr || !c.name_ar) return void toast.error("Noms FR et AR requis");
     const payload = { ...c, slug: c.slug || c.name_fr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-") };
     const { error } = c.id ? await supabase.from("categories").update(payload).eq("id", c.id) : await supabase.from("categories").insert(payload);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     toast.success("Enregistré");
     if (!c.id) setDraft({ slug: "", name_fr: "", name_ar: "", sort_order: 0, image: "", is_active: true });
     refresh();
@@ -40,7 +40,7 @@ function Categories() {
   );
 }
 
-function Row({ initial, onSave, onDelete }: { initial: Cat; onSave: (c: Cat) => void; onDelete?: () => void }) {
+function Row({ initial, onSave, onDelete }: { initial: Cat; onSave: (c: Cat) => void; onDelete?: (() => void) | undefined }) {
   const [c, setC] = useState(initial);
   return (
     <Card className="grid items-end gap-4 md:grid-cols-[auto_1fr_1fr_80px_auto_auto]">

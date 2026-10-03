@@ -30,7 +30,7 @@ function Shipping() {
     e.preventDefault();
     if (!city.trim()) return;
     const { error } = await supabase.from("shipping_zones").upsert({ city: city.trim().slice(0, 80), fee: Math.max(0, zfee) }, { onConflict: "city" });
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     setCity("");
     zones.refetch();
   };

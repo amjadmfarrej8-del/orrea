@@ -43,12 +43,12 @@ function EditProduct() {
   );
 
   const save = async () => {
-    if (!f.name_fr.trim() || !f.name_ar.trim() || f.price <= 0) return toast.error("Nom FR, nom AR et prix sont obligatoires.");
+    if (!f.name_fr.trim() || !f.name_ar.trim() || f.price <= 0) return void toast.error("Nom FR, nom AR et prix sont obligatoires.");
     setSaving(true);
     const payload = { ...f, slug: f.slug.trim() || slugify(f.name_fr), category_id: f.category_id || null };
     const res = isNew ? await supabase.from("products").insert(payload).select("id").single() : await supabase.from("products").update(payload).eq("id", id).select("id").single();
     setSaving(false);
-    if (res.error) return toast.error(res.error.message.includes("duplicate") ? "Ce lien (slug) existe déjà." : res.error.message);
+    if (res.error) return void toast.error(res.error.message.includes("duplicate") ? "Ce lien (slug) existe déjà." : res.error.message);
     toast.success("Produit enregistré");
     qc.invalidateQueries();
     if (isNew) navigate({ to: "/admin/products/$id", params: { id: res.data.id } });
@@ -57,7 +57,7 @@ function EditProduct() {
   const remove = async () => {
     if (!confirm("Supprimer définitivement ce produit ?")) return;
     const { error } = await supabase.from("products").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries();
     navigate({ to: "/admin/products" });
   };

@@ -86,7 +86,7 @@ function ProductPage() {
     <>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-10 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
         <div>
-          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[img])}>
+          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[img] ?? null)}>
             <img src={images[img]} alt={name} width={912} height={1104} className="aspect-[4/5] w-full object-cover" />
           </button>
           {images.length > 1 && (

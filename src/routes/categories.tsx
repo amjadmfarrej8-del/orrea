@@ -20,7 +20,7 @@ export function CategoryGrid() {
   const { lang } = useI18n();
   const { data: cats } = useSuspenseQuery(categoriesQuery);
     return (
-    <div className="grid grid-cols-2 gap-5 md:grid-cols-4 md:gap-8">
+    <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-8">
       {cats.filter((c) => c.is_active).map((c) => {
         const img = c.image;
         return (
@@ -28,7 +28,7 @@ export function CategoryGrid() {
             <div className="aspect-[3/4] overflow-hidden bg-card">
               {img && <img src={productImage(img)} alt={lang === "ar" ? c.name_ar : c.name_fr} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />}
             </div>
-            <p className="mt-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{lang === "ar" ? c.name_ar : c.name_fr}</p>
+            <p className="mt-2 text-center text-sm md:mt-4 md:text-2xl" style={{ fontFamily: "var(--font-display)" }}>{lang === "ar" ? c.name_ar : c.name_fr}</p>
           </Link>
         );
       })}

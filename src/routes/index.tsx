@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+import { PackCard } from "@/components/site/PackCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -46,7 +48,17 @@ const reviews = [
 function Home() {
   const { data: s } = useSuspenseQuery(settingsQuery);
   const sections = s.homepage.sections.filter((x) => x.visible);
-  return <>{sections.map((sec) => <SectionView key={sec.id} sec={sec} />)}</>;
+  const heroIdx = sections.findIndex((x) => x.type === "hero");
+  return (
+    <>
+      {sections.map((sec, i) => (
+        <Fragment key={sec.id}>
+          <SectionView sec={sec} />
+          {i === Math.max(heroIdx, 0) && <PackCard className="pt-20 md:pt-28" />}
+        </Fragment>
+      ))}
+    </>
+  );
 }
 
 function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?: 3 | 4 }) {

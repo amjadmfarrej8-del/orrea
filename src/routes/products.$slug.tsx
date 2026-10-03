@@ -7,6 +7,7 @@ import { formatMAD, useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart";
 import { settingsQuery, waLink } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
+import { PackCard, isPack } from "@/components/site/PackCard";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: async ({ context, params }) => {
@@ -70,7 +71,7 @@ function ProductPage() {
   const discount = p.compare_at_price && Number(p.compare_at_price) > Number(p.price) ? Math.round((1 - Number(p.price) / Number(p.compare_at_price)) * 100) : 0;
   const related = all.filter((x) => x.id !== p.id && x.category_id === p.category_id).concat(all.filter((x) => x.id !== p.id && x.category_id !== p.category_id)).slice(0, 4);
 
-  const item = { id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock };
+  const item = { id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping };
   const onAdd = () => {
     add(item, qty);
     setAdded(true);
@@ -155,6 +156,15 @@ function ProductPage() {
         </div>
       </div>
 
+      {all.some((x) => isPack(x) && x.id !== p.id && (x.bundle_items as { product_id: string }[]).some((b) => b.product_id === p.id)) && <PackCard className="pt-24" />}
+      {isPack(p) && (
+        <section className="mx-auto max-w-7xl px-5 pt-24 md:px-10">
+          <h2 className="text-3xl">{L("Contenu du pack", "محتوى الباك")}</h2>
+          <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-8">
+            {all.filter((x) => (p.bundle_items as { product_id: string }[]).some((b) => b.product_id === x.id)).map((r) => <ProductCard key={r.id} p={r} />)}
+          </div>
+        </section>
+      )}
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
           <h2 className="text-4xl">{L("Vous aimerez aussi", "قد يعجبك أيضاً")}</h2>

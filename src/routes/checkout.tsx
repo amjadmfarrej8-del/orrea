@@ -59,7 +59,8 @@ function Checkout() {
       return data as Quote;
     },
   });
-  const q = quote.data;
+  const freeShip = items.some((i) => i.free_shipping);
+  const q = quote.data && freeShip ? { ...quote.data, shipping: 0 } : quote.data;
 
   if (items.length === 0)
     return (

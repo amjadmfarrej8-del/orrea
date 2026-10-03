@@ -30,14 +30,14 @@ function Register() {
     e.preventDefault();
     setErr("");
     const r = schema.safeParse(f);
-    if (!r.success) return setErr(L("Vérifiez vos informations (mot de passe : 8 caractères min.).", "تحققي من بياناتك (كلمة المرور 8 أحرف على الأقل)."));
+    if (!r.success) return void setErr(L("Vérifiez vos informations (mot de passe : 8 caractères min.).", "تحققي من بياناتك (كلمة المرور 8 أحرف على الأقل)."));
     setLoading(true);
     const { error } = await supabase.auth.signUp({
       email: r.data.email, password: r.data.password,
       options: { emailRedirectTo: window.location.origin + "/account", data: { full_name: r.data.name } },
     });
     setLoading(false);
-    if (error) return setErr(error.message);
+    if (error) return void setErr(error.message);
     setDone(true);
   };
 

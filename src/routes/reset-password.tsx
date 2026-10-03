@@ -23,9 +23,9 @@ function Reset() {
   const [err, setErr] = useState("");
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pw.length < 8) return setErr(L("8 caractères minimum.", "8 أحرف على الأقل."));
+    if (pw.length < 8) return void setErr(L("8 caractères minimum.", "8 أحرف على الأقل."));
     const { error } = await supabase.auth.updateUser({ password: pw });
-    if (error) return setErr(error.message);
+    if (error) return void setErr(error.message);
     navigate({ to: "/account" });
   };
   return (

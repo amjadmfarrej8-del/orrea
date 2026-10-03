@@ -90,7 +90,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="relative">
           <img src={sec.image || hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
-            <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none lg:max-w-xl">
+            <div className="max-w-lg animate-rise bg-background/30 p-7 md:bg-transparent md:p-0 lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
               <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl xl:text-[5.5rem]">{title}</h1>
               <p className="mt-6 max-w-sm text-sm font-medium leading-relaxed text-foreground lg:max-w-md lg:text-base">{text}</p>

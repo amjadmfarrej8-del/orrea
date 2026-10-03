@@ -51,12 +51,12 @@ function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?
   const { t } = useI18n();
   if (!list.length) return null;
   return (
-    <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
+    <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
       <div className="flex items-end justify-between">
-        <h2 className="text-4xl md:text-5xl">{title}</h2>
+        <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
         <Link to="/shop" className="link-lux text-[0.72rem] tracking-[0.2em] uppercase">{t.viewAll}</Link>
       </div>
-      <div className={`mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:gap-x-8 ${cols === 4 ? "md:grid-cols-4" : "md:grid-cols-3"}`}>
+      <div className={`mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:gap-x-8 lg:mt-16 lg:gap-x-10 lg:gap-y-16 xl:gap-x-12 ${cols === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
         {list.map((p) => <ProductCard key={p.id} p={p} />)}
       </div>
     </section>
@@ -76,12 +76,12 @@ function SectionView({ sec }: { sec: Section }) {
     case "hero":
       return (
         <section className="relative">
-          <img src={sec.image || hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center]" />
-          <div className="absolute inset-0 mx-auto flex max-w-7xl items-end px-5 pb-14 md:items-center md:px-10 md:pb-0">
-            <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none">
+          <img src={sec.image || hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
+          <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
+            <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
-              <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl">{title}</h1>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">{text}</p>
+              <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl xl:text-[5.5rem]">{title}</h1>
+              <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground lg:max-w-md lg:text-base">{text}</p>
               {(sec.button_fr || sec.button_ar) && (
                 <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-9">{ar ? sec.button_ar : sec.button_fr}</a>
               )}
@@ -103,8 +103,8 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "categories":
       return (
-        <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
-          <h2 className="mb-12 text-4xl md:text-5xl">{title}</h2>
+        <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+          <h2 className="mb-12 text-4xl md:text-5xl lg:mb-16 xl:text-6xl">{title}</h2>
           <CategoryGrid />
         </section>
       );
@@ -119,25 +119,25 @@ function SectionView({ sec }: { sec: Section }) {
       return <Grid title={title} list={products.filter((p) => p.is_new).slice(0, 4)} />;
     case "story":
       return (
-        <section className="mx-auto mt-32 grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10">
+        <section className="mx-auto mt-32 grid max-w-[1600px] items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10 lg:px-12 xl:mt-40 xl:gap-28 xl:px-16">
           <img src={sec.image || ritual} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
           <div>
             <p className="eyebrow">{t.ritualEyebrow}</p>
-            <h2 className="mt-5 text-4xl leading-tight md:text-6xl">{title}</h2>
-            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">{text}</p>
+            <h2 className="mt-5 text-4xl leading-tight md:text-6xl xl:text-7xl">{title}</h2>
+            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground lg:text-lg">{text}</p>
             <Link to="/about" className="btn-ghost-lux mt-10">{t.about}</Link>
           </div>
         </section>
       );
     case "reviews":
       return (
-        <section className="mx-auto max-w-7xl px-5 pt-32 md:px-10">
-          <h2 className="text-center text-4xl md:text-5xl">{title}</h2>
-          <div className="mt-14 grid gap-10 md:grid-cols-3">
+        <section className="mx-auto max-w-[1600px] px-5 pt-32 md:px-10 lg:px-12 xl:px-16 xl:pt-40">
+          <h2 className="text-center text-4xl md:text-5xl xl:text-6xl">{title}</h2>
+          <div className="mt-14 grid gap-10 md:grid-cols-3 lg:gap-16 xl:mt-20 xl:gap-20">
             {reviews.map((r) => (
               <figure key={r.name} className="border-t border-border pt-8">
                 <p className="text-champagne">★★★★★</p>
-                <blockquote className="mt-4 text-xl leading-snug" style={{ fontFamily: "var(--font-display)" }}>« {ar ? r.ar : r.fr} »</blockquote>
+                <blockquote className="mt-4 text-xl leading-snug lg:text-2xl" style={{ fontFamily: "var(--font-display)" }}>« {ar ? r.ar : r.fr} »</blockquote>
                 <figcaption className="eyebrow mt-6">{r.name}</figcaption>
               </figure>
             ))}
@@ -146,8 +146,8 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "newsletter":
       return (
-        <section className="mx-auto mt-32 max-w-3xl px-5 text-center">
-          <h2 className="text-4xl md:text-5xl">{title}</h2>
+        <section className="mx-auto mt-32 max-w-3xl px-5 text-center xl:mt-40">
+          <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
           <p className="mt-4 text-muted-foreground">{text}</p>
           <form
             onSubmit={(e) => {

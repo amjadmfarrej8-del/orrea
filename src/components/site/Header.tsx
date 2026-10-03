@@ -44,15 +44,15 @@ export function Header() {
         <div className="bg-primary py-2 text-center text-[0.62rem] tracking-[0.22em] uppercase text-primary-foreground">
           {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>
-        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-5 py-4 md:px-10 md:py-5">
-          <div className="flex items-center gap-6">
-            <button className="md:hidden" onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
-            <nav className="hidden gap-6 text-[0.7rem] tracking-[0.2em] uppercase md:flex">
-              {links.map((l) => <Link key={l.to} to={l.to} className="link-lux">{l.label}</Link>)}
-            </nav>
+        <div className="mx-auto grid max-w-[1600px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-5 py-4 md:px-10 md:py-5 lg:px-12 xl:px-16">
+          <div className="flex min-w-0 items-center md:hidden">
+            <button onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
           </div>
-          <Link to="/" className="text-center text-2xl md:text-3xl"><Logo /></Link>
-          <div className="flex items-center justify-end gap-4 text-[0.7rem] tracking-[0.2em] uppercase md:gap-5">
+          <Link to="/" className="col-start-2 text-center text-2xl md:col-start-1 md:row-start-1 md:justify-self-start md:text-3xl"><Logo /></Link>
+          <nav className="hidden items-center justify-center gap-7 text-[0.7rem] tracking-[0.2em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-9 xl:gap-11">
+            {links.map((l) => <Link key={l.to} to={l.to} className="link-lux whitespace-nowrap">{l.label}</Link>)}
+          </nav>
+          <div className="col-start-3 row-start-1 flex min-w-0 items-center justify-end gap-4 text-[0.7rem] tracking-[0.2em] uppercase md:gap-5 lg:gap-6">
             <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
             <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
             <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>

@@ -86,7 +86,7 @@ function EditProduct() {
             <div className="mt-2 flex flex-wrap gap-3">
               {f.gallery.map((g, i) => (
                 <div key={i} className="relative">
-                  <img src={g} alt="" className="h-20 w-16 object-cover" />
+                  <img src={productImage(g)} alt="" className="h-20 w-16 object-cover" />
                   <button onClick={() => set("gallery", f.gallery.filter((_, j) => j !== i))} className="absolute -end-2 -top-2 h-5 w-5 rounded-full bg-foreground text-xs text-background">×</button>
                 </div>
               ))}

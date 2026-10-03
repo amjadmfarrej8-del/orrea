@@ -27,11 +27,11 @@ export function ProductCard({ p }: { p: Product }) {
       </div>
       <div className="mt-4 flex items-start justify-between gap-4">
         <div>
-          <h3 className="text-xl leading-tight">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
-          <p className="mt-1 text-xs text-muted-foreground">{lang === "ar" ? p.tagline_ar : p.tagline_fr}</p>
+          <h3 className="text-xl leading-tight md:text-[1.4rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
+          <p className="mt-1 text-sm text-muted-foreground">{lang === "ar" ? p.tagline_ar : p.tagline_fr}</p>
         </div>
-        <div className="shrink-0 text-end text-sm">
-          <div>{formatMAD(Number(p.price), lang)}</div>
+        <div className="shrink-0 text-end text-base">
+          <div className="font-semibold">{formatMAD(Number(p.price), lang)}</div>
           {p.compare_at_price && (
             <div className="text-xs text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</div>
           )}

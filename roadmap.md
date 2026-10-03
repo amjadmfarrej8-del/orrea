@@ -6,6 +6,7 @@
 - [x] Pages: about, contact, FAQ, privacy, terms, shipping & returns
 - [x] Admin: overview, orders + statuses + CSV, products CRUD + images + stock, categories, customers, coupons, shipping + city fees, homepage builder, theme customizer with preview, store & SEO settings
 - [x] WhatsApp number, shipping and theme all editable from admin
+- [x] Dedicated wide-screen storefront layout for 1440px, 1920px, and 2560px displays
 
 ## Later
 - [ ] Customer product reviews (moderated), wishlist, collections

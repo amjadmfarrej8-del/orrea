@@ -15,7 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { I18nProvider } from "@/lib/i18n";
 import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/site/Header";
-import { Footer, WhatsAppFab } from "@/components/site/Footer";
+import { Footer } from "@/components/site/Footer";
 import { ThemeStyle } from "@/components/site/ThemeStyle";
 import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
@@ -141,7 +141,6 @@ function RootComponent() {
                   <Outlet />
                 </main>
                 <Footer />
-                <WhatsAppFab />
               </>
             )}
             <Toaster position="top-center" />

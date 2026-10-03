@@ -20,6 +20,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MerciRouteImport } from './routes/merci'
+import { Route as OffresRouteImport } from './routes/offres'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -95,6 +96,11 @@ const LoginRoute = LoginRouteImport.update({
 const MerciRoute = MerciRouteImport.update({
   id: '/merci',
   path: '/merci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OffresRoute = OffresRouteImport.update({
+  id: '/offres',
+  path: '/offres',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -228,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/merci': typeof MerciRoute
+  '/offres': typeof OffresRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -262,6 +269,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/merci': typeof MerciRoute
+  '/offres': typeof OffresRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/merci': typeof MerciRoute
+  '/offres': typeof OffresRoute
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -333,6 +342,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/merci'
+    | '/offres'
     | '/privacy'
     | '/register'
     | '/reset-password'
@@ -367,6 +377,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/merci'
+    | '/offres'
     | '/privacy'
     | '/register'
     | '/reset-password'
@@ -401,6 +412,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/merci'
+    | '/offres'
     | '/privacy'
     | '/register'
     | '/reset-password'
@@ -437,6 +449,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   MerciRoute: typeof MerciRoute
+  OffresRoute: typeof OffresRoute
   PrivacyRoute: typeof PrivacyRoute
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -524,6 +537,13 @@ declare module '@tanstack/react-router' {
       path: '/merci'
       fullPath: '/merci'
       preLoaderRoute: typeof MerciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offres': {
+      id: '/offres'
+      path: '/offres'
+      fullPath: '/offres'
+      preLoaderRoute: typeof OffresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -753,6 +773,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   MerciRoute: MerciRoute,
+  OffresRoute: OffresRoute,
   PrivacyRoute: PrivacyRoute,
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,

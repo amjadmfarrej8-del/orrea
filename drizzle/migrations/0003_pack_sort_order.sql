@@ -1,0 +1,1 @@
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS pack_sort_order integer NOT NULL DEFAULT 0;

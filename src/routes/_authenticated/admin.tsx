@@ -16,6 +16,7 @@ const nav = [
   { to: "/admin", label: "Vue d'ensemble", exact: true },
   { to: "/admin/orders", label: "Commandes" },
   { to: "/admin/products", label: "Produits & stock" },
+  { to: "/admin/packs", label: "Packs / Offres" },
   { to: "/admin/categories", label: "Catégories" },
   { to: "/admin/customers", label: "Clients" },
   { to: "/admin/coupons", label: "Codes promo" },

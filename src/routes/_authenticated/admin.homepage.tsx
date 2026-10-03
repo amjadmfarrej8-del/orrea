@@ -10,7 +10,7 @@ import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/compone
 export const Route = createFileRoute("/_authenticated/admin/homepage")({ component: HomepageBuilder });
 
 const typeLabel: Record<string, string> = {
-  hero: "Bannière principale", promo: "Bandeau promotionnel", benefits: "Avantages", categories: "Catégories", featured: "Produits sélectionnés",
+  hero: "Bannière principale", promo: "Bandeau promotionnel", benefits: "Avantages", categories: "Catégories", offers: "Offres (packs)", featured: "Produits sélectionnés",
   story: "Histoire de la marque", bestsellers: "Best-sellers", new: "Nouveautés", reviews: "Avis clientes", newsletter: "Newsletter & Instagram",
 };
 const hasText = new Set(["hero", "story", "newsletter"]);

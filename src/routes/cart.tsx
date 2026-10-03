@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { settingsQuery } from "@/lib/settings";
 import { shippingFor, useCart } from "@/lib/cart";
 import { productImage } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
@@ -20,7 +22,8 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const { t, lang } = useI18n();
   const { items, setQty, remove, subtotal } = useCart();
-  const shipping = shippingFor(subtotal);
+  const { data: st } = useQuery(settingsQuery);
+  const shipping = shippingFor(subtotal, st?.store.shipping_fee, st?.store.free_shipping_threshold);
 
   if (items.length === 0)
     return (
@@ -66,17 +69,19 @@ function CartPage() {
   );
 }
 
-export function Summary({ subtotal, shipping, children }: { subtotal: number; shipping: number; children?: React.ReactNode }) {
-  const { t, lang } = useI18n();
+export function Summary({ subtotal, shipping, discount = 0, children }: { subtotal: number; shipping: number; discount?: number; children?: React.ReactNode }) {
+  const { t, lang, L } = useI18n();
+  const { data: st } = useQuery(settingsQuery);
   return (
     <aside className="h-fit bg-card p-8 md:mt-20">
       <p className="eyebrow">{t.summary}</p>
       <dl className="mt-6 space-y-3 text-sm">
         <div className="flex justify-between"><dt>{t.subtotal}</dt><dd>{formatMAD(subtotal, lang)}</dd></div>
         <div className="flex justify-between"><dt>{t.shipping}</dt><dd>{shipping === 0 ? t.free : formatMAD(shipping, lang)}</dd></div>
-        <div className="flex justify-between border-t border-border pt-4 text-lg"><dt>{t.total}</dt><dd>{formatMAD(subtotal + shipping, lang)}</dd></div>
+        {discount > 0 && <div className="flex justify-between"><dt>{L("Remise", "الخصم")}</dt><dd>−{formatMAD(discount, lang)}</dd></div>}
+        <div className="flex justify-between border-t border-border pt-4 text-lg"><dt>{t.total}</dt><dd>{formatMAD(subtotal - discount + shipping, lang)}</dd></div>
       </dl>
-      <p className="mt-4 text-xs text-muted-foreground">{t.freeShippingNote}</p>
+      <p className="mt-4 text-xs text-muted-foreground">{L(`Livraison offerte dès ${st?.store.free_shipping_threshold ?? 500} MAD`, `توصيل مجاني ابتداءً من ${st?.store.free_shipping_threshold ?? 500} درهم`)}</p>
       {children}
     </aside>
   );

@@ -1,89 +1,168 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import hero from "@/assets/hero.jpg";
 import ritual from "@/assets/ritual.jpg";
-import { productsQuery } from "@/lib/catalog";
+import { categoriesQuery, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
+import { settingsQuery, waLink, type Section } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
+import { CategoryGrid } from "./categories";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "THÉRAVÉN — Haute cosmétique d'inspiration française" },
-      { name: "description", content: "Sérums, crèmes et huiles précieuses THÉRAVÉN. Livraison partout au Maroc, paiement à la livraison." },
-      { property: "og:title", content: "THÉRAVÉN — Haute cosmétique" },
-      { property: "og:description", content: "Soins d'exception formulés avec des actifs précieux. Livraison au Maroc." },
-    ],
-  }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
+  loader: async ({ context }) => {
+    const [s] = await Promise.all([
+      context.queryClient.ensureQueryData(settingsQuery),
+      context.queryClient.ensureQueryData(productsQuery),
+      context.queryClient.ensureQueryData(categoriesQuery),
+    ]);
+    return { seo: s.seo };
+  },
+  head: ({ loaderData }) => {
+    const title = loaderData?.seo.title_fr || "THÉRAVÉN — Haute cosmétique";
+    const desc = loaderData?.seo.description_fr || "Soins de haute cosmétique d'inspiration française.";
+    const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        ...(og ? [{ property: "og:image", content: og }, { name: "twitter:image", content: og }] : []),
+      ],
+    };
+  },
   component: Home,
 });
 
+const reviews = [
+  { name: "Salma B. — Casablanca", fr: "Le sérum vitamine C a transformé mon teint en trois semaines. Texture divine.", ar: "سيروم فيتامين C غيّر لون بشرتي في ثلاثة أسابيع. قوام رائع." },
+  { name: "Imane K. — Rabat", fr: "Livraison rapide, emballage magnifique. On sent le soin dans chaque détail.", ar: "توصيل سريع وتغليف رائع. العناية واضحة في كل التفاصيل." },
+  { name: "Nadia E. — Marrakech", fr: "L'huile de nuit est devenue mon rituel. Ma peau est plus douce que jamais.", ar: "زيت الليل أصبح طقسي اليومي. بشرتي أنعم من أي وقت مضى." },
+];
+
 function Home() {
+  const { data: s } = useSuspenseQuery(settingsQuery);
+  const sections = s.homepage.sections.filter((x) => x.visible);
+  return <>{sections.map((sec) => <SectionView key={sec.id} sec={sec} />)}</>;
+}
+
+function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?: 3 | 4 }) {
   const { t } = useI18n();
-  const { data: products } = useSuspenseQuery(productsQuery);
-  const featured = products.filter((p) => p.is_featured).slice(0, 4);
-  const best = products.filter((p) => p.is_bestseller).slice(0, 3);
-
+  if (!list.length) return null;
   return (
-    <>
-      <section className="relative">
-        <img src={hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center]" />
-        <div className="absolute inset-0 mx-auto flex max-w-7xl items-end px-5 pb-14 md:items-center md:px-10 md:pb-0">
-          <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none">
-            <p className="eyebrow">{t.heroEyebrow}</p>
-            <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl">{t.heroTitle}</h1>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">{t.heroText}</p>
-            <Link to="/shop" className="btn-lux mt-9">{t.discover}</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-border">
-        <ul className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
-          {t.values.map((v) => (
-            <li key={v} className="border-border px-4 py-6 text-center text-[0.68rem] tracking-[0.2em] uppercase text-muted-foreground [&:not(:last-child)]:border-e">
-              {v}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
-        <div className="flex items-end justify-between">
-          <h2 className="text-4xl md:text-5xl">{t.featured}</h2>
-          <Link to="/shop" className="link-lux text-[0.72rem] tracking-[0.2em] uppercase">{t.viewAll}</Link>
-        </div>
-        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-8">
-          {featured.map((p) => <ProductCard key={p.id} p={p} />)}
-        </div>
-      </section>
-
-      <section className="mx-auto mt-32 grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10">
-        <img src={ritual} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
-        <div>
-          <p className="eyebrow">{t.ritualEyebrow}</p>
-          <h2 className="mt-5 text-4xl leading-tight md:text-6xl">{t.ritualTitle}</h2>
-          <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">{t.ritualText}</p>
-          <ol className="mt-10 space-y-5 border-t border-border pt-8">
-            {best.map((p, i) => (
-              <li key={p.id} className="flex items-baseline gap-6">
-                <span className="text-champagne text-2xl" style={{ fontFamily: "var(--font-display)" }}>0{i + 1}</span>
-                <Link to="/products/$slug" params={{ slug: p.slug }} className="link-lux text-lg">
-                  {p.name_fr}
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pt-32 md:px-10">
-        <h2 className="text-4xl md:text-5xl">{t.bestsellers}</h2>
-        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-3 md:gap-x-8">
-          {best.map((p) => <ProductCard key={p.id} p={p} />)}
-        </div>
-      </section>
-    </>
+    <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
+      <div className="flex items-end justify-between">
+        <h2 className="text-4xl md:text-5xl">{title}</h2>
+        <Link to="/shop" className="link-lux text-[0.72rem] tracking-[0.2em] uppercase">{t.viewAll}</Link>
+      </div>
+      <div className={`mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:gap-x-8 ${cols === 4 ? "md:grid-cols-4" : "md:grid-cols-3"}`}>
+        {list.map((p) => <ProductCard key={p.id} p={p} />)}
+      </div>
+    </section>
   );
+}
+
+function SectionView({ sec }: { sec: Section }) {
+  const { t, lang, L } = useI18n();
+  const { data: products } = useSuspenseQuery(productsQuery);
+  const { data: s } = useSuspenseQuery(settingsQuery);
+  const ar = lang === "ar";
+  const title = (ar ? sec.title_ar : sec.title_fr) ?? "";
+  const text = (ar ? sec.text_ar : sec.text_fr) ?? "";
+  const [email, setEmail] = useState("");
+
+  switch (sec.type) {
+    case "hero":
+      return (
+        <section className="relative">
+          <img src={sec.image || hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center]" />
+          <div className="absolute inset-0 mx-auto flex max-w-7xl items-end px-5 pb-14 md:items-center md:px-10 md:pb-0">
+            <div className="max-w-lg animate-rise bg-background/80 p-7 backdrop-blur-sm md:bg-transparent md:p-0 md:backdrop-blur-none">
+              <p className="eyebrow">{t.heroEyebrow}</p>
+              <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl">{title}</h1>
+              <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">{text}</p>
+              {(sec.button_fr || sec.button_ar) && (
+                <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-9">{ar ? sec.button_ar : sec.button_fr}</a>
+              )}
+            </div>
+          </div>
+        </section>
+      );
+    case "promo":
+      return <div className="bg-champagne/25 px-5 py-4 text-center text-sm tracking-[0.08em]">{title}</div>;
+    case "benefits":
+      return (
+        <section className="border-b border-border">
+          <ul className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
+            {t.values.map((v) => (
+              <li key={v} className="border-border px-4 py-6 text-center text-[0.68rem] tracking-[0.2em] uppercase text-muted-foreground [&:not(:last-child)]:border-e">{v}</li>
+            ))}
+          </ul>
+        </section>
+      );
+    case "categories":
+      return (
+        <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
+          <h2 className="mb-12 text-4xl md:text-5xl">{title}</h2>
+          <CategoryGrid />
+        </section>
+      );
+    case "featured": {
+      const ids = sec.product_ids ?? [];
+      const list = ids.length ? ids.map((id) => products.find((p) => p.id === id)).filter(Boolean) as Product[] : products.filter((p) => p.is_featured);
+      return <Grid title={title} list={list.slice(0, 8)} />;
+    }
+    case "bestsellers":
+      return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 3)} cols={3} />;
+    case "new":
+      return <Grid title={title} list={products.filter((p) => p.is_new).slice(0, 4)} />;
+    case "story":
+      return (
+        <section className="mx-auto mt-32 grid max-w-7xl items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10">
+          <img src={sec.image || ritual} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
+          <div>
+            <p className="eyebrow">{t.ritualEyebrow}</p>
+            <h2 className="mt-5 text-4xl leading-tight md:text-6xl">{title}</h2>
+            <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">{text}</p>
+            <Link to="/about" className="btn-ghost-lux mt-10">{t.about}</Link>
+          </div>
+        </section>
+      );
+    case "reviews":
+      return (
+        <section className="mx-auto max-w-7xl px-5 pt-32 md:px-10">
+          <h2 className="text-center text-4xl md:text-5xl">{title}</h2>
+          <div className="mt-14 grid gap-10 md:grid-cols-3">
+            {reviews.map((r) => (
+              <figure key={r.name} className="border-t border-border pt-8">
+                <p className="text-champagne">★★★★★</p>
+                <blockquote className="mt-4 text-xl leading-snug" style={{ fontFamily: "var(--font-display)" }}>« {ar ? r.ar : r.fr} »</blockquote>
+                <figcaption className="eyebrow mt-6">{r.name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      );
+    case "newsletter":
+      return (
+        <section className="mx-auto mt-32 max-w-3xl px-5 text-center">
+          <h2 className="text-4xl md:text-5xl">{title}</h2>
+          <p className="mt-4 text-muted-foreground">{text}</p>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (s.store.whatsapp && /^\S+@\S+\.\S+$/.test(email)) window.open(waLink(s.store.whatsapp, `Newsletter: ${email.slice(0, 120)}`), "_blank", "noopener");
+            }}
+            className="mx-auto mt-10 flex max-w-md gap-3"
+          >
+            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" className="field-lux flex-1" />
+            <button className="btn-lux">{L("S'inscrire", "اشتراك")}</button>
+          </form>
+          {s.store.instagram && <a href={s.store.instagram} target="_blank" rel="noreferrer" className="link-lux mt-10 inline-block text-xs tracking-[0.25em] uppercase">Instagram · @theraven</a>}
+        </section>
+      );
+    default:
+      return null;
+  }
 }

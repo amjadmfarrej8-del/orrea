@@ -50,4 +50,4 @@ export function useCart() {
   return c;
 }
 
-export const shippingFor = (subtotal: number) => (subtotal >= 500 || subtotal === 0 ? 0 : 35);
+export const shippingFor = (subtotal: number, fee = 35, free = 500) => (subtotal >= free || subtotal === 0 ? 0 : fee);

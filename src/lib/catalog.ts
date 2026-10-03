@@ -13,7 +13,7 @@ export const productImage = (key: string) => localImages[key] ?? key;
 export const categoriesQuery = queryOptions({
   queryKey: ["categories"],
   queryFn: async () => {
-    const { data, error } = await supabase.from("categories").select("*").order("sort_order");
+    const { data, error } = await supabase.from("categories").select("*").eq("is_active", true).order("sort_order");
     if (error) throw error;
     return data;
   },
@@ -22,7 +22,7 @@ export const categoriesQuery = queryOptions({
 export const productsQuery = queryOptions({
   queryKey: ["products"],
   queryFn: async () => {
-    const { data, error } = await supabase.from("products").select("*, categories(slug)").order("created_at");
+    const { data, error } = await supabase.from("products").select("*, categories(slug)").eq("is_active", true).order("created_at");
     if (error) throw error;
     return data;
   },
@@ -32,7 +32,7 @@ export const productQuery = (slug: string) =>
   queryOptions({
     queryKey: ["product", slug],
     queryFn: async () => {
-      const { data, error } = await supabase.from("products").select("*").eq("slug", slug).maybeSingle();
+      const { data, error } = await supabase.from("products").select("*").eq("slug", slug).eq("is_active", true).maybeSingle();
       if (error) throw error;
       return data;
     },

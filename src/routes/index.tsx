@@ -63,12 +63,12 @@ function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?
   const { t } = useI18n();
   if (!list.length) return null;
   return (
-    <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+    <section className="mx-auto max-w-[1600px] px-5 pt-14 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
       <div className="flex items-end justify-between">
         <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
         <Link to="/shop" className="link-lux text-[0.8rem] tracking-[0.12em] uppercase">{t.viewAll}</Link>
       </div>
-      <div className={`mt-12 grid grid-cols-2 gap-x-5 gap-y-12 md:gap-x-8 lg:mt-16 lg:gap-x-10 lg:gap-y-16 xl:gap-x-12 ${cols === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+      <div className={`mt-6 grid grid-cols-2 gap-x-5 gap-y-8 md:gap-x-8 md:gap-y-12 lg:mt-16 lg:gap-x-10 lg:gap-y-16 xl:gap-x-12 ${cols === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
         {list.map((p) => <ProductCard key={p.id} p={p} />)}
       </div>
     </section>

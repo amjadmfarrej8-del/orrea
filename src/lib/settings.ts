@@ -18,7 +18,7 @@ export type Section = {
 };
 export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { sections: Section[] } };
 
-export const SECTION_TYPES = ["hero", "promo", "benefits", "categories", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
+export const SECTION_TYPES = ["hero", "promo", "benefits", "categories", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
 
 export const defaultSettings: Settings = {
   theme: { background: "#f8f5ef", foreground: "#2b2724", primary: "#2b2724", primary_hover: "#4a433d", secondary: "#ece6dc", accent: "#e5dccb", champagne: "#c2a77c", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },

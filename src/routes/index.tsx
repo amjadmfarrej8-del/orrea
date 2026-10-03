@@ -48,13 +48,11 @@ const reviews = [
 function Home() {
   const { data: s } = useSuspenseQuery(settingsQuery);
   const sections = s.homepage.sections.filter((x) => x.visible);
-  const heroIdx = sections.findIndex((x) => x.type === "hero");
   return (
     <>
-      {sections.map((sec, i) => (
+      {sections.map((sec) => (
         <Fragment key={sec.id}>
           <SectionView sec={sec} />
-          {i === Math.max(heroIdx, 0) && <PackCard className="pt-20 md:pt-28" />}
         </Fragment>
       ))}
     </>
@@ -120,6 +118,16 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
           <h2 className="mb-12 text-4xl md:text-5xl lg:mb-16 xl:text-6xl">{title}</h2>
           <CategoryGrid />
+        </section>
+      );
+    case "offers":
+      return (
+        <section className="pt-28 md:pt-32 xl:pt-40">
+          <div className="mx-auto mb-12 max-w-[1600px] px-5 text-center md:px-10 lg:mb-16 lg:px-12 xl:px-16">
+            <p className="eyebrow">{L("Packs THÉRAVÉN", "باكات THÉRAVÉN")}</p>
+            <h2 className="mt-4 text-4xl md:text-5xl xl:text-6xl">{title || L("Offres", "العروض")}</h2>
+          </div>
+          <PackCard />
         </section>
       );
     case "featured": {

@@ -156,7 +156,7 @@ function ProductPage() {
         </div>
       </div>
 
-      {all.some((x) => isPack(x) && x.id !== p.id && (x.bundle_items as { product_id: string }[]).some((b) => b.product_id === p.id)) && <PackCard className="pt-24" />}
+      <PackCard className="pt-24" productIds={[p.id]} excludeIds={[p.id]} />
       {isPack(p) && (
         <section className="mx-auto max-w-7xl px-5 pt-24 md:px-10">
           <h2 className="text-3xl">{L("Contenu du pack", "محتوى الباك")}</h2>

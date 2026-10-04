@@ -17,9 +17,9 @@ export function ProductCard({ p }: { p: Product }) {
           loading="lazy"
           className="absolute inset-0 h-full w-full object-contain object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
-        {(p.stock === 0 || p.badge || p.is_new) && (
+        {(p.stock === 0 || p.badge) && (
           <span className="absolute start-2 top-2 bg-background px-2 py-1 text-[0.65rem] tracking-[0.14em] uppercase md:start-3 md:top-3 md:text-[0.72rem]">
-            {p.stock === 0 ? t.outOfStock : p.badge || (lang === "ar" ? "جديد" : "Nouveau")}
+            {p.stock === 0 ? t.outOfStock : p.badge}
           </span>
         )}
       </div>

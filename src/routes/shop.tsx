@@ -78,7 +78,7 @@ function Shop() {
       {showPacks && <div className="-mx-5 mt-12 md:-mx-10"><PackCard excludeIds={excluded} /></div>}
       {list.length === 0 && !showPacks && <p className="mt-16 text-muted-foreground">{L("Aucun produit trouvé.", "لم يتم العثور على أي منتج.")}</p>}
       {list.length > 0 && (
-        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-14 md:grid-cols-3 md:gap-x-8">
+        <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 md:gap-x-6 md:gap-y-8 xl:grid-cols-4">
           {list.map((p) => <ProductCard key={p.id} p={p} />)}
         </div>
       )}

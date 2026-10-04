@@ -7,6 +7,7 @@ import gelEyeCreamPackAsset from "@/assets/theravene-pack-gel-contour-creme.png.
 import gelEyePackAsset from "@/assets/theravene-pack-gel-contour-yeux.png.asset.json";
 import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
+import solaireAsset from "@/assets/theravene-creme-solaire.png.asset.json";
 import eyeCategoryAsset from "@/assets/theravene-categorie-soins-yeux.png.asset.json";
 import faceCategoryAsset from "@/assets/theravene-cat-visage.png.asset.json";
 import sensiblesCategoryAsset from "@/assets/theravene-cat-sensibles.png.asset.json";
@@ -23,6 +24,7 @@ Object.assign(localImages, {
   "t-pack-gel-eye": gelEyePackAsset.url,
   "t-pack": packAsset.url,
   "t-serum": serumAsset.url,
+  "t-solaire": solaireAsset.url,
   "t-cat-yeux": eyeCategoryAsset.url,
   "t-cat-visage": faceCategoryAsset.url,
   "t-cat-sensibles": sensiblesCategoryAsset.url,

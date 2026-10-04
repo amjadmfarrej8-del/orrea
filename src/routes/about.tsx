@@ -20,7 +20,7 @@ function About() {
     <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-16 md:grid-cols-2 md:gap-20 md:px-10">
       <div>
         <p className="eyebrow">{t.about}</p>
-        <h1 className="mt-5 text-5xl leading-tight md:text-6xl">{t.aboutTitle}</h1>
+        <h1 className="mt-5 text-[2rem] leading-tight md:text-[2.9rem]">{t.aboutTitle}</h1>
         <p className="mt-8 max-w-md leading-relaxed text-muted-foreground">{t.aboutText}</p>
         <Link to="/shop" className="btn-lux mt-10">{t.discover}</Link>
       </div>

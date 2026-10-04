@@ -36,7 +36,7 @@ function Thanks() {
   return (
     <div className="mx-auto max-w-xl px-5 py-24 animate-rise">
       <p className="eyebrow text-center">THÉRAVÉN</p>
-      <h1 className="mt-5 text-center text-5xl">{t.thanksTitle}{o ? `, ${o.name.split(" ")[0]}` : ""}</h1>
+      <h1 className="mt-5 text-center text-[2rem] leading-tight md:text-[2.9rem]">{t.thanksTitle}{o ? `, ${o.name.split(" ")[0]}` : ""}</h1>
       {n && <p className="mt-8 text-center text-sm">{t.orderNumber} : <span className="tracking-[0.15em]">{n}</span></p>}
       <p className="mt-4 text-center text-muted-foreground">{t.thanksText}</p>
       {o && (

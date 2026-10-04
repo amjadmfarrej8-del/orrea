@@ -113,7 +113,7 @@ function Checkout() {
   return (
     <div className="mx-auto grid max-w-6xl gap-14 px-5 pt-16 md:grid-cols-[1fr_340px] md:px-10">
       <form onSubmit={submit} className="space-y-8">
-        <h1 className="text-5xl">{t.checkoutTitle}</h1>
+        <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{t.checkoutTitle}</h1>
         {!user && <p className="text-sm text-muted-foreground">{L("Déjà cliente ?", "لديك حساب؟")} <Link to="/login" search={{ redirect: "/checkout" }} className="link-lux text-foreground">{L("Connectez-vous", "سجلي الدخول")}</Link></p>}
         {field("name", t.fullName)}
         {field("phone", t.phone, "tel")}

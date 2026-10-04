@@ -59,7 +59,7 @@ function Account() {
   return (
     <div className="mx-auto max-w-6xl px-5 pt-16 md:px-10">
       <div className="flex items-end justify-between gap-4">
-        <h1 className="text-5xl">{L("Mon compte", "حسابي")}</h1>
+        <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{L("Mon compte", "حسابي")}</h1>
         <button onClick={logout} className="link-lux text-xs tracking-[0.12em] uppercase">{L("Déconnexion", "تسجيل الخروج")}</button>
       </div>
       <div className="mt-14 grid gap-16 md:grid-cols-[1fr_1.4fr]">

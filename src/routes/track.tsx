@@ -36,7 +36,7 @@ function Track() {
 
   return (
     <div className="mx-auto max-w-2xl px-5 pt-16">
-      <h1 className="text-5xl">{L("Suivre ma commande", "تتبع طلبي")}</h1>
+      <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{L("Suivre ma commande", "تتبع طلبي")}</h1>
       <form onSubmit={submit} className="mt-10 grid gap-7 sm:grid-cols-2">
         <Field label={L("Numéro de commande", "رقم الطلب")} required value={num} onChange={(e) => setNum(e.target.value)} placeholder="TH-XXXXXXXX" />
         <Field label={L("Téléphone", "الهاتف")} required value={phone} onChange={(e) => setPhone(e.target.value)} />

@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
 import { ORDER_STATUSES, statusText } from "@/lib/orders";
 import { waLink } from "@/lib/settings";
+import { productImage } from "@/lib/catalog";
 import { Card, Input, PageTitle, StatusBadge } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/orders")({ component: Orders });

@@ -80,6 +80,23 @@
   h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; line-height: 1.12; color: var(--color-foreground); }
   h3, h4 { line-height: 1.25; }
   button, input, select, textarea, label, nav { font-family: var(--font-sans); }
+  :where(
+    a[href],
+    button:not(:disabled),
+    select:not(:disabled),
+    summary,
+    label[for],
+    input[type="button"]:not(:disabled),
+    input[type="submit"]:not(:disabled),
+    input[type="reset"]:not(:disabled),
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+    input[type="file"]:not(:disabled),
+    [role="button"]:not([aria-disabled="true"]),
+    [role="link"]:not([aria-disabled="true"])
+  ) { cursor: pointer; }
+  :where(button, select, input, [role="button"], [role="link"]):disabled,
+  :where([role="button"], [role="link"])[aria-disabled="true"] { cursor: not-allowed; }
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4 { font-family: "Tajawal", serif; font-weight: 500; letter-spacing: 0; }
 }
 

@@ -10,11 +10,12 @@ import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/compone
 export const Route = createFileRoute("/_authenticated/admin/homepage")({ component: HomepageBuilder });
 
 const typeLabel: Record<string, string> = {
-  hero: "Bannière principale", promo: "Bandeau promotionnel", benefits: "Avantages", categories: "Catégories", offers: "Offres (packs)", featured: "Produits sélectionnés",
+  hero: "Bannière principale", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", offers: "Offres (packs)", featured: "Produits sélectionnés",
   story: "Histoire de la marque", bestsellers: "Best-sellers", new: "Nouveautés", reviews: "Avis clientes", newsletter: "Newsletter & Instagram",
 };
-const hasText = new Set(["hero", "story", "newsletter"]);
-const hasImage = new Set(["hero", "story"]);
+const hasText = new Set(["hero", "story", "newsletter", "panel"]);
+const hasImage = new Set(["hero", "story", "panel"]);
+const hasButton = new Set(["hero", "panel"]);
 
 function HomepageBuilder() {
   const qc = useQueryClient();
@@ -65,7 +66,7 @@ function HomepageBuilder() {
                     <AField label="Texte (AR)"><Textarea dir="rtl" value={sec.text_ar ?? ""} onChange={(e) => upd(sec.id, { text_ar: e.target.value })} /></AField>
                   </>
                 )}
-                {sec.type === "hero" && (
+                {hasButton.has(sec.type) && (
                   <>
                     <AField label="Bouton (FR)"><Input value={sec.button_fr ?? ""} onChange={(e) => upd(sec.id, { button_fr: e.target.value })} /></AField>
                     <AField label="Bouton (AR)"><Input dir="rtl" value={sec.button_ar ?? ""} onChange={(e) => upd(sec.id, { button_ar: e.target.value })} /></AField>

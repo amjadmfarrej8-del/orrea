@@ -27,8 +27,8 @@ export function CategoryGrid() {
         return (
           <Link key={c.id} to="/shop" search={{ c: c.slug }} className="card-lux group relative block aspect-[3/4] min-w-0 overflow-hidden border border-border/40 bg-card">
             {img && <img src={productImage(img)} alt={name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-foreground/60 via-foreground/20 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-1.5 pb-3 text-center text-background md:px-4 md:pb-8">
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/85 via-background/40 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-1.5 pb-3 text-center text-ink md:px-4 md:pb-8">
               <p className="text-[0.72rem] leading-tight uppercase tracking-[0.06em] md:text-2xl md:tracking-[0.08em] lg:text-[1.75rem]" style={{ fontFamily: "var(--font-display)" }}>{name}</p>
               <span className="mt-1.5 font-sans text-[0.5rem] tracking-[0.18em] uppercase md:mt-3 md:text-[0.72rem] md:tracking-[0.28em]">
                 {lang === "ar" ? "اكتشفي ←" : "Découvrir →"}

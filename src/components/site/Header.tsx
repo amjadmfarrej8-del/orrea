@@ -16,7 +16,7 @@ export function Logo({ className = "" }: { className?: string }) {
 export function Header() {
   const { t, lang, setLang, L } = useI18n();
   const { count } = useCart();
-  const { user, isAdmin } = useAuth();
+  const { user } = useAuth();
   const { data: s } = useQuery(settingsQuery);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
@@ -57,7 +57,6 @@ export function Header() {
             <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
             <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
             <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>
-            {isAdmin && <Link to="/admin" className="link-lux hidden lg:inline">Admin</Link>}
             <Link to="/cart" className="relative" aria-label={t.cart}>
               <ShoppingBag className="h-5 w-5" strokeWidth={1.2} />
               {count > 0 && (
@@ -90,7 +89,6 @@ export function Header() {
             ))}
             <Link to={user ? "/account" : "/login"} onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{user ? L("Mon compte", "حسابي") : L("Connexion", "تسجيل الدخول")}</Link>
             <Link to="/track" onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{L("Suivre ma commande", "تتبع طلبي")}</Link>
-            {isAdmin && <Link to="/admin" onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>Admin</Link>}
             <button onClick={() => { setLang(lang === "fr" ? "ar" : "fr"); setOpen(false); }} className="mt-8 self-start btn-ghost-lux">{lang === "fr" ? "عربي" : "Français"}</button>
           </nav>
         </div>

@@ -41,7 +41,7 @@ export const categoriesQuery = queryOptions({
 export const productsQuery = queryOptions({
   queryKey: ["products"],
   queryFn: async () => {
-    const { data, error } = await supabase.from("products").select("*, categories(slug)").eq("is_active", true).order("created_at");
+    const { data, error } = await supabase.from("products").select("*, categories(slug, name_fr, name_ar)").eq("is_active", true).order("created_at");
     if (error) throw error;
     return data;
   },

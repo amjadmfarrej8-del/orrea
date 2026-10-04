@@ -141,8 +141,10 @@ function SectionView({ sec }: { sec: Section }) {
     }
     case "bestsellers":
       return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 3)} cols={3} />;
-    case "new":
-      return <Grid title={title} list={products.filter((p) => p.is_new).slice(0, 4)} />;
+    case "new": {
+      const isPack = (p: Product) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
+      return <Grid title={title} list={products.filter((p) => p.is_new && !isPack(p)).slice(0, 4)} />;
+    }
     case "story":
       return (
         <section className="mx-auto mt-32 grid max-w-[1600px] items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10 lg:px-12 xl:mt-40 xl:gap-28 xl:px-16">

@@ -51,7 +51,7 @@ function Shop() {
   return (
     <div className="mx-auto max-w-7xl px-5 pt-16 md:px-10">
       <nav className="font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase"><Link to="/" className="hover:text-foreground">{L("Accueil", "الرئيسية")}</Link> / <span className="text-foreground">{t.shop}</span></nav>
-      <h1 className="mt-4 text-5xl md:text-7xl">{t.shop}</h1>
+      <h1 className="mt-4 text-[2rem] leading-tight md:text-[2.9rem]">{t.shop}</h1>
       <p className="mt-3 font-sans text-sm text-muted-foreground">{L(`${list.length + (showPacks ? packIds.length : 0)} articles`, `${list.length + (showPacks ? packIds.length : 0)} منتجات`)}</p>
       {q && <p className="mt-4 text-muted-foreground">{L("Résultats pour", "نتائج البحث عن")} « {q} » · {list.length + (showPacks ? packIds.length : 0)}</p>}
       <div className="mt-10 flex flex-wrap items-center justify-between gap-4">

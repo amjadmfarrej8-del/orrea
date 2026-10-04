@@ -33,7 +33,7 @@ export const Route = createFileRoute("/products/$slug")({
   },
   notFoundComponent: () => (
     <div className="mx-auto max-w-xl px-5 py-32 text-center">
-      <h1 className="text-4xl">Produit introuvable</h1>
+      <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">Produit introuvable</h1>
       <Link to="/shop" className="btn-lux mt-8">Boutique</Link>
     </div>
   ),
@@ -107,7 +107,7 @@ function ProductPage() {
         </div>
         <div className="md:sticky md:top-32 md:self-start">
           <p className="eyebrow">{p.size}{p.sku && ` · ${p.sku}`}</p>
-          <h1 className="mt-4 text-5xl leading-tight md:text-6xl">{name}</h1>
+          <h1 className="mt-4 text-[1.9rem] leading-tight md:text-[2.6rem]">{name}</h1>
           <p className="mt-3 text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>
           <div className="mt-8 flex items-baseline gap-4 text-2xl">
             {formatMAD(Number(p.price), lang)}
@@ -165,7 +165,7 @@ function ProductPage() {
       <PackCard className="pt-24" productIds={[p.id]} excludeIds={[p.id]} />
       {isPack(p) && (
         <section className="mx-auto max-w-7xl px-5 pt-24 md:px-10">
-          <h2 className="text-3xl">{L("Contenu du pack", "محتوى الباك")}</h2>
+          <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{L("Contenu du pack", "محتوى الباك")}</h2>
           <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-8">
             {all.filter((x) => (p.bundle_items as { product_id: string }[]).some((b) => b.product_id === x.id)).map((r) => <ProductCard key={r.id} p={r} />)}
           </div>
@@ -173,7 +173,7 @@ function ProductPage() {
       )}
       {related.length > 0 && (
         <section className="mx-auto max-w-7xl px-5 pt-28 md:px-10">
-          <h2 className="text-4xl">{L("Vous aimerez aussi", "قد يعجبك أيضاً")}</h2>
+          <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{L("Vous aimerez aussi", "قد يعجبك أيضاً")}</h2>
           <div className="mt-10 grid grid-cols-2 gap-x-5 gap-y-12 md:grid-cols-4 md:gap-x-8">
             {related.map((r) => <ProductCard key={r.id} p={r} />)}
           </div>

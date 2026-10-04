@@ -6,7 +6,7 @@ export function AuthShell({ title, children }: { title: string; children: ReactN
   return (
     <div className="mx-auto max-w-md px-5 py-20 animate-rise">
       <p className="eyebrow text-center">THÉRAVÉN</p>
-      <h1 className="mt-4 text-center text-5xl">{title}</h1>
+      <h1 className="mt-4 text-center text-[2rem] leading-tight md:text-[2.9rem]">{title}</h1>
       <div className="mt-12">{children}</div>
     </div>
   );

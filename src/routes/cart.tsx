@@ -34,7 +34,7 @@ function CartPage() {
   if (items.length === 0)
     return (
       <div className="mx-auto max-w-xl px-5 py-32 text-center">
-        <h1 className="text-5xl">{t.cart}</h1>
+        <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{t.cart}</h1>
         <p className="mt-6 text-muted-foreground">{t.emptyCart}</p>
         <Link to="/shop" className="btn-lux mt-10">{t.continueShopping}</Link>
       </div>
@@ -43,7 +43,7 @@ function CartPage() {
   return (
     <div className="mx-auto grid max-w-6xl gap-14 px-5 pt-16 md:grid-cols-[1fr_340px] md:px-10">
       <div>
-        <h1 className="text-5xl">{t.cart}</h1>
+        <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{t.cart}</h1>
         <FreeBar subtotal={subtotal} free={hasFreeShipping(items) ? 0 : (st?.store.free_shipping_threshold ?? 500)} />
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {items.map((i) => (

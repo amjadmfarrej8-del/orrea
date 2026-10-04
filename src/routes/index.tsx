@@ -65,7 +65,7 @@ function Grid({ title, list, cols = 4 }: { title: string; list: Product[]; cols?
   return (
     <section className="mx-auto max-w-[1600px] px-5 pt-14 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
       <div className="flex items-end justify-between">
-        <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
+        <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
         <Link to="/shop" className="link-lux text-[0.8rem] tracking-[0.12em] uppercase">{t.viewAll}</Link>
       </div>
       <div className={`mt-6 grid grid-cols-2 gap-x-5 gap-y-8 md:gap-x-8 md:gap-y-12 lg:mt-16 lg:gap-x-10 lg:gap-y-16 xl:gap-x-12 ${cols === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
@@ -95,7 +95,7 @@ function SectionView({ sec }: { sec: Section }) {
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
             <div className="max-w-lg animate-rise bg-background/30 p-7 md:bg-transparent md:p-0 lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
-              <h1 className="mt-5 text-5xl leading-[1.02] md:text-7xl xl:text-[5.5rem]">{title}</h1>
+              <h1 className="mt-5 text-[2.1rem] leading-[1.08] md:text-[3rem] xl:text-[3.4rem]">{title}</h1>
               <p className="mt-6 max-w-sm text-sm font-medium leading-relaxed text-foreground lg:max-w-md lg:text-base">{text}</p>
               {(sec.button_fr || sec.button_ar) && (
                 <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-9">{ar ? sec.button_ar : sec.button_fr}</a>
@@ -119,7 +119,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "categories":
       return (
         <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
-          <h2 className="mb-12 text-ink text-4xl md:text-5xl lg:mb-16 xl:text-6xl">{title}</h2>
+          <h2 className="mb-10 text-ink text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem] lg:mb-12">{title}</h2>
           <CategoryGrid />
         </section>
       );
@@ -128,7 +128,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="pt-14 md:pt-32 xl:pt-40">
           <div className="mx-auto mb-6 max-w-[1600px] px-5 text-center md:mb-12 md:px-10 lg:mb-16 lg:px-12 xl:px-16">
             <p className="eyebrow">{L("Packs THÉRAVÉN", "باكات THÉRAVÉN")}</p>
-            <h2 className="mt-3 text-4xl md:mt-4 md:text-5xl xl:text-6xl">{title || L("Offres", "العروض")}</h2>
+            <h2 className="mt-3 md:mt-4 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title || L("Offres", "العروض")}</h2>
           </div>
           <PackCard />
         </section>
@@ -151,7 +151,7 @@ function SectionView({ sec }: { sec: Section }) {
           <img src={sec.image || ritual} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
           <div>
             <p className="eyebrow">{t.ritualEyebrow}</p>
-            <h2 className="mt-5 text-4xl leading-tight md:text-6xl xl:text-7xl">{title}</h2>
+            <h2 className="mt-5 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
             <p className="mt-6 max-w-md leading-relaxed text-muted-foreground lg:text-lg">{text}</p>
             <Link to="/about" className="btn-ghost-lux mt-10">{t.about}</Link>
           </div>
@@ -160,7 +160,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "reviews":
       return (
         <section className="mx-auto max-w-[1600px] px-5 pt-32 md:px-10 lg:px-12 xl:px-16 xl:pt-40">
-          <h2 className="text-center text-4xl md:text-5xl xl:text-6xl">{title}</h2>
+          <h2 className="text-center text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
           <div className="mt-14 grid gap-10 md:grid-cols-3 lg:gap-16 xl:mt-20 xl:gap-20">
             {reviews.map((r) => (
               <figure key={r.name} className="border-t border-border pt-8">
@@ -175,7 +175,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "newsletter":
       return (
         <section className="mx-auto mt-32 max-w-3xl px-5 text-center xl:mt-40">
-          <h2 className="text-4xl md:text-5xl xl:text-6xl">{title}</h2>
+          <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
           <p className="mt-4 text-muted-foreground">{text}</p>
           <form
             onSubmit={(e) => {

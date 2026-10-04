@@ -41,7 +41,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
               </Link>
               <div className="flex min-w-0 flex-1 flex-col items-center border-t border-border/60 px-3 py-4 text-center md:px-6 md:py-9 lg:px-8 lg:py-10">
                 <p className="eyebrow text-champagne text-[0.58rem]! tracking-[0.08em]! md:text-[0.78rem]! md:tracking-[0.14em]!">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
-                <h3 className="mt-2 min-w-0 text-[0.95rem] leading-snug md:mt-4 md:text-2xl md:leading-tight lg:text-3xl">{ar ? p.name_ar : p.name_fr}</h3>
+                <h3 className="mt-2 min-w-0 text-[0.95rem] leading-snug md:mt-4 md:text-xl md:leading-snug lg:text-2xl">{ar ? p.name_ar : p.name_fr}</h3>
                 {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-1.5 min-w-0 text-[0.6rem] tracking-[0.04em] uppercase text-muted-foreground md:mt-4 md:text-[0.8rem] md:tracking-[0.12em]">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto w-full pt-3 md:pt-7">
                   <div className="flex items-baseline justify-center gap-2 md:gap-3">

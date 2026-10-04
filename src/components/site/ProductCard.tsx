@@ -33,7 +33,7 @@ export function ProductCard({ p }: { p: Product }) {
         );
       })()}
       <div className="mt-2 flex min-h-[2.8rem] items-start justify-center px-2 md:min-h-[3.4rem] md:px-4">
-        <h3 className="line-clamp-2 text-[1.05rem] leading-snug md:text-[1.3rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
+        <h3 className="line-clamp-2 text-[1rem] leading-snug md:text-[1.18rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
       </div>
       <div className="mt-2 flex items-baseline justify-center gap-2 px-2 font-sans text-sm md:text-base">
         <span className="font-medium tracking-wide">{formatMAD(Number(p.price), lang)}</span>

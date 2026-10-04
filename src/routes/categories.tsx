@@ -20,15 +20,20 @@ export function CategoryGrid() {
   const { lang } = useI18n();
   const { data: cats } = useSuspenseQuery(categoriesQuery);
     return (
-    <div className="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-8">
+    <div className="grid grid-cols-3 gap-2 md:gap-6 lg:gap-8">
       {cats.filter((c) => c.is_active).map((c) => {
         const img = c.image;
+        const name = lang === "ar" ? c.name_ar : c.name_fr;
         return (
-          <Link key={c.id} to="/shop" search={{ c: c.slug }} className="group block">
-            <div className="card-lux aspect-[3/4] overflow-hidden bg-card">
-              {img && <img src={productImage(img)} alt={lang === "ar" ? c.name_ar : c.name_fr} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />}
+          <Link key={c.id} to="/shop" search={{ c: c.slug }} className="card-lux group relative block aspect-[3/4] min-w-0 overflow-hidden border border-border/40 bg-card">
+            {img && <img src={productImage(img)} alt={name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-foreground/60 via-foreground/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-1.5 pb-3 text-center text-background md:px-4 md:pb-8">
+              <p className="text-[0.72rem] leading-tight uppercase tracking-[0.06em] md:text-2xl md:tracking-[0.08em] lg:text-[1.75rem]" style={{ fontFamily: "var(--font-display)" }}>{name}</p>
+              <span className="mt-1.5 font-sans text-[0.5rem] tracking-[0.18em] uppercase md:mt-3 md:text-[0.72rem] md:tracking-[0.28em]">
+                {lang === "ar" ? "اكتشفي ←" : "Découvrir →"}
+              </span>
             </div>
-            <p className="mt-2 text-center text-sm md:mt-4 md:text-2xl" style={{ fontFamily: "var(--font-display)" }}>{lang === "ar" ? c.name_ar : c.name_fr}</p>
           </Link>
         );
       })}

@@ -6,9 +6,9 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Catégories — THÉRAVÉN" },
-      { name: "description", content: "Soins visage, sérums, corps et parfums THÉRAVÉN." },
-      { property: "og:title", content: "Catégories — THÉRAVÉN" },
+      { title: "Catégories — THÉRAVÈNE" },
+      { name: "description", content: "Soins visage, sérums, corps et parfums THÉRAVÈNE." },
+      { property: "og:title", content: "Catégories — THÉRAVÈNE" },
       { property: "og:description", content: "Explorez nos univers de soin." },
     ],
   }),

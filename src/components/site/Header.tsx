@@ -9,8 +9,8 @@ import { settingsQuery } from "@/lib/settings";
 
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
-  if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="THÉRAVÉN" className={`h-8 w-auto ${className}`} />;
-  return <span className={`tracking-[0.16em] ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>;
+  if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="THÉRAVÈNE" className={`h-8 w-auto ${className}`} />;
+  return <span className={`tracking-[0.16em] ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>;
 }
 
 export function Header() {

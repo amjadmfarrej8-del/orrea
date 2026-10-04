@@ -8,7 +8,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
     const { data } = await supabase.rpc("has_role", { _user_id: context.user.id, _role: "admin" });
     if (!data) throw redirect({ to: "/account" });
   },
-  head: () => ({ meta: [{ title: "Administration — THÉRAVÉN" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Administration — THÉRAVÈNE" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 
@@ -48,13 +48,13 @@ function AdminLayout() {
   return (
     <div className="min-h-screen bg-card" dir="ltr">
       <div className="flex items-center justify-between border-b border-border bg-background px-5 py-4 md:hidden">
-        <span className="tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>
+        <span className="tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>
         <button onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
       </div>
       {open && <div className="border-b border-border bg-background p-4 md:hidden">{links}</div>}
       <div className="flex">
         <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-e border-border bg-background p-6 md:block">
-          <p className="mb-1 text-2xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</p>
+          <p className="mb-1 text-2xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</p>
           <p className="eyebrow mb-10">Administration</p>
           {links}
         </aside>

@@ -23,7 +23,7 @@ export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories"
 export const defaultSettings: Settings = {
   theme: { background: "#f8f5ef", foreground: "#2b2724", primary: "#2b2724", primary_hover: "#4a433d", secondary: "#ece6dc", accent: "#e5dccb", champagne: "#c2a77c", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
   store: { shipping_fee: 35, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
-  seo: { title_fr: "THÉRAVÉN", title_ar: "THÉRAVÉN", description_fr: "", description_ar: "", og_image: "" },
+  seo: { title_fr: "THÉRAVÈNE", title_ar: "THÉRAVÈNE", description_fr: "", description_ar: "", og_image: "" },
   homepage: { sections: [] },
 };
 

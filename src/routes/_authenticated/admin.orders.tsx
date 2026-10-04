@@ -63,7 +63,7 @@ function Orders() {
                   <div className="space-y-1">
                     <p className="eyebrow mb-2">Client</p>
                     <p>{o.customer_name}</p>
-                    <p><a href={`tel:${o.phone}`} className="link-lux">{o.phone}</a> · <a href={waLink(o.phone.startsWith("0") ? "212" + o.phone.slice(1) : o.phone, `Bonjour ${o.customer_name}, THÉRAVÉN concernant votre commande ${o.order_number}.`)} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a></p>
+                    <p><a href={`tel:${o.phone}`} className="link-lux">{o.phone}</a> · <a href={waLink(o.phone.startsWith("0") ? "212" + o.phone.slice(1) : o.phone, `Bonjour ${o.customer_name}, THÉRAVÈNE concernant votre commande ${o.order_number}.`)} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a></p>
                     {o.email && <p>{o.email}</p>}
                     <p>{o.address}, {o.city}</p>
                     {o.notes && <p className="italic text-muted-foreground">« {o.notes} »</p>}

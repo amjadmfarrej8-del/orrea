@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
     return { seo: s.seo };
   },
   head: ({ loaderData }) => {
-    const title = loaderData?.seo.title_fr || "THÉRAVÉN — Haute cosmétique";
+    const title = loaderData?.seo.title_fr || "THÉRAVÈNE — Haute cosmétique";
     const desc = loaderData?.seo.description_fr || "Soins de haute cosmétique d'inspiration française.";
     const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
     return {
@@ -90,7 +90,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="relative">
           <picture>
             <source media="(min-width:768px)" srcSet={sec.image_desktop || sec.image || hero} />
-            <img src={sec.image || hero} alt="THÉRAVÉN" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
+            <img src={sec.image || hero} alt="THÉRAVÈNE" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
           </picture>
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
             <div className="max-w-lg animate-rise bg-background/30 p-7 md:bg-transparent md:p-0 lg:max-w-xl">
@@ -127,7 +127,7 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="pt-14 md:pt-32 xl:pt-40">
           <div className="mx-auto mb-6 max-w-[1600px] px-5 text-center md:mb-12 md:px-10 lg:mb-16 lg:px-12 xl:px-16">
-            <p className="eyebrow">{L("Packs THÉRAVÉN", "باكات THÉRAVÉN")}</p>
+            <p className="eyebrow">{L("Packs THÉRAVÈNE", "باكات THÉRAVÈNE")}</p>
             <h2 className="mt-3 md:mt-4 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title || L("Offres", "العروض")}</h2>
           </div>
           <PackCard />
@@ -163,11 +163,11 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="mt-32 xl:mt-40">
           <div className="relative">
-            <img src={sec.image} alt={title || "THÉRAVÉN"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
+            <img src={sec.image} alt={title || "THÉRAVÈNE"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
           </div>
           <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16">
             <div className="plate-lux relative z-10 mx-auto max-w-3xl bg-background px-6 py-8 text-center md:-mt-10 md:px-12 md:py-10">
-              <p className="eyebrow">THÉRAVÉN</p>
+              <p className="eyebrow">THÉRAVÈNE</p>
               <h2 className="mt-4 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
               {text && <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground lg:text-base">{text}</p>}
               {btn && <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-8">{btn}</a>}

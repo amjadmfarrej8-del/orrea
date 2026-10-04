@@ -7,9 +7,9 @@ import { AuthShell, Field } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/forgot-password")({
   head: () => ({
     meta: [
-      { title: "Mot de passe oublié — THÉRAVÉN" },
-      { name: "description", content: "Réinitialisez votre mot de passe THÉRAVÉN." },
-      { property: "og:title", content: "Mot de passe oublié — THÉRAVÉN" },
+      { title: "Mot de passe oublié — THÉRAVÈNE" },
+      { name: "description", content: "Réinitialisez votre mot de passe THÉRAVÈNE." },
+      { property: "og:title", content: "Mot de passe oublié — THÉRAVÈNE" },
       { property: "og:description", content: "Recevez un lien de réinitialisation." },
     ],
   }),

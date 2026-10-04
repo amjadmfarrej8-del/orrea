@@ -62,7 +62,7 @@ function ThemeEditor() {
             </AField>
           </Card>
           <Card className="space-y-5">
-            <ImageUpload label="Logo (remplace le texte THÉRAVÉN)" value={t.logo_url} onChange={(v) => setT({ ...t, logo_url: v })} />
+            <ImageUpload label="Logo (remplace le texte THÉRAVÈNE)" value={t.logo_url} onChange={(v) => setT({ ...t, logo_url: v })} />
             <ImageUpload label="Favicon" value={t.favicon_url} onChange={(v) => setT({ ...t, favicon_url: v })} />
           </Card>
         </div>
@@ -83,7 +83,7 @@ function Preview({ t }: { t: Theme }) {
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="flex items-center justify-between border-b border-border pb-4">
         <span className="text-[0.76rem] tracking-[0.12em] uppercase">Boutique</span>
-        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÉN</span>}
+        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>}
         <span className="text-[0.76rem] tracking-[0.12em] uppercase">Panier</span>
       </div>
       <p className="eyebrow mt-10">Collection 2026</p>

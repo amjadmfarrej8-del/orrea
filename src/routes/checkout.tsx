@@ -11,9 +11,9 @@ import { Summary } from "./cart";
 export const Route = createFileRoute("/checkout")({
   head: () => ({
     meta: [
-      { title: "Commande — THÉRAVÉN" },
-      { name: "description", content: "Finalisez votre commande THÉRAVÉN, paiement à la livraison." },
-      { property: "og:title", content: "Commande — THÉRAVÉN" },
+      { title: "Commande — THÉRAVÈNE" },
+      { name: "description", content: "Finalisez votre commande THÉRAVÈNE, paiement à la livraison." },
+      { property: "og:title", content: "Commande — THÉRAVÈNE" },
       { property: "og:description", content: "Paiement à la livraison partout au Maroc." },
       { name: "robots", content: "noindex" },
     ],

@@ -5,9 +5,9 @@ import { InfoPage } from "@/components/site/InfoPage";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Conditions générales de vente — THÉRAVÉN" },
-      { name: "description", content: "Conditions générales de vente de la boutique THÉRAVÉN." },
-      { property: "og:title", content: "CGV — THÉRAVÉN" },
+      { title: "Conditions générales de vente — THÉRAVÈNE" },
+      { name: "description", content: "Conditions générales de vente de la boutique THÉRAVÈNE." },
+      { property: "og:title", content: "CGV — THÉRAVÈNE" },
       { property: "og:description", content: "Conditions générales de vente." },
     ],
   }),

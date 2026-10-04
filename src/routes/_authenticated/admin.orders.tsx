@@ -4,7 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
-import { ORDER_STATUSES, statusText } from "@/lib/orders";
+import { ORDER_STATUSES, statusText, statusTone, statusSolid } from "@/lib/orders";
 import { waLink } from "@/lib/settings";
 import { productImage } from "@/lib/catalog";
 import { Card, Input, PageTitle, StatusBadge } from "@/components/admin/ui";
@@ -102,7 +102,7 @@ function Orders() {
                     </ul>
                     <div className="mt-5 flex flex-wrap gap-2">
                       {ORDER_STATUSES.map((s) => (
-                        <button key={s} onClick={() => setOrderStatus(o.id, s)} className={`border px-3 py-1.5 text-xs ${o.status === s ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"}`}>
+                        <button key={s} onClick={() => setOrderStatus(o.id, s)} className={`border px-3 py-1.5 text-xs transition-colors ${o.status === s ? statusSolid[s] : `${statusTone[s]} hover:brightness-95`}`}>
                           {statusText(s, "fr")}
                         </button>
                       ))}

@@ -164,7 +164,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="mt-32 xl:mt-40">
           <div className="relative">
             <img src={sec.image} alt={title || "THÉRAVÉN"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-background to-transparent md:h-24" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-16 bg-gradient-to-t from-background to-transparent md:block" />
           </div>
           <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16">
             <div className="plate-lux relative z-10 mx-auto max-w-3xl bg-background px-6 py-8 text-center md:-mt-10 md:px-12 md:py-10">

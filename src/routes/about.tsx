@@ -5,9 +5,9 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "La Maison — THÉRAVÉN" },
-      { name: "description", content: "L'histoire et la philosophie de THÉRAVÉN, maison de haute cosmétique." },
-      { property: "og:title", content: "La Maison — THÉRAVÉN" },
+      { title: "La Maison — THÉRAVÈNE" },
+      { name: "description", content: "L'histoire et la philosophie de THÉRAVÈNE, maison de haute cosmétique." },
+      { property: "og:title", content: "La Maison — THÉRAVÈNE" },
       { property: "og:description", content: "Rigueur de la formulation française, richesse des ingrédients précieux." },
     ],
   }),

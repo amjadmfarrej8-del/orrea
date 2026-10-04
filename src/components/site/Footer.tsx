@@ -43,7 +43,7 @@ export function Footer() {
           {hydrated && store?.email && <a href={`mailto:${store.email}`}>{store.email}</a>}
           {hydrated && store && <span>{lang === "ar" ? store.address_ar : store.address_fr}</span>}
           <div className="flex gap-4 pt-2">
-            {hydrated && store?.whatsapp && <a href={waLink(store.whatsapp, "Bonjour THÉRAVÉN")} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a>}
+            {hydrated && store?.whatsapp && <a href={waLink(store.whatsapp, "Bonjour THÉRAVÈNE")} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a>}
             {hydrated && store?.instagram && <a href={store.instagram} target="_blank" rel="noreferrer" className="link-lux">Instagram</a>}
             {hydrated && store?.facebook && <a href={store.facebook} target="_blank" rel="noreferrer" className="link-lux">Facebook</a>}
             {hydrated && store?.tiktok && <a href={store.tiktok} target="_blank" rel="noreferrer" className="link-lux">TikTok</a>}
@@ -51,7 +51,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} THÉRAVÉN. {t.rights}
+        © {new Date().getFullYear()} THÉRAVÈNE. {t.rights}
       </div>
     </footer>
   );

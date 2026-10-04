@@ -14,10 +14,10 @@ export const Route = createFileRoute("/shop")({
   }),
   head: () => ({
     meta: [
-      { title: "Boutique — THÉRAVÉN" },
-      { name: "description", content: "Toute la collection THÉRAVÉN : soins visage, sérums, corps et parfums." },
-      { property: "og:title", content: "Boutique — THÉRAVÉN" },
-      { property: "og:description", content: "Découvrez toute la collection de haute cosmétique THÉRAVÉN." },
+      { title: "Boutique — THÉRAVÈNE" },
+      { name: "description", content: "Toute la collection THÉRAVÈNE : soins visage, sérums, corps et parfums." },
+      { property: "og:title", content: "Boutique — THÉRAVÈNE" },
+      { property: "og:description", content: "Découvrez toute la collection de haute cosmétique THÉRAVÈNE." },
     ],
   }),
   loader: ({ context }) =>

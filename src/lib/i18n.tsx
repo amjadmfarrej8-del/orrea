@@ -11,7 +11,7 @@ const dict = {
     discover: "Découvrir la collection",
     featured: "La sélection", bestsellers: "Les incontournables",
     viewAll: "Tout voir",
-    ritualEyebrow: "Le rituel THÉRAVÉN",
+    ritualEyebrow: "Le rituel THÉRAVÈNE",
     ritualTitle: "Trois gestes, une peau transformée.",
     ritualText: "Nettoyer, révéler, nourrir. Un rituel pensé comme un moment de soin pur, où chaque texture se fond dans la peau.",
     values: ["Formules clean", "Testé dermatologiquement", "Livraison partout au Maroc", "Paiement à la livraison"],
@@ -29,7 +29,7 @@ const dict = {
     errOutOfStock: "Stock insuffisant pour :", qty: "Qté",
     footerText: "Haute cosmétique d'inspiration française.", rights: "Tous droits réservés.",
     aboutTitle: "Une maison de soin, née d'une exigence.",
-    aboutText: "THÉRAVÉN réunit la rigueur de la formulation française et la richesse des ingrédients précieux. Chaque soin est pensé pour être efficace, sensoriel et respectueux de la peau.",
+    aboutText: "THÉRAVÈNE réunit la rigueur de la formulation française et la richesse des ingrédients précieux. Chaque soin est pensé pour être efficace, sensoriel et respectueux de la peau.",
   },
   ar: {
     shop: "المتجر", about: "الدار", cart: "السلة", home: "الرئيسية",
@@ -39,7 +39,7 @@ const dict = {
     discover: "اكتشفي المجموعة",
     featured: "المختارات", bestsellers: "الأكثر مبيعاً",
     viewAll: "عرض الكل",
-    ritualEyebrow: "طقوس THÉRAVÉN",
+    ritualEyebrow: "طقوس THÉRAVÈNE",
     ritualTitle: "ثلاث خطوات، بشرة متجددة.",
     ritualText: "تنظيف، إشراق، تغذية. طقس صُمم كلحظة عناية خالصة، حيث يذوب كل قوام في البشرة.",
     values: ["تركيبات نظيفة", "مختبر جلدياً", "توصيل لجميع مدن المغرب", "الدفع عند الاستلام"],
@@ -57,7 +57,7 @@ const dict = {
     errOutOfStock: "الكمية غير كافية لـ:", qty: "الكمية",
     footerText: "مستحضرات راقية بإلهام فرنسي.", rights: "جميع الحقوق محفوظة.",
     aboutTitle: "دار عناية وُلدت من الإتقان.",
-    aboutText: "تجمع THÉRAVÉN بين دقة التركيب الفرنسي وغنى المكونات الثمينة. كل منتج مصمم ليكون فعالاً وحسياً ولطيفاً على البشرة.",
+    aboutText: "تجمع THÉRAVÈNE بين دقة التركيب الفرنسي وغنى المكونات الثمينة. كل منتج مصمم ليكون فعالاً وحسياً ولطيفاً على البشرة.",
   },
 } as const;
 

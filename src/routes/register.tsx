@@ -8,10 +8,10 @@ import { AuthShell, Field, GoogleButton } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Créer un compte — THÉRAVÉN" },
-      { name: "description", content: "Créez votre compte THÉRAVÉN pour suivre vos commandes." },
-      { property: "og:title", content: "Créer un compte — THÉRAVÉN" },
-      { property: "og:description", content: "Rejoignez la Maison THÉRAVÉN." },
+      { title: "Créer un compte — THÉRAVÈNE" },
+      { name: "description", content: "Créez votre compte THÉRAVÈNE pour suivre vos commandes." },
+      { property: "og:title", content: "Créer un compte — THÉRAVÈNE" },
+      { property: "og:description", content: "Rejoignez la Maison THÉRAVÈNE." },
     ],
   }),
   component: Register,

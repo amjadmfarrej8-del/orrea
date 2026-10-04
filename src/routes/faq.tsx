@@ -7,9 +7,9 @@ import { InfoPage } from "@/components/site/InfoPage";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "Questions fréquentes — THÉRAVÉN" },
-      { name: "description", content: "Livraison, paiement à la livraison, retours et conseils produits THÉRAVÉN." },
-      { property: "og:title", content: "FAQ — THÉRAVÉN" },
+      { title: "Questions fréquentes — THÉRAVÈNE" },
+      { name: "description", content: "Livraison, paiement à la livraison, retours et conseils produits THÉRAVÈNE." },
+      { property: "og:title", content: "FAQ — THÉRAVÈNE" },
       { property: "og:description", content: "Toutes les réponses à vos questions." },
     ],
   }),

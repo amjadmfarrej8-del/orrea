@@ -35,7 +35,7 @@
   --color-ring: var(--ring);
 }
 
-/* THÉRAVÉN palette — ivory, stone, espresso ink, champagne. */
+/* THÉRAVÈNE palette — ivory, stone, espresso ink, champagne. */
 :root {
   --radius: 2px;
   --background: oklch(0.975 0.008 85);

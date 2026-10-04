@@ -10,9 +10,9 @@ export const Route = createFileRoute("/track")({
   validateSearch: z.object({ n: z.string().max(20).optional() }),
   head: () => ({
     meta: [
-      { title: "Suivi de commande — THÉRAVÉN" },
-      { name: "description", content: "Suivez votre commande THÉRAVÉN avec votre numéro et votre téléphone." },
-      { property: "og:title", content: "Suivi de commande — THÉRAVÉN" },
+      { title: "Suivi de commande — THÉRAVÈNE" },
+      { name: "description", content: "Suivez votre commande THÉRAVÈNE avec votre numéro et votre téléphone." },
+      { property: "og:title", content: "Suivi de commande — THÉRAVÈNE" },
       { property: "og:description", content: "Où en est votre commande ?" },
     ],
   }),

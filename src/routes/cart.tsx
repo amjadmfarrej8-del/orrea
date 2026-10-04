@@ -11,10 +11,10 @@ import { productsQuery } from "@/lib/catalog";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Panier — THÉRAVÉN" },
-      { name: "description", content: "Votre panier THÉRAVÉN." },
-      { property: "og:title", content: "Panier — THÉRAVÉN" },
-      { property: "og:description", content: "Votre sélection de soins THÉRAVÉN." },
+      { title: "Panier — THÉRAVÈNE" },
+      { name: "description", content: "Votre panier THÉRAVÈNE." },
+      { property: "og:title", content: "Panier — THÉRAVÈNE" },
+      { property: "og:description", content: "Votre sélection de soins THÉRAVÈNE." },
       { name: "robots", content: "noindex" },
     ],
   }),

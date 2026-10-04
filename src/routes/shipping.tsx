@@ -8,9 +8,9 @@ import { InfoPage } from "@/components/site/InfoPage";
 export const Route = createFileRoute("/shipping")({
   head: () => ({
     meta: [
-      { title: "Livraison & retours — THÉRAVÉN" },
-      { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour THÉRAVÉN." },
-      { property: "og:title", content: "Livraison & retours — THÉRAVÉN" },
+      { title: "Livraison & retours — THÉRAVÈNE" },
+      { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour THÉRAVÈNE." },
+      { property: "og:title", content: "Livraison & retours — THÉRAVÈNE" },
       { property: "og:description", content: "Livraison partout au Maroc, paiement à la livraison." },
     ],
   }),

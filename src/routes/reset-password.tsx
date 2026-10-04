@@ -7,10 +7,10 @@ import { AuthShell, Field } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
-      { title: "Nouveau mot de passe — THÉRAVÉN" },
+      { title: "Nouveau mot de passe — THÉRAVÈNE" },
       { name: "description", content: "Choisissez un nouveau mot de passe." },
-      { property: "og:title", content: "Nouveau mot de passe — THÉRAVÉN" },
-      { property: "og:description", content: "Choisissez un nouveau mot de passe THÉRAVÉN." },
+      { property: "og:title", content: "Nouveau mot de passe — THÉRAVÈNE" },
+      { property: "og:description", content: "Choisissez un nouveau mot de passe THÉRAVÈNE." },
     ],
   }),
   component: Reset,

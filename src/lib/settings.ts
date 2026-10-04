@@ -14,7 +14,7 @@ export type Seo = { title_fr: string; title_ar: string; description_fr: string; 
 export type Section = {
   id: string; type: string; visible: boolean;
   title_fr?: string | undefined; title_ar?: string | undefined; text_fr?: string | undefined; text_ar?: string | undefined;
-  button_fr?: string | undefined; button_ar?: string | undefined; link?: string | undefined; image?: string | undefined; product_ids?: string[] | undefined;
+  button_fr?: string | undefined; button_ar?: string | undefined; link?: string | undefined; image?: string | undefined; image_desktop?: string | undefined; product_ids?: string[] | undefined;
 };
 export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { sections: Section[] } };
 

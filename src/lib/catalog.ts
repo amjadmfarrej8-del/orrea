@@ -5,6 +5,7 @@ import eyeAsset from "@/assets/theravene-contour-yeux.png.asset.json";
 import gelAsset from "@/assets/theravene-gel-nettoyant.png.asset.json";
 import gelEyeCreamPackAsset from "@/assets/theravene-pack-gel-contour-creme.png.asset.json";
 import gelEyePackAsset from "@/assets/theravene-pack-gel-contour-yeux.png.asset.json";
+import solaireGelEyePackAsset from "@/assets/theravene-pack-solaire-gel-contour.png.asset.json";
 import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
 import solaireAsset from "@/assets/theravene-creme-solaire.png.asset.json";
@@ -22,6 +23,7 @@ Object.assign(localImages, {
   "t-gel": gelAsset.url,
   "t-pack-gel-eye-cream": gelEyeCreamPackAsset.url,
   "t-pack-gel-eye": gelEyePackAsset.url,
+  "t-pack-solaire-gel-eye": solaireGelEyePackAsset.url,
   "t-pack": packAsset.url,
   "t-serum": serumAsset.url,
   "t-solaire": solaireAsset.url,

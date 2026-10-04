@@ -34,6 +34,8 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
       <div className={`mx-auto grid ${grid}`}>
         {packs.map((p) => {
           const out = p.stock === 0;
+          const compare = p.compare_at_price ? Number(p.compare_at_price) : 0;
+          const discount = compare > Number(p.price) ? Math.round((1 - Number(p.price) / compare) * 100) : 0;
           return (
             <article key={p.id} className="card-lux flex h-full min-w-0 flex-col border border-border/60 bg-card">
               <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-transparent p-0 md:bg-background/60 md:p-6 lg:p-8">
@@ -45,9 +47,10 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
                 {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-1.5 min-w-0 text-[0.6rem] tracking-[0.04em] uppercase text-muted-foreground md:mt-4 md:text-[0.8rem] md:tracking-[0.12em]">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto w-full pt-3 md:pt-7">
                   <div className="flex items-baseline justify-center gap-2 md:gap-3">
-                    <span className="text-lg font-semibold md:text-2xl">{formatMAD(Number(p.price), lang)}</span>
-                    {p.compare_at_price && Number(p.compare_at_price) > Number(p.price) && (
-                      <span className="text-[0.66rem] text-muted-foreground line-through md:text-sm">{formatMAD(Number(p.compare_at_price), lang)}</span>
+                    {discount > 0 && <span className="order-1 border border-champagne/60 bg-champagne/10 px-1.5 py-0.5 text-[0.56rem] font-medium tracking-[0.08em] text-ink md:px-2 md:text-[0.72rem]">-{discount}%</span>}
+                    <span className="order-2 text-lg font-semibold md:text-2xl">{formatMAD(Number(p.price), lang)}</span>
+                    {compare > Number(p.price) && (
+                      <span className="order-3 text-[0.66rem] text-muted-foreground line-through md:text-sm">{formatMAD(compare, lang)}</span>
                     )}
                   </div>
                   {p.free_shipping && <p className="mt-1 text-[0.56rem] tracking-[0.08em] uppercase text-muted-foreground md:mt-2 md:text-[0.76rem] md:tracking-[0.12em]">{L("Livraison gratuite", "توصيل مجاني")}</p>}

@@ -119,7 +119,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "categories":
       return (
         <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
-          <h2 className="mb-12 text-4xl md:text-5xl lg:mb-16 xl:text-6xl">{title}</h2>
+          <h2 className="mb-12 text-ink text-4xl md:text-5xl lg:mb-16 xl:text-6xl">{title}</h2>
           <CategoryGrid />
         </section>
       );

@@ -30,7 +30,7 @@ export function CategoryGrid() {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/85 via-background/40 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-1.5 pb-3 text-center text-ink md:px-4 md:pb-8">
               <p className="text-[0.72rem] leading-tight uppercase tracking-[0.06em] md:text-xl md:tracking-[0.08em] lg:text-[1.45rem]" style={{ fontFamily: "var(--font-display)" }}>{name}</p>
-              <span className="mt-1.5 font-sans text-[0.5rem] tracking-[0.18em] uppercase md:mt-3 md:text-[0.72rem] md:tracking-[0.28em]">
+              <span className="mt-1.5 inline-block border border-ink/35 px-3 py-1 font-sans text-[0.5rem] tracking-[0.12em] uppercase transition-colors duration-500 group-hover:border-ink group-hover:bg-ink group-hover:text-background md:mt-3 md:px-4 md:py-1.5 md:text-[0.72rem] md:tracking-[0.28em]">
                 {lang === "ar" ? "اكتشفي ←" : "Découvrir →"}
               </span>
             </div>

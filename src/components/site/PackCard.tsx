@@ -47,7 +47,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
                 {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-1.5 min-w-0 text-[0.6rem] tracking-[0.04em] uppercase text-muted-foreground md:mt-4 md:text-[0.8rem] md:tracking-[0.12em]">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto w-full pt-3 md:pt-7">
                   <div className="flex items-baseline justify-center gap-2 md:gap-3">
-                    {discount > 0 && <span className="order-1 rounded-none border border-champagne/60 bg-champagne/10 px-1.5 py-0.5 text-[0.56rem] font-medium tracking-[0.08em] text-champagne-foreground md:px-2 md:text-[0.72rem]">-{discount}%</span>}
+                    {discount > 0 && <span className="order-1 border border-champagne/60 bg-champagne/10 px-1.5 py-0.5 text-[0.56rem] font-medium tracking-[0.08em] text-ink md:px-2 md:text-[0.72rem]">-{discount}%</span>}
                     <span className="order-2 text-lg font-semibold md:text-2xl">{formatMAD(Number(p.price), lang)}</span>
                     {compare > Number(p.price) && (
                       <span className="order-3 text-[0.66rem] text-muted-foreground line-through md:text-sm">{formatMAD(compare, lang)}</span>

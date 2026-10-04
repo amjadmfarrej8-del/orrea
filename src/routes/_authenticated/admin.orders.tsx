@@ -19,6 +19,15 @@ function Orders() {
     queryKey: ["admin-orders"],
     queryFn: async () => (await supabase.from("orders").select("*, order_items(*)").order("created_at", { ascending: false }).limit(1000)).data ?? [],
   });
+  const productIds = [...new Set(data.flatMap((o) => o.order_items.map((i: any) => i.product_id)).filter(Boolean))];
+  const { data: images = {} } = useQuery({
+    queryKey: ["admin-order-images", productIds],
+    enabled: productIds.length > 0,
+    queryFn: async () => {
+      const { data: rows } = await supabase.from("products").select("id, image").in("id", productIds);
+      return Object.fromEntries((rows ?? []).map((p) => [p.id, productImage(p.image)])) as Record<string, string>;
+    },
+  });
   const list = data.filter((o) => (!status || o.status === status) && (!q || `${o.order_number} ${o.customer_name} ${o.phone} ${o.city}`.toLowerCase().includes(q.toLowerCase())));
 
   const setOrderStatus = async (id: string, s: string) => {

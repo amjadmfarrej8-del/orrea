@@ -38,8 +38,9 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
           const discount = compare > Number(p.price) ? Math.round((1 - Number(p.price) / compare) * 100) : 0;
           return (
             <article key={p.id} className="card-lux flex h-full min-w-0 flex-col border border-border/60 bg-card">
-              <Link to="/products/$slug" params={{ slug: p.slug }} className="block bg-transparent p-0 md:bg-background/60 md:p-6 lg:p-8">
+              <Link to="/products/$slug" params={{ slug: p.slug }} className="relative block bg-transparent p-0 md:bg-background/60 md:p-6 lg:p-8">
                 <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full object-contain" />
+                {discount > 0 && <span className="absolute left-3 top-3 bg-champagne px-2 py-1 text-[0.62rem] font-medium tracking-[0.08em] text-ink md:left-6 md:top-6 md:px-3 md:py-1.5 md:text-[0.8rem]">-{discount}%</span>}
               </Link>
               <div className="flex min-w-0 flex-1 flex-col items-center border-t border-border/60 px-3 py-4 text-center md:px-6 md:py-9 lg:px-8 lg:py-10">
                 <p className="eyebrow text-champagne text-[0.58rem]! tracking-[0.08em]! md:text-[0.78rem]! md:tracking-[0.14em]!">{p.badge && p.badge !== "Pack" ? (ar && p.badge === "Offre exclusive" ? "عرض حصري" : p.badge) : L("Offre exclusive", "عرض حصري")}</p>
@@ -47,7 +48,6 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
                 {(ar ? p.tagline_ar : p.tagline_fr) && <p className="mt-1.5 min-w-0 text-[0.6rem] tracking-[0.04em] uppercase text-muted-foreground md:mt-4 md:text-[0.8rem] md:tracking-[0.12em]">{ar ? p.tagline_ar : p.tagline_fr}</p>}
                 <div className="mt-auto w-full pt-3 md:pt-7">
                   <div className="flex items-baseline justify-center gap-2 md:gap-3">
-                    {discount > 0 && <span className="order-1 border border-champagne/60 bg-champagne/10 px-1.5 py-0.5 text-[0.56rem] font-medium tracking-[0.08em] text-ink md:px-2 md:text-[0.72rem]">-{discount}%</span>}
                     <span className="order-2 text-lg font-semibold md:text-2xl">{formatMAD(Number(p.price), lang)}</span>
                     {compare > Number(p.price) && (
                       <span className="order-3 text-[0.66rem] text-muted-foreground line-through md:text-sm">{formatMAD(compare, lang)}</span>

@@ -46,7 +46,7 @@ function AdminLayout() {
     </nav>
   );
   return (
-    <div className="min-h-screen bg-card" dir="ltr">
+    <div className="min-h-screen bg-card font-sans [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans" dir="ltr">
       <div className="flex items-center justify-between border-b border-border bg-background px-5 py-4 md:hidden">
         <span className="tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>
         <button onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
@@ -55,7 +55,7 @@ function AdminLayout() {
       <div className="flex">
         <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-e border-border bg-background p-6 md:block">
           <p className="mb-1 text-2xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</p>
-          <p className="eyebrow mb-10">Administration</p>
+          <p className="mb-10 text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Administration</p>
           {links}
         </aside>
         <main className="min-w-0 flex-1 p-5 md:p-10">

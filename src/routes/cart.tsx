@@ -44,6 +44,7 @@ function CartPage() {
     <div className="mx-auto grid max-w-6xl gap-14 px-5 pt-16 md:grid-cols-[1fr_340px] md:px-10">
       <div>
         <h1 className="text-5xl">{t.cart}</h1>
+        <FreeBar subtotal={subtotal} free={hasFreeShipping(items) ? 0 : (st?.store.free_shipping_threshold ?? 500)} />
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {items.map((i) => (
             <li key={i.id} className="flex gap-5 py-6">
@@ -91,5 +92,17 @@ export function Summary({ subtotal, shipping, discount = 0, children }: { subtot
       <p className="mt-4 text-xs text-muted-foreground">{L(`Livraison offerte dès ${st?.store.free_shipping_threshold ?? 500} MAD`, `توصيل مجاني ابتداءً من ${st?.store.free_shipping_threshold ?? 500} درهم`)}</p>
       {children}
     </aside>
+  );
+}
+
+function FreeBar({ subtotal, free }: { subtotal: number; free: number }) {
+  const { L, lang } = useI18n();
+  const left = Math.max(0, free - subtotal);
+  const pct = free === 0 ? 100 : Math.min(100, (subtotal / free) * 100);
+  return (
+    <div className="mt-8 border border-border bg-card p-4 font-sans text-sm">
+      <p>{left > 0 ? L(`Plus que ${formatMAD(left, lang)} pour la livraison offerte`, `تبقى ${formatMAD(left, lang)} للتوصيل المجاني`) : L("Livraison offerte sur votre commande", "التوصيل مجاني لطلبك")}</p>
+      <div className="mt-3 h-1 bg-border"><div className="h-1 bg-champagne transition-all" style={{ width: `${pct}%` }} /></div>
+    </div>
   );
 }

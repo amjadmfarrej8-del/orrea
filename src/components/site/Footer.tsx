@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink } from "@/lib/settings";
 import { Logo } from "./Header";
+import { Reassurance } from "./Reassurance";
 
 export function Footer() {
   const { t, L, lang } = useI18n();
@@ -14,6 +15,7 @@ export function Footer() {
   const col = "flex flex-col gap-3 text-sm text-muted-foreground";
   return (
     <footer className="mt-32 border-t border-border bg-card">
+      <div className="border-b border-border"><div className="mx-auto max-w-[1600px]"><Reassurance /></div></div>
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-4 md:px-10">
         <div>
           <Logo className="text-3xl" />
@@ -22,6 +24,7 @@ export function Footer() {
         <div className={col}>
           <p className="eyebrow">{L("Maison", "الدار")}</p>
           <Link to="/shop" className="link-lux self-start">{t.shop}</Link>
+          <Link to="/offres" className="link-lux self-start">{L("Offres", "العروض")}</Link>
           <Link to="/categories" className="link-lux self-start">{L("Catégories", "الفئات")}</Link>
           <Link to="/about" className="link-lux self-start">{t.about}</Link>
           <Link to="/contact" className="link-lux self-start">{L("Contact", "اتصل بنا")}</Link>

@@ -80,7 +80,21 @@ function Orders() {
                   <div>
                     <p className="eyebrow mb-2">Articles</p>
                     <ul className="space-y-1">
-                      {o.order_items.map((i) => <li key={i.id} className="flex justify-between"><span>{i.product_name} × {i.quantity}</span><span>{formatMAD(Number(i.unit_price) * i.quantity, "fr")}</span></li>)}
+                      {o.order_items.map((i: any) => {
+                        const img = i.product_id ? images[i.product_id] : undefined;
+                        const isComponent = Number(i.unit_price) === 0;
+                        return (
+                          <li key={i.id} className="flex items-center gap-3">
+                            {img ? (
+                              <img src={img} alt={i.product_name} className={`shrink-0 border border-border bg-background object-contain ${isComponent ? "h-7 w-7 opacity-70" : "h-11 w-11"}`} />
+                            ) : (
+                              <span className={`shrink-0 border border-border bg-muted ${isComponent ? "h-7 w-7" : "h-11 w-11"}`} />
+                            )}
+                            <span className="min-w-0 flex-1 truncate">{i.product_name} × {i.quantity}</span>
+                            <span>{formatMAD(Number(i.unit_price) * i.quantity, "fr")}</span>
+                          </li>
+                        );
+                      })}
                       <li className="flex justify-between text-muted-foreground"><span>Livraison</span><span>{formatMAD(Number(o.shipping), "fr")}</span></li>
                       {Number(o.discount) > 0 && <li className="flex justify-between text-muted-foreground"><span>Remise {o.coupon_code}</span><span>−{formatMAD(Number(o.discount), "fr")}</span></li>}
                       <li className="flex justify-between border-t border-border pt-2"><span>Total (paiement à la livraison)</span><span>{formatMAD(Number(o.total), "fr")}</span></li>

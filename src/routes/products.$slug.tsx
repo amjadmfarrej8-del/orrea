@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { settingsQuery, waLink } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
 import { PackCard, isPack } from "@/components/site/PackCard";
+import { Reassurance } from "@/components/site/Reassurance";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: async ({ context, params }) => {
@@ -69,7 +70,8 @@ function ProductPage() {
   };
   const tabs = (Object.keys(content) as (typeof tab)[]).filter((k) => content[k]);
   const discount = p.compare_at_price && Number(p.compare_at_price) > Number(p.price) ? Math.round((1 - Number(p.price) / Number(p.compare_at_price)) * 100) : 0;
-  const related = all.filter((x) => x.id !== p.id && x.category_id === p.category_id).concat(all.filter((x) => x.id !== p.id && x.category_id !== p.category_id)).slice(0, 4);
+  const singles = all.filter((x) => !isPack(x));
+  const related = singles.filter((x) => x.id !== p.id && x.category_id === p.category_id).concat(singles.filter((x) => x.id !== p.id && x.category_id !== p.category_id)).slice(0, 4);
 
   const item = { id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping };
   const onAdd = () => {
@@ -85,10 +87,13 @@ function ProductPage() {
 
   return (
     <>
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-10 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
+      <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
+        <Link to="/" className="hover:text-foreground">{L("Accueil", "الرئيسية")}</Link> / <Link to={isPack(p) ? "/offres" : "/shop"} className="hover:text-foreground">{isPack(p) ? L("Offres", "العروض") : t.shop}</Link> / <span className="text-foreground">{name}</span>
+      </nav>
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-6 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
         <div>
           <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[img] ?? null)}>
-            <img src={images[img]} alt={name} width={912} height={1104} className="aspect-[4/5] w-full object-cover" />
+            <img src={images[img]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
           </button>
           {images.length > 1 && (
             <div className="mt-3 flex gap-3">
@@ -143,6 +148,7 @@ function ProductPage() {
             </a>
           )}
 
+          <div className="mt-8 border border-border"><Reassurance compact /></div>
           <div className="mt-12 border-t border-border">
             <div className="flex flex-wrap gap-x-7 gap-y-3 pt-6">
               {tabs.map((k) => (

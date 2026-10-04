@@ -9,7 +9,7 @@ export function ProductCard({ p }: { p: Product }) {
   const { add } = useCart();
   const [done, setDone] = useState(false);
   return (
-    <Link to="/products/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col">
+    <Link to="/products/$slug" params={{ slug: p.slug }} className="card-lux group flex h-full flex-col border border-border/60 bg-card">
       <div className="relative m-0 w-full shrink-0 overflow-hidden border-0 bg-transparent p-0">
         <img
           src={productImage(p.image)}
@@ -23,19 +23,19 @@ export function ProductCard({ p }: { p: Product }) {
           </span>
         )}
       </div>
-      <div className="mt-3 min-h-[4.5rem] md:min-h-[5rem]">
+      <div className="mt-3 min-h-[4.5rem] px-3 md:min-h-[5rem] md:px-4">
         <h3 className="line-clamp-2 text-xl leading-tight md:text-[1.4rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
         {(lang === "ar" ? p.tagline_ar : p.tagline_fr) && (
           <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">{lang === "ar" ? p.tagline_ar : p.tagline_fr}</p>
         )}
       </div>
-      <div className="mt-1 flex items-baseline gap-3 text-base">
+      <div className="mt-1 flex items-baseline gap-3 px-3 text-base md:px-4">
         <span className="font-semibold">{formatMAD(Number(p.price), lang)}</span>
         {p.compare_at_price && (
           <span className="text-xs text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
         )}
       </div>
-      <div className="mt-auto pt-2.5">
+      <div className="mt-auto px-3 pb-4 pt-2.5 md:px-4">
       <button
         type="button"
         disabled={p.stock === 0}

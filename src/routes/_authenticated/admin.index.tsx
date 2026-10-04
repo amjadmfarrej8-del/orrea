@@ -38,7 +38,7 @@ function Overview() {
       <PageTitle title="Vue d'ensemble" />
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {stats.map(([k, v]) => (
-          <Card key={k}><p className="eyebrow">{k}</p><p className="mt-3 text-3xl" style={{ fontFamily: "var(--font-display)" }}>{v}</p></Card>
+          <Card key={k}><p className="text-xs font-medium uppercase tracking-[0.06em] text-muted-foreground">{k}</p><p className="mt-3 text-2xl font-semibold md:text-3xl">{v}</p></Card>
         ))}
       </div>
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.6fr_1fr]">

@@ -51,7 +51,6 @@ function ProductPage() {
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [img, setImg] = useState(0);
   const [zoom, setZoom] = useState<string | null>(null);
   const [tab, setTab] = useState<"description" | "benefits" | "ingredients" | "usage" | "warnings">("description");
   if (!p) return null;
@@ -83,8 +82,6 @@ function ProductPage() {
     add(item, qty);
     navigate({ to: "/checkout" });
   };
-  const url = typeof window !== "undefined" ? window.location.href : "";
-
   return (
     <>
       <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
@@ -92,8 +89,8 @@ function ProductPage() {
       </nav>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-6 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
         <div>
-          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[img] ?? null)}>
-            <img src={images[img]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
+          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[0] ?? null)}>
+            <img src={images[0]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
           </button>
         </div>
         <div className="md:sticky md:top-32 md:self-start">

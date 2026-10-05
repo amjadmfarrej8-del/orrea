@@ -12,6 +12,7 @@ import solaireAsset from "@/assets/theravene-creme-solaire.png.asset.json";
 import eyeCategoryAsset from "@/assets/theravene-categorie-soins-yeux.png.asset.json";
 import faceCategoryAsset from "@/assets/theravene-cat-visage.png.asset.json";
 import sensiblesCategoryAsset from "@/assets/theravene-cat-sensibles.png.asset.json";
+import solaireCategoryAsset from "@/assets/theravene-categorie-protection-solaire.png";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
@@ -30,6 +31,7 @@ Object.assign(localImages, {
   "t-cat-yeux": eyeCategoryAsset.url,
   "t-cat-visage": faceCategoryAsset.url,
   "t-cat-sensibles": sensiblesCategoryAsset.url,
+  "t-cat-solaire": solaireCategoryAsset,
 });
 export const productImage = (key: string) => localImages[key] ?? key;
 

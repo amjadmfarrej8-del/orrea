@@ -51,7 +51,6 @@ function ProductPage() {
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const [img, setImg] = useState(0);
   const [zoom, setZoom] = useState<string | null>(null);
   const [tab, setTab] = useState<"description" | "benefits" | "ingredients" | "usage" | "warnings">("description");
   if (!p) return null;
@@ -83,8 +82,6 @@ function ProductPage() {
     add(item, qty);
     navigate({ to: "/checkout" });
   };
-  const url = typeof window !== "undefined" ? window.location.href : "";
-
   return (
     <>
       <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
@@ -92,18 +89,9 @@ function ProductPage() {
       </nav>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-6 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
         <div>
-          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[img] ?? null)}>
-            <img src={images[img]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
+          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[0] ?? null)}>
+            <img src={images[0]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
           </button>
-          {images.length > 1 && (
-            <div className="mt-3 flex gap-3">
-              {images.map((src, i) => (
-                <button key={i} onClick={() => setImg(i)} className={`h-20 w-16 overflow-hidden border ${i === img ? "border-foreground" : "border-transparent"}`}>
-                  <img src={src} alt="" className="h-full w-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
         </div>
         <div className="md:sticky md:top-32 md:self-start">
           <p className="eyebrow">{p.size}{p.sku && ` · ${p.sku}`}</p>
@@ -132,14 +120,8 @@ function ProductPage() {
               {p.stock === 0 ? t.outOfStock : added ? t.added : t.addToCart}
             </button>
           </div>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <button className="btn-ghost-lux" disabled={p.stock === 0} onClick={buyNow}>{L("Acheter", "اشتري الآن")}</button>
-            {s?.store.whatsapp && (
-              <a className="btn-ghost-lux" target="_blank" rel="noreferrer"
-                href={waLink(s.store.whatsapp, L(`Bonjour, je souhaite commander : ${p.name_fr} × ${qty} (${p.price} MAD). ${url}`, `مرحباً، أرغب في طلب: ${p.name_ar} × ${qty} (${p.price} درهم). ${url}`))}>
-                {L("Commander via WhatsApp", "اطلبي عبر واتساب")}
-              </a>
-            )}
+          <div className="mt-3">
+            <button className="btn-ghost-lux w-full" disabled={p.stock === 0} onClick={buyNow}>{L("Acheter", "اشتري الآن")}</button>
           </div>
           {s?.store.whatsapp && (
             <a className="link-lux mt-4 inline-block text-xs text-muted-foreground" target="_blank" rel="noreferrer"

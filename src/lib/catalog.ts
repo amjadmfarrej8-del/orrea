@@ -8,7 +8,7 @@ import gelEyePackAsset from "@/assets/theravene-pack-gel-contour-yeux-v2.png.ass
 import solaireGelEyePackAsset from "@/assets/theravene-pack-solaire-gel-contour-v2.png.asset.json";
 import packAsset from "@/assets/theravene-pack-zones-intimes.png.asset.json";
 import serumAsset from "@/assets/theravene-serum-zones-intimes.png.asset.json";
-import solaireAsset from "@/assets/theravene-creme-solaire.png.asset.json";
+import solaireAsset from "@/assets/theravene-creme-solaire-v2.png.asset.json";
 import eyeCategoryAsset from "@/assets/theravene-categorie-soins-yeux.png.asset.json";
 import faceCategoryAsset from "@/assets/theravene-cat-visage.png.asset.json";
 import sensiblesCategoryAsset from "@/assets/theravene-cat-sensibles.png.asset.json";

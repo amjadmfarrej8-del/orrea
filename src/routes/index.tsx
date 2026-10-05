@@ -10,6 +10,7 @@ import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink, type Section } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CategoryGrid } from "./categories";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
@@ -108,10 +109,27 @@ function SectionView({ sec }: { sec: Section }) {
       return <div className="bg-champagne/25 px-5 py-4 text-center text-sm tracking-[0.08em]">{title}</div>;
     case "benefits":
       return (
-        <section className="border-b border-border">
-          <ul className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
-            {t.values.map((v) => (
-              <li key={v} className="border-border px-4 py-6 text-center text-[0.76rem] tracking-[0.12em] uppercase text-muted-foreground [&:not(:last-child)]:border-e">{v}</li>
+        <section className="border-y border-border bg-card/60">
+          <ul className="mx-auto grid max-w-[1600px] grid-cols-2 md:grid-cols-4">
+            {t.values.map((v, i) => (
+              <li
+                key={v}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-4 px-4 py-9 text-center md:gap-5 md:px-8 md:py-14",
+                  i % 2 === 0 && "border-e border-border",
+                  i < 2 && "border-b border-border md:border-b-0",
+                  i === 1 && "md:border-e md:border-border",
+                )}
+              >
+                <span aria-hidden className="flex shrink-0 items-center gap-2">
+                  <span className="h-px w-5 bg-champagne/50" />
+                  <span className="h-1 w-1 rotate-45 bg-champagne" />
+                  <span className="h-px w-5 bg-champagne/50" />
+                </span>
+                <span className="font-sans text-[0.68rem] font-medium leading-[1.6] tracking-[0.2em] uppercase text-foreground md:text-[0.74rem] md:tracking-[0.24em]">
+                  {v}
+                </span>
+              </li>
             ))}
           </ul>
         </section>

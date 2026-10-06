@@ -59,12 +59,24 @@ function Orders() {
   };
 
   const exportCsv = () => {
-    const rows = [["Numéro", "Date", "Client", "Téléphone", "Ville", "Adresse", "Total", "Statut"], ...list.map((o) => [o.order_number, o.created_at, o.customer_name, o.phone, o.city, o.address, o.total, o.status])];
-    const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const clean = (v: unknown) => String(v ?? "").trim();
+    const rows = list
+      .map((o) => {
+        const name = clean(o.customer_name);
+        const phone = clean(o.phone);
+        const address = [clean(o.city), clean(o.address)].filter(Boolean).join(", ");
+        if (!name && !phone && !address) return null; // ignorer les commandes sans données client
+        return [name, phone, address];
+      })
+      .filter((r): r is string[] => r !== null);
+    const escape = (c: string) => `"${c.replace(/"/g, '""')}"`;
+    // Séparateur ";" (standard Excel français) + BOM UTF-8 pour les accents et l'arabe
+    const csv = "\uFEFF" + [["Nom complet", "N° téléphone", "Adresse complète"], ...rows].map((r) => r.map(escape).join(";")).join("\r\n");
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-    a.download = "commandes-theraven.csv";
+    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    a.download = "commandes-theravene.csv";
     a.click();
+    URL.revokeObjectURL(a.href);
   };
 
   return (

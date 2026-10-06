@@ -3,7 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
-import { AuthShell, Field, GoogleButton } from "@/components/site/AuthShell";
+import { AuthShell, Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -56,7 +56,6 @@ function Register() {
         <Field label={L("Mot de passe", "كلمة المرور")} type="password" value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} />
         {err && <p className="text-sm text-destructive">{err}</p>}
         <button disabled={loading} className="btn-lux w-full">{loading ? "…" : L("Créer mon compte", "إنشاء حسابي")}</button>
-        <GoogleButton onError={setErr} />
       </form>
       <p className="mt-10 text-center text-sm text-muted-foreground">
         {L("Déjà inscrite ?", "لديك حساب؟")} <Link to="/login" className="link-lux text-foreground">{L("Connexion", "تسجيل الدخول")}</Link>

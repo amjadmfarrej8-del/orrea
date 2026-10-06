@@ -4,7 +4,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
 import { safeRedirect, useAuth } from "@/lib/auth";
-import { AuthShell, Field, GoogleButton } from "@/components/site/AuthShell";
+import { AuthShell, Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/login")({
   validateSearch: z.object({ redirect: z.string().optional() }),
@@ -50,7 +50,6 @@ function Login() {
         <div className="text-end"><Link to="/forgot-password" className="link-lux text-xs text-muted-foreground">{L("Mot de passe oublié ?", "نسيت كلمة المرور؟")}</Link></div>
         {err && <p className="text-sm text-destructive">{err}</p>}
         <button disabled={loading} className="btn-lux w-full">{loading ? "…" : L("Se connecter", "دخول")}</button>
-        <GoogleButton onError={setErr} />
       </form>
       <p className="mt-10 text-center text-sm text-muted-foreground">
         {L("Pas encore de compte ?", "ليس لديك حساب؟")} <Link to="/register" className="link-lux text-foreground">{L("Créer un compte", "إنشاء حساب")}</Link>

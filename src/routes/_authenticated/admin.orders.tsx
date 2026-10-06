@@ -1,7 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { DateRange } from "react-day-picker";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { CalendarIcon, X } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
 import { ORDER_STATUSES, statusText, statusTone, statusSolid } from "@/lib/orders";
@@ -16,6 +22,7 @@ function Orders() {
   const [status, setStatus] = useState("");
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const { data = [] } = useQuery({
     queryKey: ["admin-orders"],
     queryFn: async () => (await supabase.from("orders").select("*, order_items(*)").order("created_at", { ascending: false }).limit(1000)).data ?? [],
@@ -29,7 +36,20 @@ function Orders() {
       return Object.fromEntries((rows ?? []).map((p) => [p.id, productImage(p.image)])) as Record<string, string>;
     },
   });
-  const list = data.filter((o) => (!status || o.status === status) && (!q || `${o.order_number} ${o.customer_name} ${o.phone} ${o.city}`.toLowerCase().includes(q.toLowerCase())));
+  const list = data.filter((o) => {
+    if (status && o.status !== status) return false;
+    if (q && !`${o.order_number} ${o.customer_name} ${o.phone} ${o.city}`.toLowerCase().includes(q.toLowerCase())) return false;
+    if (dateRange?.from) {
+      const created = new Date(o.created_at).getTime();
+      const from = new Date(dateRange.from); from.setHours(0, 0, 0, 0);
+      if (created < from.getTime()) return false;
+      if (dateRange.to) {
+        const to = new Date(dateRange.to); to.setHours(23, 59, 59, 999);
+        if (created > to.getTime()) return false;
+      } else if (created > from.getTime() + 86_399_000) return false;
+    }
+    return true;
+  });
 
   const setOrderStatus = async (id: string, s: string) => {
     const { error } = await supabase.from("orders").update({ status: s }).eq("id", id);
@@ -50,12 +70,42 @@ function Orders() {
   return (
     <div>
       <PageTitle title="Commandes"><button onClick={exportCsv} className="btn-ghost-lux !px-4 !py-2">Exporter CSV</button></PageTitle>
-      <div className="mb-6 flex flex-wrap gap-3">
+      <div className="mb-6 flex flex-wrap items-center gap-3">
         <Input placeholder="Rechercher (numéro, nom, téléphone…)" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-xs" />
-        <select value={status} onChange={(e) => setStatus(e.target.value)} className="border border-input bg-background px-3 text-sm">
+        <select value={status} onChange={(e) => setStatus(e.target.value)} className="border border-input bg-background px-3 py-2 text-sm">
           <option value="">Tous les statuts</option>
           {ORDER_STATUSES.map((s) => <option key={s} value={s}>{statusText(s, "fr")}</option>)}
         </select>
+        <Popover>
+          <PopoverTrigger asChild>
+            <button type="button" className="flex items-center gap-2 border border-input bg-background px-3 py-2 text-sm hover:border-foreground">
+              <CalendarIcon className="h-4 w-4 shrink-0" />
+              {dateRange?.from
+                ? dateRange.to
+                  ? `${format(dateRange.from, "d MMM yyyy", { locale: fr })} — ${format(dateRange.to, "d MMM yyyy", { locale: fr })}`
+                  : format(dateRange.from, "d MMM yyyy", { locale: fr })
+                : "Toutes les dates"}
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="range"
+              selected={dateRange}
+              onSelect={setDateRange}
+              numberOfMonths={1}
+              initialFocus
+              className="p-3 pointer-events-auto"
+            />
+          </PopoverContent>
+        </Popover>
+        {(dateRange?.from || dateRange?.to) && (
+          <button type="button" onClick={() => setDateRange(undefined)} className="flex items-center gap-1.5 px-2 py-2 text-xs text-muted-foreground link-lux">
+            <X className="h-3.5 w-3.5" /> Effacer les dates
+          </button>
+        )}
+        <span className="ml-auto hidden text-xs tracking-[0.08em] text-muted-foreground uppercase md:block">
+          {list.length} commande{list.length > 1 ? "s" : ""}
+        </span>
       </div>
       <Card className="!p-0">
         <ul className="divide-y divide-border">

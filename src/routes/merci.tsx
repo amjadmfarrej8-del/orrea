@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { formatMAD, useI18n } from "@/lib/i18n";
+import { fullAddress } from "@/lib/orders";
 import { settingsQuery, waLink } from "@/lib/settings";
 
 export const Route = createFileRoute("/merci")({
@@ -50,7 +51,7 @@ function Thanks() {
             <div className="flex justify-between text-base"><dt>{t.total}</dt><dd>{formatMAD(Number(o.total), lang)}</dd></div>
             <div className="flex justify-between"><dt>{L("Paiement", "الدفع")}</dt><dd>{t.cod}</dd></div>
           </dl>
-          <p className="mt-4 text-muted-foreground">{o.address}, {o.city}</p>
+          <p className="mt-4 text-muted-foreground">{fullAddress(o.city, o.address)}</p>
         </div>
       )}
       <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:justify-center">

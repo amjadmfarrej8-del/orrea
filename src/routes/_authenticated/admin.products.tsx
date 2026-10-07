@@ -42,7 +42,7 @@ function Products() {
       <Card className="!p-0 overflow-x-auto">
         <table className="w-full min-w-[720px] text-sm">
           <thead className="border-b border-border text-start text-xs text-muted-foreground">
-            <tr><th className="p-4 text-start">Produit</th><th className="p-4 text-start">SKU</th><th className="p-4 text-start">Catégorie</th><th className="p-4 text-start">Prix</th><th className="p-4 text-start">Stock</th><th className="p-4 text-start">En ligne</th></tr>
+            <tr><th className="p-4 text-start">Produit</th><th className="p-4 text-start">SKU</th><th className="p-4 text-start">Catégorie</th><th className="p-4 text-start">Prix</th><th className="p-4 text-start">Stock</th><th className="p-4 text-start">En ligne</th><th className="p-4 text-end">Actions</th></tr>
           </thead>
           <tbody className="divide-y divide-border">
             {list.map((p) => (
@@ -65,7 +65,10 @@ function Products() {
                     className={`w-20 border bg-background px-2 py-1 ${p.stock <= p.low_stock_threshold ? "border-destructive text-destructive" : "border-input"}`}
                   />
                 </td>
-                <td className="p-4"><input type="checkbox" checked={p.is_active} onChange={(e) => update(p.id, { is_active: e.target.checked })} className="h-4 w-4" /></td>
+<td className="p-4"><input type="checkbox" checked={p.is_active} onChange={(e) => update(p.id, { is_active: e.target.checked })} className="h-4 w-4" /></td>
+                <td className="p-4 text-end">
+                  <Link to="/admin/products/$id" params={{ id: p.id }} className="btn-lux !px-4 !py-1.5 text-xs">Modifier</Link>
+                </td>
               </tr>
             ))}
           </tbody>

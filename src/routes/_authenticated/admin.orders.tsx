@@ -10,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
-import { ORDER_STATUSES, statusText, statusTone, statusSolid } from "@/lib/orders";
+import { ORDER_STATUSES, statusText, statusTone, statusSolid, fullAddress } from "@/lib/orders";
 import { waLink } from "@/lib/settings";
 import { productImage } from "@/lib/catalog";
 import { Card, Input, PageTitle, StatusBadge } from "@/components/admin/ui";
@@ -64,7 +64,7 @@ function Orders() {
       .map((o) => {
         const name = clean(o.customer_name);
         const phone = clean(o.phone);
-        const address = [clean(o.city), clean(o.address)].filter(Boolean).join(", ");
+        const address = fullAddress(o.city, o.address);
         if (!name && !phone && !address) return null; // ignorer les commandes sans données client
         return [name, phone, address];
       })
@@ -137,7 +137,7 @@ function Orders() {
                     <p>{o.customer_name}</p>
                     <p><a href={`tel:${o.phone}`} className="link-lux">{o.phone}</a> · <a href={waLink(o.phone.startsWith("0") ? "212" + o.phone.slice(1) : o.phone, `Bonjour ${o.customer_name}, THÉRAVÈNE concernant votre commande ${o.order_number}.`)} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a></p>
                     {o.email && <p>{o.email}</p>}
-                    <p>{o.address}, {o.city}</p>
+                    <p>{fullAddress(o.city, o.address)}</p>
                     {o.notes && <p className="italic text-muted-foreground">« {o.notes} »</p>}
                   </div>
                   <div>

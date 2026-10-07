@@ -25,9 +25,7 @@ const schema = z.object({
   name: z.string().trim().min(2).max(100),
   phone: z.string().trim().regex(/^[+0-9 ]{8,20}$/),
   email: z.string().trim().max(255).email().or(z.literal("")),
-  city: z.string().trim().min(2).max(80),
   address: z.string().trim().min(5).max(300),
-  notes: z.string().trim().max(500),
 });
 
 type Quote = { shipping: number; discount: number; coupon?: string; error?: string };
@@ -38,7 +36,9 @@ function Checkout() {
   const { items, subtotal, clear } = useCart();
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const [form, setForm] = useState({ name: "", phone: "", email: "", city: "", address: "", notes: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "" });
+  // La ville est désormais saisie dans l'adresse ; on la garde pour la livraison et les frais de port.
+  const city = (form.address.trim().split(",")[0] || form.address).trim().slice(0, 80);
   const [coupon, setCoupon] = useState("");
   const [applied, setApplied] = useState("");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
@@ -48,14 +48,14 @@ function Checkout() {
   useEffect(() => {
     if (!user) return;
     supabase.from("profiles").select("*").eq("id", user.id).maybeSingle().then(({ data }) => {
-      if (data) setForm((f) => ({ ...f, name: f.name || data.full_name, phone: f.phone || data.phone, email: f.email || data.email, city: f.city || data.city, address: f.address || data.address }));
+      if (data) setForm((f) => ({ ...f, name: f.name || data.full_name, phone: f.phone || data.phone, email: f.email || data.email, address: f.address || data.address }));
     });
   }, [user]);
 
   const quote = useQuery({
-    queryKey: ["quote", subtotal, form.city.trim().toLowerCase(), applied],
+    queryKey: ["quote", subtotal, city.toLowerCase(), applied],
     queryFn: async () => {
-      const { data } = await supabase.rpc("quote_order", { _subtotal: subtotal, _city: form.city, _coupon: applied || null as unknown as string });
+      const { data } = await supabase.rpc("quote_order", { _subtotal: subtotal, _city: city, _coupon: applied || null as unknown as string });
       return data as Quote;
     },
   });
@@ -82,7 +82,7 @@ function Checkout() {
     setLoading(true);
     const { data, error: rpcErr } = await supabase.rpc("place_order", {
       _customer_name: r.data.name, _phone: r.data.phone, _email: r.data.email || null as unknown as string,
-      _city: r.data.city, _address: r.data.address, _notes: r.data.notes || null as unknown as string,
+      _city: city, _address: r.data.address, _notes: null as unknown as string,
       _items: items.map((i) => ({ product_id: i.id, quantity: i.quantity })),
       _coupon: q?.coupon || null as unknown as string,
     });
@@ -94,7 +94,7 @@ function Checkout() {
     }
     const res = data as { order_number: string; total: number };
     sessionStorage.setItem("th-last-order", JSON.stringify({
-      number: res.order_number, total: res.total, name: r.data.name, city: r.data.city, address: r.data.address,
+      number: res.order_number, total: res.total, name: r.data.name, city, address: r.data.address,
       shipping: q?.shipping ?? 0, discount: q?.discount ?? 0,
       items: items.map((i) => ({ name: i.name_fr, name_ar: i.name_ar, qty: i.quantity, price: i.price })),
     }));
@@ -103,10 +103,10 @@ function Checkout() {
     navigate({ to: "/merci", search: { n: res.order_number } });
   };
 
-  const field = (k: keyof typeof form, label: string, type = "text") => (
+  const field = (k: keyof typeof form, label: string, type = "text", placeholder?: string) => (
     <label className="block">
       <span className={`eyebrow ${errors[k] ? "!text-destructive" : ""}`}>{label}</span>
-      <input type={type} value={form[k]} onChange={(e) => setForm({ ...form, [k]: e.target.value })} className="field-lux" />
+      <input type={type} value={form[k]} onChange={(e) => setForm({ ...form, [k]: e.target.value })} placeholder={placeholder} className="field-lux" />
     </label>
   );
 
@@ -117,9 +117,7 @@ function Checkout() {
         {!user && <p className="text-sm text-muted-foreground">{L("Déjà cliente ?", "لديك حساب؟")} <Link to="/login" search={{ redirect: "/checkout" }} className="link-lux text-foreground">{L("Connectez-vous", "سجلي الدخول")}</Link></p>}
         {field("name", t.fullName)}
         {field("phone", t.phone, "tel")}
-        {field("city", t.city)}
-        {field("address", t.address)}
-        {field("notes", t.notes)}
+        {field("address", t.address, "text", L("Ville, quartier, rue", "المدينة، الحي، الشارع"))}
         <div className="border border-foreground p-5">
           <p className="text-sm font-normal">● {t.cod}</p>
           <p className="mt-1 text-xs text-muted-foreground">{t.codText}</p>

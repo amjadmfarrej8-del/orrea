@@ -40,6 +40,7 @@ import { Route as AuthenticatedAdminOrdersRouteImport } from './routes/_authenti
 import { Route as AuthenticatedAdminPacksRouteImport } from './routes/_authenticated/admin.packs'
 import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
 import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
+import { Route as AuthenticatedAdminSheetsRouteImport } from './routes/_authenticated/admin.sheets'
 import { Route as AuthenticatedAdminShippingRouteImport } from './routes/_authenticated/admin.shipping'
 import { Route as AuthenticatedAdminThemeRouteImport } from './routes/_authenticated/admin.theme'
 import { Route as AuthenticatedAdminProductsIdRouteImport } from './routes/_authenticated/admin.products.$id'
@@ -205,6 +206,12 @@ const AuthenticatedAdminSettingsRoute =
     path: '/settings',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminSheetsRoute =
+  AuthenticatedAdminSheetsRouteImport.update({
+    id: '/sheets',
+    path: '/sheets',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminShippingRoute =
   AuthenticatedAdminShippingRouteImport.update({
     id: '/shipping',
@@ -253,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/sheets': typeof AuthenticatedAdminSheetsRoute
   '/admin/shipping': typeof AuthenticatedAdminShippingRoute
   '/admin/theme': typeof AuthenticatedAdminThemeRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -287,6 +295,7 @@ export interface FileRoutesByTo {
   '/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
   '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/sheets': typeof AuthenticatedAdminSheetsRoute
   '/admin/shipping': typeof AuthenticatedAdminShippingRoute
   '/admin/theme': typeof AuthenticatedAdminThemeRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -324,6 +333,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
   '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/sheets': typeof AuthenticatedAdminSheetsRoute
   '/_authenticated/admin/shipping': typeof AuthenticatedAdminShippingRoute
   '/_authenticated/admin/theme': typeof AuthenticatedAdminThemeRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -361,6 +371,7 @@ export interface FileRouteTypes {
     | '/admin/packs'
     | '/admin/products'
     | '/admin/settings'
+    | '/admin/sheets'
     | '/admin/shipping'
     | '/admin/theme'
     | '/admin/'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/admin/packs'
     | '/admin/products'
     | '/admin/settings'
+    | '/admin/sheets'
     | '/admin/shipping'
     | '/admin/theme'
     | '/admin'
@@ -431,6 +443,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/packs'
     | '/_authenticated/admin/products'
     | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/sheets'
     | '/_authenticated/admin/shipping'
     | '/_authenticated/admin/theme'
     | '/_authenticated/admin/'
@@ -679,6 +692,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/sheets': {
+      id: '/_authenticated/admin/sheets'
+      path: '/sheets'
+      fullPath: '/admin/sheets'
+      preLoaderRoute: typeof AuthenticatedAdminSheetsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/shipping': {
       id: '/_authenticated/admin/shipping'
       path: '/shipping'
@@ -726,6 +746,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminPacksRoute: typeof AuthenticatedAdminPacksRoute
   AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRouteWithChildren
   AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminSheetsRoute: typeof AuthenticatedAdminSheetsRoute
   AuthenticatedAdminShippingRoute: typeof AuthenticatedAdminShippingRoute
   AuthenticatedAdminThemeRoute: typeof AuthenticatedAdminThemeRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -740,6 +761,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminPacksRoute: AuthenticatedAdminPacksRoute,
   AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRouteWithChildren,
   AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+  AuthenticatedAdminSheetsRoute: AuthenticatedAdminSheetsRoute,
   AuthenticatedAdminShippingRoute: AuthenticatedAdminShippingRoute,
   AuthenticatedAdminThemeRoute: AuthenticatedAdminThemeRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

@@ -17,9 +17,9 @@ export const statusTone: Record<string, string> = {
   new: "bg-amber-100 text-amber-900 border-amber-300",
   confirmed: "bg-blue-100 text-blue-900 border-blue-300",
   preparing: "bg-violet-100 text-violet-900 border-violet-300",
-  shipped: "bg-sky-100 text-sky-900 border-sky-300",
-  delivered: "bg-emerald-100 text-emerald-900 border-emerald-300",
-  cancelled: "bg-rose-100 text-rose-900 border-rose-300",
+  shipped: "bg-sky-100 text-sky-900 border-sky-900",
+  delivered: "bg-emerald-100 text-emerald-900 border-emerald-900",
+  cancelled: "bg-rose-100 text-rose-900 border-rose-900",
 };
 
 export const statusSolid: Record<string, string> = {
@@ -28,5 +28,14 @@ export const statusSolid: Record<string, string> = {
   preparing: "bg-violet-700 text-white border-violet-700",
   shipped: "bg-sky-700 text-white border-sky-700",
   delivered: "bg-emerald-700 text-white border-emerald-700",
-  cancelled: "bg-rose-700 text-white border-rose-700",
+  cancelled: "bg-rose-600 text-white border-rose-600",
+};
+
+// La ville peut désormais être comprise dans l'adresse saisie à la commande : on évite de l'afficher deux fois.
+export const fullAddress = (city?: string | null, address?: string | null) => {
+  const c = (city ?? "").trim();
+  const a = (address ?? "").trim();
+  if (!c) return a;
+  if (!a || a.toLowerCase().includes(c.toLowerCase())) return a || c;
+  return `${a}, ${c}`;
 };

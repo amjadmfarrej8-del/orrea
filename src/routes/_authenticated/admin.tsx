@@ -24,6 +24,7 @@ const nav = [
   { to: "/admin/shipping", label: "Livraison" },
   { to: "/admin/homepage", label: "Page d'accueil" },
   { to: "/admin/theme", label: "Thème" },
+  { to: "/admin/sheets", label: "Google Sheets" },
   { to: "/admin/settings", label: "Boutique & SEO" },
 ] as const;
 

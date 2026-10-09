@@ -80,6 +80,75 @@ export type Database = {
         }
         Relationships: []
       }
+      google_sheets_config: {
+        Row: {
+          enabled: boolean
+          enabled_at: string | null
+          id: number
+          last_error: string | null
+          last_sync_at: string | null
+          last_test_at: string | null
+          last_test_ok: boolean | null
+          sheet_name: string | null
+          spreadsheet_id: string | null
+          spreadsheet_title: string | null
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          enabled_at?: string | null
+          id?: number
+          last_error?: string | null
+          last_sync_at?: string | null
+          last_test_at?: string | null
+          last_test_ok?: boolean | null
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          spreadsheet_title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          enabled_at?: string | null
+          id?: number
+          last_error?: string | null
+          last_sync_at?: string | null
+          last_test_at?: string | null
+          last_test_ok?: boolean | null
+          sheet_name?: string | null
+          spreadsheet_id?: string | null
+          spreadsheet_title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      google_sheets_sync: {
+        Row: {
+          attempts: number
+          error: string | null
+          order_id: string
+          status: string
+          synced_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          error?: string | null
+          order_id: string
+          status?: string
+          synced_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          error?: string | null
+          order_id?: string
+          status?: string
+          synced_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           id: string

@@ -35,7 +35,7 @@ async function gw(path: string, init?: RequestInit) {
 const rangeFor = (sheet: string, cells: string) =>
   `${encodeURIComponent(`'${sheet.replace(/'/g, "''")}'`)}!${cells}`;
 
-function parseSpreadsheetId(input: string) {
+function parseSpreadsheetId(input: string): string {
   const m = input.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
   const id = (m?.[1] ?? input.trim());
   if (!/^[a-zA-Z0-9-_]{20,}$/.test(id)) throw new Error("Lien Google Sheets invalide.");

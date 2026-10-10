@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { syncNewOrders } from "@/lib/sheets.functions";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -98,6 +99,7 @@ function Checkout() {
       shipping: q?.shipping ?? 0, discount: q?.discount ?? 0,
       items: items.map((i) => ({ name: i.name_fr, name_ar: i.name_ar, qty: i.quantity, price: i.price })),
     }));
+    void syncNewOrders().catch(() => {});
     clear();
     qc.invalidateQueries({ queryKey: ["products"] });
     navigate({ to: "/merci", search: { n: res.order_number } });

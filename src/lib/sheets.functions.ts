@@ -6,12 +6,12 @@ const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_sheets/v4";
 const HEADERS = ["Nom complet", "Numéro de téléphone", "Adresse complète"];
 
 function accountLinked() {
-  return Boolean(process.env.GOOGLE_SHEETS_API_KEY && process.env.LOVABLE_API_KEY);
+  return Boolean(process.env['GOOGLE_SHEETS_API_KEY'] && process.env['LOVABLE_API_KEY']);
 }
 
 async function gw(path: string, init?: RequestInit) {
-  const lovable = process.env.LOVABLE_API_KEY;
-  const key = process.env.GOOGLE_SHEETS_API_KEY;
+  const lovable = process.env['LOVABLE_API_KEY'];
+  const key = process.env['GOOGLE_SHEETS_API_KEY'];
   if (!lovable || !key) throw new Error("Compte Google non relié.");
   const res = await fetch(`${GATEWAY_URL}${path}`, {
     ...init,
@@ -35,9 +35,9 @@ async function gw(path: string, init?: RequestInit) {
 const rangeFor = (sheet: string, cells: string) =>
   `${encodeURIComponent(`'${sheet.replace(/'/g, "''")}'`)}!${cells}`;
 
-function parseSpreadsheetId(input: string) {
+function parseSpreadsheetId(input: string): string {
   const m = input.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-  const id = m ? m[1] : input.trim();
+  const id = (m?.[1] ?? input.trim());
   if (!/^[a-zA-Z0-9-_]{20,}$/.test(id)) throw new Error("Lien Google Sheets invalide.");
   return id;
 }
@@ -196,8 +196,8 @@ export const setSheetsSync = createServerFn({ method: "POST" })
     await assertAdmin(context);
     const { data: cfg } = await context.supabase.from("google_sheets_config").select("*").eq("id", 1).single();
     if (data.enabled && !cfg?.last_test_ok) throw new Error("Testez la connexion avec succès avant d'activer.");
-    const patch: Record<string, unknown> = { enabled: data.enabled, updated_at: new Date().toISOString() };
-    if (data.enabled) patch.enabled_at = new Date().toISOString();
+    const now = new Date().toISOString();
+    const patch = data.enabled ? { enabled: true, enabled_at: now, updated_at: now } : { enabled: false, updated_at: now };
     const { error } = await context.supabase.from("google_sheets_config").update(patch).eq("id", 1);
     if (error) throw new Error(error.message);
     return { ok: true };

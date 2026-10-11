@@ -80,15 +80,48 @@ export type Database = {
         }
         Relationships: []
       }
+      google_oauth_secrets: {
+        Row: {
+          client_secret_enc: string | null
+          id: number
+          oauth_redirect_uri: string | null
+          oauth_state: string | null
+          oauth_state_expires: string | null
+          refresh_token_enc: string | null
+          updated_at: string
+        }
+        Insert: {
+          client_secret_enc?: string | null
+          id?: number
+          oauth_redirect_uri?: string | null
+          oauth_state?: string | null
+          oauth_state_expires?: string | null
+          refresh_token_enc?: string | null
+          updated_at?: string
+        }
+        Update: {
+          client_secret_enc?: string | null
+          id?: number
+          oauth_redirect_uri?: string | null
+          oauth_state?: string | null
+          oauth_state_expires?: string | null
+          refresh_token_enc?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       google_sheets_config: {
         Row: {
           enabled: boolean
           enabled_at: string | null
+          google_email: string | null
           id: number
           last_error: string | null
           last_sync_at: string | null
           last_test_at: string | null
           last_test_ok: boolean | null
+          oauth_client_id: string | null
+          oauth_connected_at: string | null
           sheet_name: string | null
           spreadsheet_id: string | null
           spreadsheet_title: string | null
@@ -97,11 +130,14 @@ export type Database = {
         Insert: {
           enabled?: boolean
           enabled_at?: string | null
+          google_email?: string | null
           id?: number
           last_error?: string | null
           last_sync_at?: string | null
           last_test_at?: string | null
           last_test_ok?: boolean | null
+          oauth_client_id?: string | null
+          oauth_connected_at?: string | null
           sheet_name?: string | null
           spreadsheet_id?: string | null
           spreadsheet_title?: string | null
@@ -110,11 +146,14 @@ export type Database = {
         Update: {
           enabled?: boolean
           enabled_at?: string | null
+          google_email?: string | null
           id?: number
           last_error?: string | null
           last_sync_at?: string | null
           last_test_at?: string | null
           last_test_ok?: boolean | null
+          oauth_client_id?: string | null
+          oauth_connected_at?: string | null
           sheet_name?: string | null
           spreadsheet_id?: string | null
           spreadsheet_title?: string | null

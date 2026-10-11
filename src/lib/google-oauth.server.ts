@@ -54,7 +54,7 @@ export async function exchangeToken(body: Record<string, string>) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams(body),
   });
-  const json = (await res.json().catch(() => ({}))) as Record<string, string>;
+  const json = (await res.json().catch(() => ({}))) as { error?: string; error_description?: string; access_token?: string; refresh_token?: string };
   if (!res.ok) {
     if (json.error === "invalid_grant") throw new Error("Accès Google expiré ou retiré : reconnectez votre compte Google.");
     throw new Error(`Google OAuth (${res.status}) : ${json.error_description ?? json.error ?? "erreur"}`);

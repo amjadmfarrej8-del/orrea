@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertTriangle, CheckCircle2, CircleOff, PlugZap, RefreshCw, Search, Unplug } from "lucide-react";
+import { AlertTriangle, CheckCircle2, CircleOff, Copy, FileSpreadsheet, KeyRound, LogIn, PlugZap, RefreshCw, Search, Unplug, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import {
-  disconnectSheets, getSheetsStatus, loadSpreadsheet, saveSheetsConfig,
-  setSheetsSync, syncSheetsNow, testSheetsConnection,
+  disconnectGoogleAccount, disconnectSheets, getSheetsStatus, getSpreadsheetTabs, listSpreadsheets, loadSpreadsheet,
+  saveOAuthClient, saveSheetsConfig, setSheetsSync, startGoogleOAuth, syncSheetsNow, testSheetsConnection,
 } from "@/lib/sheets.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/sheets")({
@@ -29,6 +29,15 @@ function AdminSheets() {
   const syncFn = useServerFn(setSheetsSync);
   const nowFn = useServerFn(syncSheetsNow);
   const discFn = useServerFn(disconnectSheets);
+  const saveClientFn = useServerFn(saveOAuthClient);
+  const startFn = useServerFn(startGoogleOAuth);
+  const listFn = useServerFn(listSpreadsheets);
+  const tabsFn = useServerFn(getSpreadsheetTabs);
+  const discAccFn = useServerFn(disconnectGoogleAccount);
+  const [clientId, setClientId] = useState("");
+  const [clientSecret, setClientSecret] = useState("");
+  const [editCreds, setEditCreds] = useState(false);
+  const [files, setFiles] = useState<{ id: string; name: string }[] | null>(null);
 
   const { data: st, isLoading } = useQuery({ queryKey: ["sheets-status"], queryFn: () => statusFn() });
   const refresh = () => qc.invalidateQueries({ queryKey: ["sheets-status"] });
@@ -82,6 +91,53 @@ function AdminSheets() {
     toast.success("Google Sheets déconnecté.");
   });
 
+  const own = st?.mode === "own";
+  const onSaveClient = () => run("client", async () => {
+    await saveClientFn({ data: { clientId, clientSecret } });
+    setClientSecret(""); setEditCreds(false);
+    toast.success("Identifiants Google enregistrés. Connectez maintenant votre compte Google.");
+  });
+  const onConnectGoogle = () => {
+    const popup = window.open("", "google-oauth", "width=520,height=680");
+    if (!popup) { toast.error("Autorisez les fenêtres pop-up puis réessayez."); return; }
+    void run("connect", async () => {
+      try {
+        const { authorizationUrl } = await startFn();
+        const done = new Promise<void>((resolve, reject) => {
+          const iv = window.setInterval(() => { if (popup.closed) { cleanup(); reject(new Error("Fenêtre Google fermée avant la fin.")); } }, 600);
+          const onMsg = (e: MessageEvent) => {
+            if (e.origin !== window.location.origin || e.source !== popup) return;
+            if (e.data?.type === "googleSheetsOAuthComplete") { cleanup(); resolve(); }
+            else if (e.data?.type === "googleSheetsOAuthFailed") { cleanup(); reject(new Error(e.data.message)); }
+          };
+          const cleanup = () => { window.clearInterval(iv); window.removeEventListener("message", onMsg); };
+          window.addEventListener("message", onMsg);
+        });
+        popup.location.href = authorizationUrl;
+        await done;
+        setFile(null); setFiles(null); setTab(""); setUrl("");
+        toast.success("Compte Google connecté ✓");
+      } catch (e) { popup.close(); throw e; }
+    });
+  };
+  const onDiscAccount = () => run("discacc", async () => {
+    if (!confirm("Déconnecter ce compte Google ? La boutique continuera de fonctionner normalement.")) return;
+    await discAccFn(); setFiles(null); setFile(null);
+    toast.success("Compte Google déconnecté.");
+  });
+  const onList = () => run("list", async () => {
+    const r = await listFn();
+    setFiles(r.files);
+    if (!r.files.length) toast.info("Aucun fichier Google Sheets trouvé sur ce compte.");
+  });
+  const onPick = (id: string) => run("tabs", async () => {
+    if (!id) return;
+    const r = await tabsFn({ data: { spreadsheetId: id } });
+    setFile(r);
+    setTab(r.tabs.includes(cfg?.sheet_name ?? "") ? cfg!.sheet_name! : r.tabs[0] ?? "");
+  });
+  const copy = (t: string) => { void navigator.clipboard.writeText(t); toast.success("Copié"); };
+
   const connected = linked && configured && cfg?.last_test_ok === true;
 
   return (
@@ -99,8 +155,8 @@ function AdminSheets() {
           <div>
             <p className="text-sm font-medium">Statut : {isLoading ? "…" : connected ? "Connecté" : "Non connecté"}</p>
             <p className="text-xs text-muted-foreground">
-              {!linked ? "Aucun compte Google n'est relié."
-                : !configured ? "Compte Google relié ✓ — choisissez votre fichier et votre onglet."
+              {!linked ? "Aucun compte Google n'est connecté."
+                : !configured ? `Compte Google connecté ✓${st?.googleEmail ? ` (${st.googleEmail})` : ""} — choisissez votre fichier et votre onglet.`
                 : cfg?.last_test_ok ? `Envoi vers « ${cfg.spreadsheet_title} » › ${cfg.sheet_name}`
                 : "Fichier choisi — testez la connexion."}
             </p>
@@ -108,32 +164,114 @@ function AdminSheets() {
         </div>
         {configured && (
           <button onClick={onDisc} disabled={!!busy} className="btn-lux !px-4 !py-2 text-xs">
-            <Unplug className="me-1.5 inline h-3.5 w-3.5" /> Déconnecter
+            <Unplug className="me-1.5 inline h-3.5 w-3.5" /> Retirer le fichier
           </button>
         )}
+      </div>
+
+      {/* Identifiants Google (une seule fois) */}
+      {st && (!st.oauthReady || editCreds) ? (
+        <div className="mt-6 border border-border bg-background p-5">
+          <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">
+            <KeyRound className="h-4 w-4" /> Configuration Google requise (une seule fois)
+          </h2>
+          <ol className="mt-3 list-decimal space-y-1.5 ps-5 text-sm text-muted-foreground">
+            <li>Ouvrez <a className="underline" href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noreferrer">Google Cloud › Identifiants</a> et créez (ou choisissez) un projet.</li>
+            <li>Dans « Bibliothèque », activez <b>Google Sheets API</b> et <b>Google Drive API</b>.</li>
+            <li>« Écran de consentement OAuth » : type <b>Externe</b>, puis ajoutez vos adresses Gmail dans « Utilisateurs test ».</li>
+            <li>« Créer des identifiants » › <b>ID client OAuth</b> › type <b>Application Web</b>.</li>
+            <li>Dans « URI de redirection autorisés », ajoutez ces adresses :</li>
+          </ol>
+          <div className="mt-2 space-y-1.5">
+            {st.redirectUris.map((u) => (
+              <div key={u} className="flex items-center gap-2 border border-border bg-card/60 px-3 py-2 text-xs">
+                <code className="flex-1 break-all">{u}</code>
+                <button onClick={() => copy(u)} aria-label="Copier"><Copy className="h-3.5 w-3.5" /></button>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground">6. Collez ici l'ID client et le code secret affichés par Google :</p>
+          <div className="mt-3 space-y-3">
+            <input className={inputCls} value={clientId} onChange={(e) => setClientId(e.target.value)} placeholder="xxxx.apps.googleusercontent.com" />
+            <input className={inputCls} type="password" value={clientSecret} onChange={(e) => setClientSecret(e.target.value)} placeholder="Code secret client (GOCSPX-…)" />
+            <div className="flex gap-2">
+              <button onClick={onSaveClient} disabled={!clientId || !clientSecret || !!busy} className="btn-lux flex-1 !py-2.5 text-xs disabled:opacity-50">
+                {busy === "client" ? "Enregistrement…" : "Enregistrer les identifiants"}
+              </button>
+              {editCreds && <button onClick={() => setEditCreds(false)} className="text-xs underline">Annuler</button>}
+            </div>
+            <p className="text-xs text-muted-foreground">Le code secret est chiffré et conservé côté serveur ; il n'est jamais renvoyé au navigateur.</p>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Compte Google */}
+      <div className="mt-6 border border-border bg-background p-5">
+        <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">
+          <UserRound className="h-4 w-4" /> Compte Google
+        </h2>
+        <p className="mt-3 text-sm">
+          {own ? <>Connecté : <b>{st?.googleEmail ?? "compte Google"}</b></>
+            : st?.mode === "managed" ? "Connexion Lovable active (ancienne méthode). Connectez votre propre compte pour gérer tout depuis ici."
+            : "Aucun compte Google connecté."}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button onClick={onConnectGoogle} disabled={!st?.oauthReady || !!busy} className="btn-lux !px-4 !py-2 text-xs disabled:cursor-not-allowed disabled:opacity-50">
+            <LogIn className="me-1.5 inline h-3.5 w-3.5" /> {busy === "connect" ? "Connexion…" : own ? "Changer de compte Google" : "Connecter un compte Google"}
+          </button>
+          {own && (
+            <button onClick={onDiscAccount} disabled={!!busy} className="btn-lux !px-4 !py-2 text-xs">
+              <Unplug className="me-1.5 inline h-3.5 w-3.5" /> Déconnecter le compte
+            </button>
+          )}
+          {st?.oauthReady && !editCreds && (
+            <button onClick={() => { setEditCreds(true); setClientId(st.oauthClientId ?? ""); }} className="text-xs underline">Modifier les identifiants Google</button>
+          )}
+        </div>
+        {!st?.oauthReady && st && <p className="mt-2 text-xs text-muted-foreground">Complétez d'abord la configuration Google ci-dessus.</p>}
       </div>
 
       {/* Configuration */}
       <div className="mt-6 border border-border bg-background p-5">
         <h2 className="text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">Configuration</h2>
         <div className="mt-4 space-y-4">
-          <div>
-            <label className="mb-1.5 block text-xs font-medium">Compte Google</label>
-            <input className={inputCls} disabled value={linked ? "Compte Google connecté ✓" : "Non relié"} readOnly />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-xs font-medium">Fichier Google Sheets (lien du fichier)</label>
-            <div className="flex gap-2">
-              <input className={inputCls} disabled={!linked} value={url} onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://docs.google.com/spreadsheets/d/…" />
-              <button onClick={onLoad} disabled={!linked || !url || !!busy} className="btn-lux shrink-0 !px-4 !py-2 text-xs disabled:opacity-50">
-                <Search className="me-1 inline h-3.5 w-3.5" /> {busy === "load" ? "…" : "Charger"}
-              </button>
+          {own ? (
+            <div>
+              <label className="mb-1.5 block text-xs font-medium">Fichier Google Sheets</label>
+              {files === null ? (
+                <button onClick={onList} disabled={!!busy} className="btn-lux w-full !py-2.5 text-xs">
+                  <FileSpreadsheet className="me-1.5 inline h-3.5 w-3.5" /> {busy === "list" ? "Chargement…" : "Choisir un fichier Google Sheets"}
+                </button>
+              ) : (
+                <div className="flex gap-2">
+                  <select className={inputCls} value={file?.spreadsheetId ?? ""} onChange={(e) => onPick(e.target.value)}>
+                    <option value="">{files.length ? "Sélectionnez un fichier…" : "Aucun fichier trouvé"}</option>
+                    {files.map((f) => <option key={f.id} value={f.id}>{f.name}</option>)}
+                  </select>
+                  <button onClick={onList} disabled={!!busy} className="btn-lux shrink-0 !px-3 !py-2 text-xs" aria-label="Actualiser la liste">
+                    <RefreshCw className={`h-3.5 w-3.5 ${busy === "list" ? "animate-spin" : ""}`} />
+                  </button>
+                </div>
+              )}
+              {(file || cfg?.spreadsheet_title) && (
+                <p className="mt-1.5 text-xs text-muted-foreground">Fichier : {file?.title ?? cfg?.spreadsheet_title}</p>
+              )}
             </div>
-            {(file || cfg?.spreadsheet_title) && (
-              <p className="mt-1.5 text-xs text-muted-foreground">Fichier : {file?.title ?? cfg?.spreadsheet_title}</p>
-            )}
-          </div>
+          ) : (
+            <div>
+              <label className="mb-1.5 block text-xs font-medium">Fichier Google Sheets (lien du fichier)</label>
+              <div className="flex gap-2">
+                <input className={inputCls} disabled={!linked} value={url} onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://docs.google.com/spreadsheets/d/…" />
+                <button onClick={onLoad} disabled={!linked || !url || !!busy} className="btn-lux shrink-0 !px-4 !py-2 text-xs disabled:opacity-50">
+                  <Search className="me-1 inline h-3.5 w-3.5" /> {busy === "load" ? "…" : "Charger"}
+                </button>
+              </div>
+              {(file || cfg?.spreadsheet_title) && (
+                <p className="mt-1.5 text-xs text-muted-foreground">Fichier : {file?.title ?? cfg?.spreadsheet_title}</p>
+              )}
+            </div>
+          )}
           <div>
             <label className="mb-1.5 block text-xs font-medium">Onglet de destination</label>
             <select className={inputCls} disabled={!file} value={tab} onChange={(e) => setTab(e.target.value)}>
@@ -143,7 +281,7 @@ function AdminSheets() {
           </div>
           {file && (
             <button onClick={onSave} disabled={!tab || !!busy} className="btn-lux w-full !py-2.5 text-xs disabled:opacity-50">
-              {busy === "save" ? "Enregistrement…" : "Enregistrer le fichier et l'onglet"}
+              {busy === "save" ? "Enregistrement…" : "Enregistrer la configuration"}
             </button>
           )}
         </div>

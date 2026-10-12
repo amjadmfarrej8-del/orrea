@@ -10,6 +10,7 @@ const cancel = vi.fn();
 const animate = vi.fn(() => ({ cancel, onfinish: null }));
 
 beforeEach(() => {
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(new DOMRect(0, 100, 100, 40));
   vi.stubGlobal("IntersectionObserver", class {
     constructor(callback: IntersectionObserverCallback) { notify = callback; }
     observe = observe;
@@ -23,10 +24,11 @@ afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
   vi.clearAllMocks();
+  vi.restoreAllMocks();
 });
 
 function intersect(target: HTMLElement, visible: boolean, top = 0) {
-  notify([{ target, isIntersecting: visible, boundingClientRect: { top } } as IntersectionObserverEntry], {} as IntersectionObserver);
+  notify([{ target, isIntersecting: visible, boundingClientRect: new DOMRect(0, top, 100, 40), intersectionRatio: visible ? 1 : 0, intersectionRect: new DOMRect(), rootBounds: null, time: 0 }], {} as IntersectionObserver);
 }
 
 describe("Storefront scroll motion", () => {

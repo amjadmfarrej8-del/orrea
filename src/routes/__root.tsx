@@ -17,6 +17,7 @@ import { CartProvider } from "@/lib/cart";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ThemeStyle } from "@/components/site/ThemeStyle";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { AuthProvider } from "@/lib/auth";
 import { Toaster } from "@/components/ui/sonner";
 import { useRouterState } from "@tanstack/react-router";
@@ -141,6 +142,7 @@ function RootComponent() {
                   <Outlet />
                 </main>
                 <Footer />
+                <ScrollReveal />
               </>
             )}
             <Toaster position="top-center" />

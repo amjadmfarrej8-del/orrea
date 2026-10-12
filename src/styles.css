@@ -203,3 +203,12 @@
 
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @utility animate-rise { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* Progressive enhancement: content stays visible without JavaScript. */
+[data-scroll-reveal-scope] .animate-rise { animation: none; }
+[data-scroll-reveal="pending"] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-scroll-reveal="pending"] { opacity: 1; }
+  .animate-rise { animation: none; }
+}

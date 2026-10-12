@@ -16,9 +16,9 @@ export function ScrollReveal() {
     let frame = 0;
 
     const show = (element: HTMLElement, delay = 0) => {
-      if (element.dataset.scrollReveal === "visible") return;
+      if (element.dataset['scrollReveal'] === "visible") return;
       animations.get(element)?.cancel();
-      element.dataset.scrollReveal = "visible";
+      element.dataset['scrollReveal'] = "visible";
       if (motion.matches) return;
       const animation = element.animate(
         [{ opacity: 0, translate: "0 30px" }, { opacity: 1, translate: "0 0" }],
@@ -39,7 +39,7 @@ export function ScrollReveal() {
           // Only re-arm below the viewport: content stays visible while scrolling upwards.
           animations.get(element)?.cancel();
           animations.delete(element);
-          element.dataset.scrollReveal = "pending";
+          element.dataset['scrollReveal'] = "pending";
         }
       }
     }, { rootMargin: "0px 0px -24px 0px", threshold: 0 });
@@ -56,12 +56,12 @@ export function ScrollReveal() {
       }
       if (motion.matches) return;
       for (const scope of scopes) {
-        scope.dataset.scrollRevealScope = "";
+        scope.dataset['scrollRevealScope'] = "";
         for (const element of scope.querySelectorAll<HTMLElement>(candidates)) {
           if (tracked.has(element) || element.parentElement?.closest(candidates) || element.closest('[role="dialog"], [aria-hidden="true"], [data-reveal-skip]')) continue;
           tracked.add(element);
           // Already-passed content must never disappear after navigation or a data update.
-          element.dataset.scrollReveal = element.getBoundingClientRect().bottom <= 0 ? "visible" : "pending";
+          element.dataset['scrollReveal'] = element.getBoundingClientRect().bottom <= 0 ? "visible" : "pending";
           observer.observe(element);
         }
       }
@@ -96,8 +96,8 @@ export function ScrollReveal() {
       document.removeEventListener("focusin", focus);
       motion.removeEventListener("change", preferenceChanged);
       for (const animation of animations.values()) animation.cancel();
-      for (const element of tracked) delete element.dataset.scrollReveal;
-      for (const scope of scopes) delete scope.dataset.scrollRevealScope;
+      for (const element of tracked) delete element.dataset['scrollReveal'];
+      for (const scope of scopes) delete scope.dataset['scrollRevealScope'];
     };
   }, [pathname]);
 

@@ -17,3 +17,4 @@
 - Shipping/coupon pricing is computed only by the `quote_order` SQL function, reused by `place_order`.
 - Admin access = `admin` row in `user_roles` (checked with `has_role`); first account to sign up is auto-granted admin by the signup trigger.
 - Uploaded media goes to the private `media` bucket and is stored as long-lived signed URLs (workspace blocks public buckets).
+- Storefront scroll motion is enhanced centrally by ScrollReveal using IntersectionObserver and independent translate/opacity animations on existing nodes; this preserves layout, hover transforms, SSR visibility and admin interactions.

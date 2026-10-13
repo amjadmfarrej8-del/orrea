@@ -1,4 +1,5 @@
-import type { ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export function AuthShell({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -11,11 +12,34 @@ export function AuthShell({ title, children }: { title: string; children: ReactN
 }
 
 export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
-  const { label, ...rest } = props;
+  const { label, type = "text", ...rest } = props;
+  const id = useId();
+  const isPassword = type === "password";
+  const [revealed, setRevealed] = useState(false);
+
   return (
-    <label className="block">
-      <span className="eyebrow">{label}</span>
-      <input {...rest} className="field-lux" />
-    </label>
+    <div className="relative">
+      <label className="block" htmlFor={id}>
+        <span className="eyebrow">{label}</span>
+        <input
+          {...rest}
+          id={id}
+          type={isPassword ? (revealed ? "text" : "password") : type}
+          className={`field-lux${isPassword ? " pe-9" : ""}`}
+        />
+      </label>
+      {isPassword && (
+        <button
+          type="button"
+          onClick={() => setRevealed((v) => !v)}
+          aria-pressed={revealed}
+          aria-label={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+          title={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+          className="absolute end-0 inset-y-0 flex w-9 items-center justify-center text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:text-foreground"
+        >
+          {revealed ? <EyeOff size={17} strokeWidth={1.6} /> : <Eye size={17} strokeWidth={1.6} />}
+        </button>
+      )}
+    </div>
   );
 }

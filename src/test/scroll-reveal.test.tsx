@@ -8,9 +8,10 @@ let notify: IntersectionObserverCallback;
 const observe = vi.fn();
 const cancel = vi.fn();
 const animate = vi.fn(() => ({ cancel, onfinish: null }));
+const rect = (top = 0): DOMRect => ({ x: 0, y: top, top, bottom: top + 40, left: 0, right: 100, width: 100, height: 40, toJSON: () => ({}) });
 
 beforeEach(() => {
-  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(new DOMRect(0, 100, 100, 40));
+  vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(rect(100));
   vi.stubGlobal("IntersectionObserver", class {
     constructor(callback: IntersectionObserverCallback) { notify = callback; }
     observe = observe;
@@ -28,7 +29,7 @@ afterEach(() => {
 });
 
 function intersect(target: HTMLElement, visible: boolean, top = 0) {
-  notify([{ target, isIntersecting: visible, boundingClientRect: new DOMRect(0, top, 100, 40), intersectionRatio: visible ? 1 : 0, intersectionRect: new DOMRect(), rootBounds: null, time: 0 }], {} as IntersectionObserver);
+  notify([{ target, isIntersecting: visible, boundingClientRect: rect(top), intersectionRatio: visible ? 1 : 0, intersectionRect: rect(), rootBounds: null, time: 0 }], {} as IntersectionObserver);
 }
 
 describe("Storefront scroll motion", () => {

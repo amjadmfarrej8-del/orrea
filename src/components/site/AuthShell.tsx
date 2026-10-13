@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export function AuthShell({ title, children }: { title: string; children: ReactNode }) {
   return (

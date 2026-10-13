@@ -2,12 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
-import { settingsQuery, waLink } from "@/lib/settings";
+import { settingsQuery } from "@/lib/settings";
 import { Logo } from "./Header";
 import { Reassurance } from "./Reassurance";
 
 export function Footer() {
-  const { t, L, lang } = useI18n();
+  const { t, L } = useI18n();
   const { data: s } = useQuery(settingsQuery);
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);

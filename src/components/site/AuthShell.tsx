@@ -23,19 +23,18 @@ export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { lab
   const isPassword = type === "password";
   const [revealed, setRevealed] = useState(false);
   const ref = useRef<HTMLInputElement | null>(null);
+  const refocus = useRef(false);
 
-  // Browsers clear an input's text when its type flips between password and
-  // text; put the value back so revealing never wipes what was typed.
+  // The browser wipes an input's text when its type flips, so the field is
+  // re-created instead; keep the caret where the user left it.
   useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el || !isPassword) return;
-    const expected = typeof rest.value === "string" ? rest.value : null;
-    if (expected !== null && el.value !== expected) {
-      el.value = expected;
-      el.setSelectionRange(expected.length, expected.length);
+    if (refocus.current && ref.current) {
+      const len = ref.current.value.length;
+      ref.current.focus();
+      ref.current.setSelectionRange(len, len);
+      refocus.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [revealed, isPassword]);
+  }, [revealed]);
 
   return (
     <div className="relative">
@@ -43,6 +42,7 @@ export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { lab
         <span className="eyebrow">{label}</span>
         <input
           {...rest}
+          key={isPassword ? (revealed ? "shown" : "hidden") : "plain"}
           ref={ref}
           id={id}
           type={isPassword ? (revealed ? "text" : "password") : type}
@@ -52,7 +52,10 @@ export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { lab
       {isPassword && (
         <button
           type="button"
-          onClick={() => setRevealed((v) => !v)}
+          onClick={() => {
+            refocus.current = document.activeElement === ref.current;
+            setRevealed((v) => !v);
+          }}
           aria-pressed={revealed}
           aria-label={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}
           title={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}

@@ -20,6 +20,7 @@ export function AuthShell({ title, children }: { title: string; children: ReactN
 
 export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { label: string }) {
   const { label, type = "text", ...rest } = props;
+  const { L } = useI18n();
   const id = useId();
   const isPassword = type === "password";
   const [revealed, setRevealed] = useState(false);
@@ -58,8 +59,8 @@ export function Field(props: React.InputHTMLAttributes<HTMLInputElement> & { lab
             setRevealed((v) => !v);
           }}
           aria-pressed={revealed}
-          aria-label={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}
-          title={revealed ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+          aria-label={revealed ? L("Masquer le mot de passe", "إخفاء كلمة المرور") : L("Afficher le mot de passe", "إظهار كلمة المرور")}
+          title={revealed ? L("Masquer le mot de passe", "إخفاء كلمة المرور") : L("Afficher le mot de passe", "إظهار كلمة المرور")}
           className="absolute end-0 inset-y-0 flex w-9 items-center justify-center text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:text-foreground"
         >
           {revealed ? <EyeOff size={17} strokeWidth={1.6} /> : <Eye size={17} strokeWidth={1.6} />}

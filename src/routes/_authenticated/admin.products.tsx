@@ -18,6 +18,8 @@ function ProductsLayout() {
 function Products() {
   const qc = useQueryClient();
   const [q, setQ] = useState("");
+  const [pending, setPending] = useState<Record<string, number>>({});
+  const [saving, setSaving] = useState(false);
   const { data = [] } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => (await supabase.from("products").select("*, categories(name_fr)").order("created_at", { ascending: false })).data ?? [],
@@ -33,9 +35,23 @@ function Products() {
   };
   const list = data.filter((p) => !q || `${p.name_fr} ${p.sku}`.toLowerCase().includes(q.toLowerCase()));
 
+  const savePending = async () => {
+    const entries = Object.entries(pending);
+    if (!entries.length) return;
+    setSaving(true);
+    for (const [id, stock] of entries) await update(id, { stock });
+    setSaving(false);
+    setPending({});
+    toast.success("Modifications enregistrées");
+  };
+  const pendingCount = Object.keys(pending).length;
+
   return (
     <div>
       <PageTitle title="Produits & stock">
+        <button onClick={savePending} disabled={!pendingCount || saving} className="btn-lux !px-5 !py-2.5 disabled:opacity-50">
+          {saving ? "…" : pendingCount ? `Enregistrer (${pendingCount})` : "Enregistrer"}
+        </button>
         <Link to="/admin/products/$id" params={{ id: "new" }} className="btn-lux !px-5 !py-2.5">Nouveau produit</Link>
       </PageTitle>
       <Input placeholder="Rechercher par nom ou SKU" value={q} onChange={(e) => setQ(e.target.value)} className="mb-6 max-w-xs" />
@@ -60,8 +76,8 @@ function Products() {
                   <input
                     type="number"
                     min={0}
-                    defaultValue={p.stock}
-                    onBlur={(e) => { const v = Math.max(0, parseInt(e.target.value) || 0); if (v !== p.stock) update(p.id, { stock: v }); }}
+                    defaultValue={pending[p.id] ?? p.stock}
+                    onChange={(e) => { const v = Math.max(0, parseInt(e.target.value) || 0); setPending((x) => { if (v === p.stock) { const { [p.id]: _d, ...rest } = x; return rest; } return { ...x, [p.id]: v }; }); }}
                     className={`w-20 border bg-background px-2 py-1 ${p.stock <= p.low_stock_threshold ? "border-destructive text-destructive" : "border-input"}`}
                   />
                 </td>
@@ -74,7 +90,7 @@ function Products() {
           </tbody>
         </table>
       </Card>
-      <p className="mt-3 text-xs text-muted-foreground">Le stock se met à jour en quittant le champ. Les stocks faibles sont signalés en rouge.</p>
+      <p className="mt-3 text-xs text-muted-foreground">Modifiez le stock puis cliquez sur « Enregistrer ». Les stocks faibles sont signalés en rouge.</p>
     </div>
   );
 }

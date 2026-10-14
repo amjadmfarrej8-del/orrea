@@ -20,17 +20,18 @@ afterEach(cleanup);
 describe("password field eye toggle", () => {
   it("reveals then hides the password without losing what was typed", () => {
     render(<PasswordForm />);
-    const input = screen.getByLabelText("Mot de passe");
-    expect(input).toHaveAttribute("type", "password");
-    expect(input).toHaveAttribute("value", "Secret123");
+    // The field node is re-created when its type flips, so it is re-queried each time.
+    const field = () => screen.getByLabelText("Mot de passe");
+    expect(field()).toHaveAttribute("type", "password");
+    expect(field()).toHaveAttribute("value", "Secret123");
 
     fireEvent.click(screen.getByRole("button", { name: "Afficher le mot de passe" }));
-    expect(input).toHaveAttribute("type", "text");
-    expect(input).toHaveAttribute("value", "Secret123");
+    expect(field()).toHaveAttribute("type", "text");
+    expect(field()).toHaveAttribute("value", "Secret123");
 
     fireEvent.click(screen.getByRole("button", { name: "Masquer le mot de passe" }));
-    expect(input).toHaveAttribute("type", "password");
-    expect(input).toHaveAttribute("value", "Secret123");
+    expect(field()).toHaveAttribute("type", "password");
+    expect(field()).toHaveAttribute("value", "Secret123");
   });
 
   it("keeps typing while the password is shown", () => {

@@ -26,6 +26,7 @@ const nav = [
   { to: "/admin/theme", label: "Thème" },
   { to: "/admin/sheets", label: "Google Sheets" },
   { to: "/admin/settings", label: "Boutique & SEO" },
+  { to: "/admin/meta-pixel", label: "Meta Pixel" },
 ] as const;
 
 function AdminLayout() {

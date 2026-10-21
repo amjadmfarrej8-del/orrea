@@ -43,6 +43,13 @@
       "when": 1791677340646,
       "tag": "0005_google_oauth_own",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792574707585,
+      "tag": "0006_meta_pixel_admin_settings",
+      "breakpoints": true
     }
   ]
 }

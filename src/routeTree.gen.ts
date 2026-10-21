@@ -36,6 +36,7 @@ import { Route as AuthenticatedAdminCategoriesRouteImport } from './routes/_auth
 import { Route as AuthenticatedAdminCouponsRouteImport } from './routes/_authenticated/admin.coupons'
 import { Route as AuthenticatedAdminCustomersRouteImport } from './routes/_authenticated/admin.customers'
 import { Route as AuthenticatedAdminHomepageRouteImport } from './routes/_authenticated/admin.homepage'
+import { Route as AuthenticatedAdminMetaPixelRouteImport } from './routes/_authenticated/admin.meta-pixel'
 import { Route as AuthenticatedAdminOrdersRouteImport } from './routes/_authenticated/admin.orders'
 import { Route as AuthenticatedAdminPacksRouteImport } from './routes/_authenticated/admin.packs'
 import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
@@ -184,6 +185,12 @@ const AuthenticatedAdminHomepageRoute =
     path: '/homepage',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
+const AuthenticatedAdminMetaPixelRoute =
+  AuthenticatedAdminMetaPixelRouteImport.update({
+    id: '/meta-pixel',
+    path: '/meta-pixel',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminOrdersRoute =
   AuthenticatedAdminOrdersRouteImport.update({
     id: '/orders',
@@ -263,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/customers': typeof AuthenticatedAdminCustomersRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/admin/meta-pixel': typeof AuthenticatedAdminMetaPixelRoute
   '/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
@@ -299,6 +307,7 @@ export interface FileRoutesByTo {
   '/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/admin/customers': typeof AuthenticatedAdminCustomersRoute
   '/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/admin/meta-pixel': typeof AuthenticatedAdminMetaPixelRoute
   '/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
@@ -338,6 +347,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/coupons': typeof AuthenticatedAdminCouponsRoute
   '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRoute
   '/_authenticated/admin/homepage': typeof AuthenticatedAdminHomepageRoute
+  '/_authenticated/admin/meta-pixel': typeof AuthenticatedAdminMetaPixelRoute
   '/_authenticated/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/_authenticated/admin/packs': typeof AuthenticatedAdminPacksRoute
   '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRouteWithChildren
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/admin/coupons'
     | '/admin/customers'
     | '/admin/homepage'
+    | '/admin/meta-pixel'
     | '/admin/orders'
     | '/admin/packs'
     | '/admin/products'
@@ -413,6 +424,7 @@ export interface FileRouteTypes {
     | '/admin/coupons'
     | '/admin/customers'
     | '/admin/homepage'
+    | '/admin/meta-pixel'
     | '/admin/orders'
     | '/admin/packs'
     | '/admin/products'
@@ -451,6 +463,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/coupons'
     | '/_authenticated/admin/customers'
     | '/_authenticated/admin/homepage'
+    | '/_authenticated/admin/meta-pixel'
     | '/_authenticated/admin/orders'
     | '/_authenticated/admin/packs'
     | '/_authenticated/admin/products'
@@ -678,6 +691,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminHomepageRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/meta-pixel': {
+      id: '/_authenticated/admin/meta-pixel'
+      path: '/meta-pixel'
+      fullPath: '/admin/meta-pixel'
+      preLoaderRoute: typeof AuthenticatedAdminMetaPixelRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/orders': {
       id: '/_authenticated/admin/orders'
       path: '/orders'
@@ -763,6 +783,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminCouponsRoute: typeof AuthenticatedAdminCouponsRoute
   AuthenticatedAdminCustomersRoute: typeof AuthenticatedAdminCustomersRoute
   AuthenticatedAdminHomepageRoute: typeof AuthenticatedAdminHomepageRoute
+  AuthenticatedAdminMetaPixelRoute: typeof AuthenticatedAdminMetaPixelRoute
   AuthenticatedAdminOrdersRoute: typeof AuthenticatedAdminOrdersRoute
   AuthenticatedAdminPacksRoute: typeof AuthenticatedAdminPacksRoute
   AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRouteWithChildren
@@ -778,6 +799,7 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminCouponsRoute: AuthenticatedAdminCouponsRoute,
   AuthenticatedAdminCustomersRoute: AuthenticatedAdminCustomersRoute,
   AuthenticatedAdminHomepageRoute: AuthenticatedAdminHomepageRoute,
+  AuthenticatedAdminMetaPixelRoute: AuthenticatedAdminMetaPixelRoute,
   AuthenticatedAdminOrdersRoute: AuthenticatedAdminOrdersRoute,
   AuthenticatedAdminPacksRoute: AuthenticatedAdminPacksRoute,
   AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRouteWithChildren,

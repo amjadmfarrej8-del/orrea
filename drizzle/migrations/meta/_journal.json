@@ -50,6 +50,13 @@
       "when": 1792574707585,
       "tag": "0006_meta_pixel_admin_settings",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792574864728,
+      "tag": "0007_restrict_meta_pixel_default_grants",
+      "breakpoints": true
     }
   ]
 }

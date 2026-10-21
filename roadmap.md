@@ -10,6 +10,8 @@
 - [x] Dedicated wide-screen storefront layout for 1440px, 1920px, and 2560px displays
 
 ## Later
+- [ ] Meta Pixel admin page, secure settings and diagnostics
+- [ ] Meta tracking: verify dataset eligibility and settle consent before installation
 - [ ] Customer product reviews (moderated), wishlist, collections
 - [ ] Analytics charts, sales reports
 - [ ] Online card payment

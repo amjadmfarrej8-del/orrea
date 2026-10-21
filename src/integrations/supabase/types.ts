@@ -188,6 +188,27 @@ export type Database = {
         }
         Relationships: []
       }
+      meta_pixel_settings: {
+        Row: {
+          enabled: boolean
+          id: boolean
+          pixel_id: string
+          updated_at: string
+        }
+        Insert: {
+          enabled?: boolean
+          id?: boolean
+          pixel_id?: string
+          updated_at?: string
+        }
+        Update: {
+          enabled?: boolean
+          id?: boolean
+          pixel_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           id: string

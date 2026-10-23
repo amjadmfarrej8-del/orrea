@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "22f67149-d4f7-4d04-bdc9-60fa5bf81a12",
-  "project_id": "1209979c-84e8-45b0-8b6e-8d2d102f12fa",
-  "url": "/__l5e/assets-v1/22f67149-d4f7-4d04-bdc9-60fa5bf81a12/theravene-pack-gel-contour-yeux.png",
-  "r2_key": "a/v1/1209979c-84e8-45b0-8b6e-8d2d102f12fa/22f67149-d4f7-4d04-bdc9-60fa5bf81a12/theravene-pack-gel-contour-yeux.png",
-  "original_filename": "theravene-pack-gel-contour-yeux.png",
-  "size": 1841711,
   "content_type": "image/png",
-  "created_at": "2026-10-03T17:02:20Z"
+  "created_at": "2026-10-03T17:02:20Z",
+  "original_filename": "theravene-pack-gel-contour-yeux.png",
+  "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/22f67149-d4f7-4d04-bdc9-60fa5bf81a12/theravene-pack-gel-contour-yeux.png",
+  "size": 1841711,
+  "url": "/__l5e/assets-v1/22f67149-d4f7-4d04-bdc9-60fa5bf81a12/theravene-pack-gel-contour-yeux.png",
+  "version": 1
 }

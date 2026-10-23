@@ -91,8 +91,9 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="relative">
           <picture>
             <source media="(min-width:768px)" srcSet={sec.image_desktop || sec.image || hero} />
-            <img src={sec.image || hero} alt="THÉRAVÈNE" width={1600} height={1104} className="h-[78vh] min-h-[520px] w-full scale-[1.04] object-cover object-[70%_center] blur-[3px] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
+            <img src={sec.image || hero} alt="THÉRAVÈNE" width={1600} height={1104} fetchPriority="high" className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
           </picture>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent md:bg-gradient-to-r md:from-background/75 md:via-background/25" />
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
             <div className="max-w-lg animate-rise bg-background/30 p-7 md:bg-transparent md:p-0 lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>

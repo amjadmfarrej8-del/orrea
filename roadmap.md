@@ -1,6 +1,7 @@
 # THÉRAVÉN roadmap
 
 ## Done
+- [ ] Convert public storefront to fashion, replace cosmetics visuals/copy and retain existing administration and order history
 - [x] Storefront scroll reveal: staggered appearances, replay and reduced-motion support without layout changes
 - [x] Storefront: home (admin-managed sections), shop (search, filters, sort), categories, product (gallery, zoom, buy now, WhatsApp, related), cart, checkout with coupons, confirmation, tracking
 - [x] Accounts: login, register, Google, forgot/reset password, profile, order history

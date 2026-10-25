@@ -12,6 +12,8 @@ export const Route = createFileRoute("/shipping")({
       { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour THÉRAVÈNE." },
       { property: "og:title", content: "Livraison & retours — THÉRAVÈNE" },
       { property: "og:description", content: "Livraison partout au Maroc, paiement à la livraison." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Shipping,

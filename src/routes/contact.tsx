@@ -14,6 +14,8 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Contactez THÉRAVÈNE par WhatsApp, téléphone ou e-mail." },
       { property: "og:title", content: "Contact — THÉRAVÈNE" },
       { property: "og:description", content: "Notre équipe vous répond." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Contact,

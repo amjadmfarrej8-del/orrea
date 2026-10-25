@@ -16,6 +16,8 @@ export const Route = createFileRoute("/checkout")({
       { name: "description", content: "Finalisez votre commande THÉRAVÈNE, paiement à la livraison." },
       { property: "og:title", content: "Commande — THÉRAVÈNE" },
       { property: "og:description", content: "Paiement à la livraison partout au Maroc." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

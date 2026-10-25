@@ -11,6 +11,8 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: "Livraison, paiement à la livraison, retours et conseils produits THÉRAVÈNE." },
       { property: "og:title", content: "FAQ — THÉRAVÈNE" },
       { property: "og:description", content: "Toutes les réponses à vos questions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Faq,
@@ -26,7 +28,7 @@ function Faq() {
     [L("Quels sont les délais de livraison ?", "ما هي مدة التوصيل؟"), L("24 à 72 h ouvrées selon votre ville au Maroc.", "من 24 إلى 72 ساعة عمل حسب مدينتك في المغرب.")],
     [L("Combien coûte la livraison ?", "كم تكلفة التوصيل؟"), L(`${fee} MAD, offerte dès ${free} MAD d'achat.`, `${fee} درهم، ومجانية ابتداءً من ${free} درهم.`)],
     [L("Puis-je retourner un produit ?", "هل يمكنني إرجاع منتج؟"), L("Oui, sous 7 jours si le produit est non ouvert et dans son emballage d'origine.", "نعم، خلال 7 أيام إذا كان المنتج غير مفتوح وفي غلافه الأصلي.")],
-    [L("Vos produits conviennent-ils aux peaux sensibles ?", "هل منتجاتكم مناسبة للبشرة الحساسة؟"), L("Nos formules sont testées dermatologiquement. Consultez les ingrédients et faites un test sur une petite zone.", "تركيباتنا مختبرة جلدياً. راجعي المكونات وجربي على منطقة صغيرة.")],
+    [L("Où trouver les informations sur un article ?", "أين أجد معلومات القطعة؟"), L("La fiche de chaque article présente les informations disponibles, son prix et sa disponibilité. Pour une précision, contactez-nous avant de commander.", "تعرض صفحة كل قطعة المعلومات المتاحة وسعرها وتوفرها. تواصلوا معنا قبل الطلب لأي استفسار.")],
     [L("Comment suivre ma commande ?", "كيف أتتبع طلبي؟"), L("Depuis la page « Suivi de commande », avec votre numéro et votre téléphone.", "من صفحة «تتبع الطلب» برقم الطلب ورقم هاتفك.")],
   ];
   return (

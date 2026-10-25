@@ -14,6 +14,8 @@ export const Route = createFileRoute("/merci")({
       { name: "description", content: "Votre commande THÉRAVÈNE est confirmée." },
       { property: "og:title", content: "Merci — THÉRAVÈNE" },
       { property: "og:description", content: "Commande confirmée." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

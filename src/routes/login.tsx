@@ -14,6 +14,8 @@ export const Route = createFileRoute("/login")({
       { name: "description", content: "Connectez-vous à votre compte THÉRAVÈNE." },
       { property: "og:title", content: "Connexion — THÉRAVÈNE" },
       { property: "og:description", content: "Accédez à votre compte THÉRAVÈNE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Login,

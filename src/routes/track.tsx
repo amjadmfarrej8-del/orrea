@@ -14,6 +14,8 @@ export const Route = createFileRoute("/track")({
       { name: "description", content: "Suivez votre commande THÉRAVÈNE avec votre numéro et votre téléphone." },
       { property: "og:title", content: "Suivi de commande — THÉRAVÈNE" },
       { property: "og:description", content: "Où en est votre commande ?" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Track,

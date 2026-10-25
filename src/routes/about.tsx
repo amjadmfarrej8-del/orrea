@@ -1,14 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import ritual from "@/assets/ritual.jpg";
+import ritual from "@/assets/fashion-homme.jpg";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "La Maison — THÉRAVÈNE" },
-      { name: "description", content: "L'histoire et la philosophie de THÉRAVÈNE, maison de haute cosmétique." },
+      { name: "description", content: "Découvrez l’univers mode Femme et Homme de THÉRAVÈNE." },
       { property: "og:title", content: "La Maison — THÉRAVÈNE" },
-      { property: "og:description", content: "Rigueur de la formulation française, richesse des ingrédients précieux." },
+      { property: "og:description", content: "Une nouvelle perspective sur le style, entre simplicité et caractère." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: About,

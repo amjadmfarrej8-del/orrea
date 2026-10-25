@@ -9,6 +9,8 @@ export const Route = createFileRoute("/terms")({
       { name: "description", content: "Conditions générales de vente de la boutique THÉRAVÈNE." },
       { property: "og:title", content: "CGV — THÉRAVÈNE" },
       { property: "og:description", content: "Conditions générales de vente." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => {
@@ -22,7 +24,7 @@ export const Route = createFileRoute("/terms")({
         <h2>{L("Paiement", "الدفع")}</h2>
         <p>{L("Le paiement s'effectue en espèces à la livraison.", "يتم الدفع نقداً عند الاستلام.")}</p>
         <h2>{L("Responsabilité", "المسؤولية")}</h2>
-        <p>{L("Les produits doivent être utilisés conformément aux indications. En cas de réaction, cessez l'utilisation.", "يجب استخدام المنتجات وفق التعليمات. في حال حدوث أي رد فعل، توقفي عن الاستعمال.")}</p>
+        <p>{L("Consultez les informations de chaque article et respectez les indications d’entretien fournies.", "راجعوا معلومات كل قطعة واتبعوا تعليمات العناية المتوفرة.")}</p>
       </InfoPage>
     );
   },

@@ -60,7 +60,7 @@ function MetaPixelPage() {
       </PageTitle>
       <section className="mb-8 border-s-2 border-champagne bg-secondary p-5">
         <h2 className="flex items-center gap-2 text-lg font-medium"><CircleAlert className="h-5 w-5 shrink-0" />Activation en attente</h2>
-        <p className="mt-2 text-sm leading-relaxed">La boutique propose des soins pour les zones sensibles et intimes. Le suivi de ces consultations ou achats peut révéler des informations sensibles interdites par Meta, même sans nom ni téléphone. Les restrictions du jeu de données et l’éligibilité doivent être vérifiées dans Meta Events Manager avant toute installation.</p>
+        <p className="mt-2 text-sm leading-relaxed">Le changement d’identité vers la mode n’autorise pas automatiquement le suivi. Le catalogue réellement publié, les anciennes pages et les données transmises doivent être examinés pour exclure toute information sensible. Les restrictions du jeu de données et l’éligibilité doivent être vérifiées dans Meta Events Manager avant toute installation.</p>
         <p className="mt-2 text-sm leading-relaxed">Aucun code Meta ni événement publicitaire n’est installé par cette page. Les commandes restent inchangées.</p>
       </section>
 

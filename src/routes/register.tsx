@@ -12,6 +12,8 @@ export const Route = createFileRoute("/register")({
       { name: "description", content: "Créez votre compte THÉRAVÈNE pour suivre vos commandes." },
       { property: "og:title", content: "Créer un compte — THÉRAVÈNE" },
       { property: "og:description", content: "Rejoignez la Maison THÉRAVÈNE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Register,

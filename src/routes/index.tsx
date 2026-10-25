@@ -3,13 +3,14 @@ import { PackCard } from "@/components/site/PackCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import hero from "@/assets/hero.jpg";
-import ritual from "@/assets/ritual.jpg";
-import { categoriesQuery, productsQuery, type Product } from "@/lib/catalog";
+import hero from "@/assets/fashion-campaign.jpg";
+import ritual from "@/assets/fashion-femme.jpg";
+import { categoriesQuery, productImage, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink, type Section } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CategoryGrid } from "./categories";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -22,8 +23,8 @@ export const Route = createFileRoute("/")({
     return { seo: s.seo };
   },
   head: ({ loaderData }) => {
-    const title = loaderData?.seo.title_fr || "THÉRAVÈNE — Haute cosmétique";
-    const desc = loaderData?.seo.description_fr || "Soins de haute cosmétique d'inspiration française.";
+    const title = loaderData?.seo.title_fr || "THÉRAVÈNE — Mode Femme & Homme";
+    const desc = loaderData?.seo.description_fr || "Découvrez les univers mode Femme et Homme de THÉRAVÈNE.";
     const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
     return {
       meta: [
@@ -40,15 +41,10 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const reviews = [
-  { name: "Salma B. — Casablanca", fr: "Le sérum vitamine C a transformé mon teint en trois semaines. Texture divine.", ar: "سيروم فيتامين C غيّر لون بشرتي في ثلاثة أسابيع. قوام رائع." },
-  { name: "Imane K. — Rabat", fr: "Livraison rapide, emballage magnifique. On sent le soin dans chaque détail.", ar: "توصيل سريع وتغليف رائع. العناية واضحة في كل التفاصيل." },
-  { name: "Nadia E. — Marrakech", fr: "L'huile de nuit est devenue mon rituel. Ma peau est plus douce que jamais.", ar: "زيت الليل أصبح طقسي اليومي. بشرتي أنعم من أي وقت مضى." },
-];
 
 function Home() {
   const { data: s } = useSuspenseQuery(settingsQuery);
-  const sections = s.homepage.sections.filter((x) => x.visible);
+  const sections = s.homepage.sections.filter((x) => x.visible && x.type !== "reviews");
   return (
     <>
       {sections.map((sec) => (
@@ -90,18 +86,19 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="relative">
           <picture>
-            <source media="(min-width:768px)" srcSet={sec.image_desktop || sec.image || hero} />
-            <img src={sec.image || hero} alt="THÉRAVÈNE" width={1600} height={1104} fetchPriority="high" className="h-[78vh] min-h-[520px] w-full object-cover object-[70%_center] lg:h-[min(82vh,980px)] lg:min-h-[680px]" />
+            <source media="(min-width:768px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
+            <img src={productImage(sec.image || hero)} alt="THÉRAVÈNE" width={1600} height={1104} fetchPriority="high" className="h-[72vh] min-h-[520px] max-h-[900px] w-full object-cover object-[65%_center] md:object-center" />
           </picture>
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent md:bg-gradient-to-r md:from-background/75 md:via-background/25" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent md:bg-none" />
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
-            <div className="max-w-lg animate-rise bg-background/30 p-7 md:bg-transparent md:p-0 lg:max-w-xl">
+            <div className="max-w-lg animate-rise md:max-w-md lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
               <h1 className="mt-5 text-[2.1rem] leading-[1.08] md:text-[3rem] xl:text-[3.4rem]">{title}</h1>
               <p className="mt-6 max-w-sm text-sm font-medium leading-relaxed text-foreground lg:max-w-md lg:text-base">{text}</p>
-              {(sec.button_fr || sec.button_ar) && (
-                <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-9">{ar ? sec.button_ar : sec.button_fr}</a>
-              )}
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild className="h-12 rounded-none px-6 text-xs uppercase"><Link to="/shop" search={{ c: "femme" }}>{L("Femme", "نساء")}</Link></Button>
+                <Button asChild variant="outline" className="h-12 rounded-none bg-background/80 px-6 text-xs uppercase"><Link to="/shop" search={{ c: "homme" }}>{L("Homme", "رجال")}</Link></Button>
+              </div>
             </div>
           </div>
         </section>
@@ -137,7 +134,7 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "categories":
       return (
-        <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+        <section className="mx-auto max-w-[1600px] px-5 pt-12 md:px-10 md:pt-16 lg:px-12 xl:px-16 xl:pt-20">
           <h2 className="mb-10 text-ink text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem] lg:mb-12">{title}</h2>
           <CategoryGrid />
         </section>
@@ -166,7 +163,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "story":
       return (
         <section className="mx-auto mt-32 grid max-w-[1600px] items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10 lg:px-12 xl:mt-40 xl:gap-28 xl:px-16">
-          <img src={sec.image || ritual} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
+          <img src={productImage(sec.image || ritual)} alt="" loading="lazy" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
           <div>
             <p className="eyebrow">{t.ritualEyebrow}</p>
             <h2 className="mt-5 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
@@ -181,7 +178,7 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="mt-32 xl:mt-40">
           <div className="relative">
-            <img src={sec.image} alt={title || "THÉRAVÈNE"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
+            <img src={productImage(sec.image)} alt={title || "THÉRAVÈNE"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
           </div>
           <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16">
             <div className="plate-lux relative z-10 mx-auto max-w-3xl bg-background px-6 py-8 text-center md:-mt-10 md:px-12 md:py-10">
@@ -194,22 +191,8 @@ function SectionView({ sec }: { sec: Section }) {
         </section>
       );
     }
-    case "reviews":
-      return (
-        <section className="mx-auto max-w-[1600px] px-5 pt-32 md:px-10 lg:px-12 xl:px-16 xl:pt-40">
-          <h2 className="text-center text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
-          <div className="mt-14 grid gap-10 md:grid-cols-3 lg:gap-16 xl:mt-20 xl:gap-20">
-            {reviews.map((r) => (
-              <figure key={r.name} className="border-t border-border pt-8">
-                <p className="text-champagne">★★★★★</p>
-                <blockquote className="mt-4 text-xl leading-snug lg:text-2xl" style={{ fontFamily: "var(--font-display)" }}>« {ar ? r.ar : r.fr} »</blockquote>
-                <figcaption className="eyebrow mt-6">{r.name}</figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-      );
     case "newsletter":
+      if (!s.store.whatsapp) return null;
       return (
         <section className="mx-auto mt-32 max-w-3xl px-5 text-center xl:mt-40">
           <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>

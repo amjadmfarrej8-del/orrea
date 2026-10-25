@@ -15,6 +15,8 @@ export const Route = createFileRoute("/_authenticated/account")({
       { name: "description", content: "Votre profil et vos commandes THÉRAVÈNE." },
       { property: "og:title", content: "Mon compte — THÉRAVÈNE" },
       { property: "og:description", content: "Profil et commandes." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

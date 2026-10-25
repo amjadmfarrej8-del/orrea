@@ -14,6 +14,7 @@
 - Bilingual content lives in paired `_fr`/`_ar` columns; UI strings in `src/lib/i18n.tsx` (RTL set on <html> for Arabic).
 - Product images: `products.image` is a local asset key (see `src/lib/catalog.ts`) or a full URL.
 - Store config (theme, store contact/shipping, SEO, homepage sections) lives in `site_settings` key/value rows read via `settingsQuery`; theme is applied as CSS variables by `ThemeStyle`.
+- Empty remixed stores use complete editable homepage/theme defaults from settings.ts; campaign asset keys resolve through catalog.ts, so the page stays usable before configuration without seeding products.
 - Shipping/coupon pricing is computed only by the `quote_order` SQL function, reused by `place_order`.
 - Admin access = `admin` row in `user_roles` (checked with `has_role`); first account to sign up is auto-granted admin by the signup trigger.
 - Uploaded media goes to the private `media` bucket and is stored as long-lived signed URLs (workspace blocks public buckets).

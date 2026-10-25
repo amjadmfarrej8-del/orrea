@@ -11,6 +11,8 @@ export const Route = createFileRoute("/reset-password")({
       { name: "description", content: "Choisissez un nouveau mot de passe." },
       { property: "og:title", content: "Nouveau mot de passe — THÉRAVÈNE" },
       { property: "og:description", content: "Choisissez un nouveau mot de passe THÉRAVÈNE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Reset,

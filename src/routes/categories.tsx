@@ -7,9 +7,11 @@ export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
       { title: "Catégories — THÉRAVÈNE" },
-      { name: "description", content: "Soins visage, sérums, corps et parfums THÉRAVÈNE." },
+      { name: "description", content: "Explorez les collections mode Femme et Homme THÉRAVÈNE." },
       { property: "og:title", content: "Catégories — THÉRAVÈNE" },
-      { property: "og:description", content: "Explorez nos univers de soin." },
+      { property: "og:description", content: "Explorez les univers mode THÉRAVÈNE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(categoriesQuery), context.queryClient.ensureQueryData(productsQuery)]),

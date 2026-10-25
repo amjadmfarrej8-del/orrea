@@ -15,9 +15,11 @@ export const Route = createFileRoute("/shop")({
   head: () => ({
     meta: [
       { title: "Boutique — THÉRAVÈNE" },
-      { name: "description", content: "Toute la collection THÉRAVÈNE : soins visage, sérums, corps et parfums." },
+      { name: "description", content: "La boutique mode THÉRAVÈNE : collections Femme et Homme." },
       { property: "og:title", content: "Boutique — THÉRAVÈNE" },
-      { property: "og:description", content: "Découvrez toute la collection de haute cosmétique THÉRAVÈNE." },
+      { property: "og:description", content: "Découvrez les articles et collections THÉRAVÈNE." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) =>
@@ -78,7 +80,7 @@ function Shop() {
         )}
       </div>
       {showPacks && <div className="-mx-5 mt-12 md:-mx-10"><PackCard excludeIds={excluded} /></div>}
-      {list.length === 0 && !showPacks && <p className="mt-16 text-muted-foreground">{L("Aucun produit trouvé.", "لم يتم العثور على أي منتج.")}</p>}
+      {list.length === 0 && !showPacks && <p className="mt-16 text-muted-foreground">{L("La collection arrive bientôt.", "المجموعة قادمة قريباً.")}</p>}
       {list.length > 0 && (
         <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 md:gap-x-6 md:gap-y-8 xl:grid-cols-4">
           {list.map((p) => <ProductCard key={p.id} p={p} />)}

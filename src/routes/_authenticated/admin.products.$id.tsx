@@ -75,9 +75,9 @@ function EditProduct() {
             {txt("name_fr", "Nom (FR)")}{txt("name_ar", "Nom (AR)")}
             {txt("tagline_fr", "Accroche (FR)")}{txt("tagline_ar", "Accroche (AR)")}
             {txt("description_fr", "Description (FR)", true)}{txt("description_ar", "Description (AR)", true)}
-            {txt("benefits_fr", "Bienfaits (FR)", true)}{txt("benefits_ar", "Bienfaits (AR)", true)}
-            {txt("ingredients_fr", "Ingrédients (FR)", true)}{txt("ingredients_ar", "Ingrédients (AR)", true)}
-            {txt("usage_fr", "Utilisation (FR)", true)}{txt("usage_ar", "Utilisation (AR)", true)}
+            {txt("benefits_fr", "Détails (FR)", true)}{txt("benefits_ar", "Détails (AR)", true)}
+            {txt("ingredients_fr", "Composition (FR)", true)}{txt("ingredients_ar", "Composition (AR)", true)}
+            {txt("usage_fr", "Entretien (FR)", true)}{txt("usage_ar", "Entretien (AR)", true)}
             {txt("warnings_fr", "Précautions (FR)", true)}{txt("warnings_ar", "Précautions (AR)", true)}
           </Card>
           <Card>
@@ -108,7 +108,7 @@ function EditProduct() {
               <AField label="Stock"><Input type="number" min={0} value={f.stock} onChange={(e) => set("stock", Math.max(0, parseInt(e.target.value) || 0))} /></AField>
               <AField label="Alerte stock"><Input type="number" min={0} value={f.low_stock_threshold} onChange={(e) => set("low_stock_threshold", parseInt(e.target.value) || 0)} /></AField>
             </div>
-            {txt("sku", "SKU")}{txt("size", "Contenance (ex. 30 ml)")}{txt("badge", "Badge (ex. Édition limitée)")}{txt("slug", "Lien (slug)")}
+            {txt("sku", "SKU")}{txt("size", "Taille / dimensions (information exacte)")}{txt("badge", "Badge (ex. Édition limitée)")}{txt("slug", "Lien (slug)")}
           </Card>
           <Card className="space-y-3">
             <Toggle label="En ligne" checked={f.is_active} onChange={(v) => set("is_active", v)} />

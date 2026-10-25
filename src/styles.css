@@ -35,31 +35,31 @@
   --color-ring: var(--ring);
 }
 
-/* THÉRAVÈNE palette — ivory, stone, espresso ink, champagne. */
+/* THÉRAVÈNE fashion — navy, white and cool editorial neutrals. */
 :root {
   --radius: 2px;
-  --background: oklch(0.975 0.008 85);
-  --ink: oklch(0.12 0.006 60);
-  --foreground: oklch(0.22 0.012 60);
-  --card: oklch(0.955 0.012 80);
-  --card-foreground: oklch(0.22 0.012 60);
-  --popover: oklch(0.985 0.006 85);
-  --popover-foreground: oklch(0.22 0.012 60);
-  --primary: oklch(0.22 0.012 60);
-  --primary-foreground: oklch(0.975 0.008 85);
-  --primary-hover: oklch(0.36 0.02 60);
-  --secondary: oklch(0.93 0.016 80);
-  --secondary-foreground: oklch(0.22 0.012 60);
-  --muted: oklch(0.94 0.012 80);
-  --muted-foreground: oklch(0.42 0.014 60);
-  --accent: oklch(0.9 0.03 80);
-  --accent-foreground: oklch(0.22 0.012 60);
-  --champagne: oklch(0.72 0.06 78);
+  --background: oklch(1 0 0);
+  --ink: oklch(0.27 0.047 253);
+  --foreground: oklch(0.27 0.047 253);
+  --card: oklch(0.982 0.005 255);
+  --card-foreground: oklch(0.27 0.047 253);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.27 0.047 253);
+  --primary: oklch(0.27 0.047 253);
+  --primary-foreground: oklch(1 0 0);
+  --primary-hover: oklch(0.35 0.055 253);
+  --secondary: oklch(0.982 0.005 255);
+  --secondary-foreground: oklch(0.27 0.047 253);
+  --muted: oklch(0.965 0.008 255);
+  --muted-foreground: oklch(0.55 0.04 255);
+  --accent: oklch(0.945 0.012 255);
+  --accent-foreground: oklch(0.27 0.047 253);
+  --champagne: oklch(0.55 0.04 255);
   --destructive: oklch(0.55 0.17 28);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.88 0.014 75);
-  --input: oklch(0.85 0.015 75);
-  --ring: oklch(0.72 0.06 78);
+  --border: oklch(0.91 0.012 255);
+  --input: oklch(0.86 0.016 255);
+  --ring: oklch(0.55 0.04 255);
 }
 
 @layer base {
@@ -77,7 +77,7 @@
   }
   p { line-height: 1.7; }
   [dir="rtl"] body { font-family: "Tajawal", system-ui, sans-serif; }
-  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.005em; line-height: 1.12; color: var(--color-foreground); }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: 0; line-height: 1.12; color: var(--color-foreground); }
   h3, h4 { line-height: 1.25; }
   button, input, select, textarea, label, nav { font-family: var(--font-sans); }
   :where(

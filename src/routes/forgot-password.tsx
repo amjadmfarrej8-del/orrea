@@ -11,6 +11,8 @@ export const Route = createFileRoute("/forgot-password")({
       { name: "description", content: "Réinitialisez votre mot de passe THÉRAVÈNE." },
       { property: "og:title", content: "Mot de passe oublié — THÉRAVÈNE" },
       { property: "og:description", content: "Recevez un lien de réinitialisation." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Forgot,

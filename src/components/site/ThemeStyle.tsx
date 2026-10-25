@@ -9,7 +9,7 @@ export function themeCss(t: Theme) {
   const r = Math.max(0, Math.min(24, Number(t.radius) || 0));
   const display = fontOk.test(t.display_font) ? t.display_font : "Cormorant Garamond";
   const body = fontOk.test(t.body_font) ? t.body_font : "Jost";
-  return `:root{--background:${c(t.background, "#f8f5ef")};--foreground:${c(t.foreground, "#2b2724")};--card:color-mix(in oklab,${c(t.background, "#f8f5ef")} 92%,${c(t.foreground, "#2b2724")});--card-foreground:${c(t.foreground, "#2b2724")};--primary:${c(t.primary, "#2b2724")};--primary-hover:${c(t.primary_hover, "#4a433d")};--primary-foreground:${c(t.background, "#f8f5ef")};--secondary:${c(t.secondary, "#ece6dc")};--accent:${c(t.accent, "#e5dccb")};--champagne:${c(t.champagne, "#c2a77c")};--muted-foreground:color-mix(in oklab,${c(t.foreground, "#2b2724")} 76%,${c(t.background, "#f8f5ef")});--radius:${r}px;--font-display:"${display}","Tajawal",serif;--font-sans:"${body}","Tajawal",system-ui,sans-serif;}`;
+  return `:root{--ink:${c(t.foreground, "#14263D")};--background:${c(t.background, "#FFFFFF")};--foreground:${c(t.foreground, "#14263D")};--card:${c(t.secondary, "#F7F9FC")};--card-foreground:${c(t.foreground, "#14263D")};--primary:${c(t.primary, "#14263D")};--primary-hover:${c(t.primary_hover, "#243D58")};--primary-foreground:${c(t.background, "#FFFFFF")};--secondary:${c(t.secondary, "#F7F9FC")};--accent:${c(t.accent, "#E7EDF4")};--champagne:${c(t.champagne, "#64748B")};--muted-foreground:color-mix(in oklab,${c(t.foreground, "#14263D")} 76%,${c(t.background, "#FFFFFF")});--radius:${r}px;--font-display:"${display}","Tajawal",serif;--font-sans:"${body}","Tajawal",system-ui,sans-serif;}`;
 }
 
 export function fontHref(t: Theme) {

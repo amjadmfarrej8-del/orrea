@@ -50,7 +50,7 @@ export function Header() {
             <button onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
           </div>
           <Link to="/" className="col-start-2 text-center text-2xl md:col-start-1 md:row-start-1 md:justify-self-start md:text-3xl"><Logo /></Link>
-          <nav className="hidden items-center justify-center gap-7 text-[0.8rem] tracking-[0.12em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-9 xl:gap-11">
+          <nav className="hidden items-center justify-center gap-4 text-[0.8rem] tracking-[0.12em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-6 xl:gap-8">
             {links.map((l) => <Link key={l.to} to={l.to} className="link-lux whitespace-nowrap">{l.label}</Link>)}
           </nav>
           <div className="col-start-3 row-start-1 flex min-w-0 items-center justify-end gap-4 text-[0.8rem] tracking-[0.12em] uppercase md:gap-5 lg:gap-6">
@@ -69,7 +69,7 @@ export function Header() {
           <form onSubmit={submit} className="border-t border-border">
             <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-3">
               <Search className="h-4 w-4 text-muted-foreground" />
-              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} maxLength={80} placeholder={L("Rechercher un soin, un ingrédient…", "ابحثي عن منتج أو مكون…")} className="flex-1 bg-transparent py-2 text-sm outline-none" />
+              <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} maxLength={80} placeholder={L("Rechercher un article…", "ابحثوا عن قطعة…")} className="flex-1 bg-transparent py-2 text-sm outline-none" />
             </div>
           </form>
         )}

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/admin/theme")({ component:
 
 const colors: [keyof Theme, string][] = [
   ["background", "Fond"], ["foreground", "Texte"], ["primary", "Boutons / couleur principale"], ["primary_hover", "Survol des boutons"],
-  ["secondary", "Couleur secondaire"], ["accent", "Accent"], ["champagne", "Champagne (détails)"],
+  ["secondary", "Couleur secondaire"], ["accent", "Accent"], ["champagne", "Accent (détails)"],
 ];
 const fonts = ["Cormorant Garamond", "Playfair Display", "Bodoni Moda", "Italiana", "Jost", "Manrope", "Montserrat", "Lato", "DM Sans"];
 
@@ -87,8 +87,8 @@ function Preview({ t }: { t: Theme }) {
         <span className="text-[0.76rem] tracking-[0.12em] uppercase">Panier</span>
       </div>
       <p className="eyebrow mt-10">Collection 2026</p>
-      <h2 className="mt-3 text-4xl leading-tight" style={{ fontFamily: "var(--font-display)" }}>La science de l'éclat.</h2>
-      <p className="mt-3 text-sm text-muted-foreground">Des soins d'exception aux actifs précieux.</p>
+      <h2 className="mt-3 text-4xl leading-tight" style={{ fontFamily: "var(--font-display)" }}>L’allure, simplement.</h2>
+      <p className="mt-3 text-sm text-muted-foreground">Mode Femme & Homme.</p>
       <div className="mt-6 flex gap-3">
         <span className="btn-lux" style={{ borderRadius: "var(--radius)" }}>Découvrir</span>
         <span className="btn-ghost-lux" style={{ borderRadius: "var(--radius)" }}>En savoir plus</span>
@@ -97,8 +97,8 @@ function Preview({ t }: { t: Theme }) {
         {[1, 2].map((i) => (
           <div key={i}>
             <div className="aspect-[4/5] bg-secondary" style={{ borderRadius: "var(--radius)" }} />
-            <p className="mt-2" style={{ fontFamily: "var(--font-display)" }}>Sérum Éclat</p>
-            <p className="text-xs text-champagne">420 MAD</p>
+            <p className="mt-2" style={{ fontFamily: "var(--font-display)" }}>Article</p>
+            <p className="text-xs text-champagne">Prix réel du catalogue</p>
           </div>
         ))}
       </div>

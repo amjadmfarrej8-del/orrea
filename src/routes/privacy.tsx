@@ -9,6 +9,8 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: "Comment THÉRAVÈNE collecte et protège vos données personnelles." },
       { property: "og:title", content: "Confidentialité — THÉRAVÈNE" },
       { property: "og:description", content: "Protection de vos données personnelles." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => {

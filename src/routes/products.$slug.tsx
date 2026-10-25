@@ -26,6 +26,7 @@ export const Route = createFileRoute("/products/$slug")({
         { name: "description", content: loaderData.description.slice(0, 155) },
         { property: "og:title", content: `${loaderData.name} — THÉRAVÈNE` },
         { property: "og:description", content: loaderData.tagline },
+      { name: "twitter:card", content: "summary_large_image" },
         { property: "og:type", content: "product" },
         ...(loaderData.image ? [{ property: "og:image", content: loaderData.image }, { name: "twitter:image", content: loaderData.image }] : []),
       ],
@@ -65,7 +66,7 @@ function ProductPage() {
     warnings: ar ? p.warnings_ar : p.warnings_fr,
   };
   const tabLabels: Record<typeof tab, string> = {
-    description: t.description, benefits: L("Bienfaits", "الفوائد"), ingredients: t.ingredients, usage: t.usage, warnings: L("Précautions", "تحذيرات"),
+    description: t.description, benefits: L("Détails", "التفاصيل"), ingredients: t.ingredients, usage: t.usage, warnings: L("Précautions", "تحذيرات"),
   };
   const tabs = (Object.keys(content) as (typeof tab)[]).filter((k) => content[k]);
   const discount = p.compare_at_price && Number(p.compare_at_price) > Number(p.price) ? Math.round((1 - Number(p.price) / Number(p.compare_at_price)) * 100) : 0;

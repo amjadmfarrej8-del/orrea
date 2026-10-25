@@ -89,7 +89,7 @@ function SectionView({ sec }: { sec: Section }) {
             <source media="(min-width:768px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
             <img src={productImage(sec.image || hero)} alt="THÉRAVÈNE" width={1600} height={1104} fetchPriority="high" className="h-[72vh] min-h-[520px] max-h-[900px] w-full object-cover object-[65%_center] md:object-center" />
           </picture>
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-background/15 md:bg-transparent" />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent md:bg-none" />
           <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
             <div className="max-w-lg animate-rise md:max-w-md lg:max-w-xl">
               <p className="eyebrow">{t.heroEyebrow}</p>
@@ -134,7 +134,7 @@ function SectionView({ sec }: { sec: Section }) {
       );
     case "categories":
       return (
-        <section className="mx-auto max-w-[1600px] px-5 pt-28 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+        <section className="mx-auto max-w-[1600px] px-5 pt-12 md:px-10 md:pt-16 lg:px-12 xl:px-16 xl:pt-20">
           <h2 className="mb-10 text-ink text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem] lg:mb-12">{title}</h2>
           <CategoryGrid />
         </section>

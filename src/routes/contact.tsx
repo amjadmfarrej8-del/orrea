@@ -40,10 +40,11 @@ function Contact() {
         <div className="space-y-4 text-foreground">
           {s?.store.phone && <p><span className="eyebrow block">{L("Téléphone", "الهاتف")}</span><a href={`tel:${s.store.phone.replace(/\s/g, "")}`}>{s.store.phone}</a></p>}
           {s?.store.email && <p><span className="eyebrow block">E-mail</span><a href={`mailto:${s.store.email}`}>{s.store.email}</a></p>}
-          {s && <p><span className="eyebrow block">{L("Adresse", "العنوان")}</span>{lang === "ar" ? s.store.address_ar : s.store.address_fr}</p>}
+          {(s?.store.address_fr || s?.store.address_ar) && <p><span className="eyebrow block">{L("Adresse", "العنوان")}</span>{lang === "ar" ? s.store.address_ar : s.store.address_fr}</p>}
+          {!s?.store.phone && !s?.store.email && !s?.store.whatsapp && <p>{L("Les coordonnées de la boutique seront disponibles prochainement.", "ستتوفر بيانات التواصل مع المتجر قريباً.")}</p>}
           {s?.store.whatsapp && <a className="btn-lux" href={waLink(s.store.whatsapp, "Bonjour THÉRAVÈNE")} target="_blank" rel="noreferrer">WhatsApp</a>}
         </div>
-        <form onSubmit={send} className="space-y-7">
+        {s?.store.whatsapp && <form onSubmit={send} className="space-y-7">
           <Field label={L("Nom", "الاسم")} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
           <label className="block">
             <span className="eyebrow">{L("Message", "الرسالة")}</span>
@@ -51,7 +52,7 @@ function Contact() {
           </label>
           {err && <p className="text-sm text-destructive">{err}</p>}
           <button className="btn-ghost-lux w-full">{L("Envoyer via WhatsApp", "إرسال عبر واتساب")}</button>
-        </form>
+        </form>}
       </div>
     </InfoPage>
   );

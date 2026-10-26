@@ -1,7 +1,8 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { productImage, productQuery, productsQuery } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
 import { useCart } from "@/lib/cart";
@@ -53,11 +54,13 @@ function ProductPage() {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [zoom, setZoom] = useState<string | null>(null);
+  const [photo, setPhoto] = useState(0);
   const [tab, setTab] = useState<"description" | "benefits" | "ingredients" | "usage" | "warnings">("description");
   if (!p) return null;
   const ar = lang === "ar";
   const name = ar ? p.name_ar : p.name_fr;
   const images = [p.image, ...(p.gallery ?? [])].filter(Boolean).map(productImage);
+  const currentPhoto = photo % images.length;
   const content: Record<typeof tab, string> = {
     description: ar ? p.description_ar : p.description_fr,
     benefits: ar ? p.benefits_ar : p.benefits_fr,
@@ -90,9 +93,16 @@ function ProductPage() {
       </nav>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-6 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
         <div>
-          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[0] ?? null)}>
-            <img src={images[0]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
+          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[currentPhoto] ?? null)}>
+            <img src={images[currentPhoto]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
           </button>
+          {images.length > 1 && (
+            <div className="mt-3 flex items-center justify-center gap-5">
+              <Button variant="ghost" size="icon" title={L("Photo précédente", "الصورة السابقة")} aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((currentPhoto + images.length - 1) % images.length)}><ChevronLeft /></Button>
+              <span className="text-xs tabular-nums text-muted-foreground" aria-live="polite">{currentPhoto + 1} / {images.length}</span>
+              <Button variant="ghost" size="icon" title={L("Photo suivante", "الصورة التالية")} aria-label={L("Photo suivante", "الصورة التالية")} onClick={() => setPhoto((currentPhoto + 1) % images.length)}><ChevronRight /></Button>
+            </div>
+          )}
         </div>
         <div className="md:sticky md:top-32 md:self-start">
           <p className="eyebrow">{p.size}{p.sku && ` · ${p.sku}`}</p>

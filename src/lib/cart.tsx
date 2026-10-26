@@ -51,4 +51,4 @@ export function useCart() {
 }
 
 export const hasFreeShipping = (items: { free_shipping?: boolean }[]) => items.some((i) => i.free_shipping);
-export const shippingFor = (subtotal: number, fee = 35, free = 500) => (subtotal >= free || subtotal === 0 ? 0 : fee);
+export const shippingFor = (subtotal: number, fee = 20, free = 500) => (subtotal >= free || subtotal === 0 ? 0 : fee);

@@ -21,7 +21,7 @@ export const Route = createFileRoute("/faq")({
 function Faq() {
   const { L } = useI18n();
   const { data: s } = useQuery(settingsQuery);
-  const fee = s?.store.shipping_fee ?? 35;
+  const fee = s?.store.shipping_fee ?? 20;
   const free = s?.store.free_shipping_threshold ?? 500;
   const items = [
     [L("Comment payer ma commande ?", "كيف أدفع ثمن طلبي؟"), L("Le paiement se fait en espèces à la livraison, directement au livreur.", "يتم الدفع نقداً عند الاستلام مباشرة لعامل التوصيل.")],

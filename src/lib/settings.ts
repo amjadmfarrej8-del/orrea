@@ -22,7 +22,7 @@ export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories"
 
 export const defaultSettings: Settings = {
   theme: { background: "#FFFFFF", foreground: "#14263D", primary: "#14263D", primary_hover: "#243D58", secondary: "#F7F9FC", accent: "#E7EDF4", champagne: "#64748B", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
-  store: { shipping_fee: 35, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
+  store: { shipping_fee: 20, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
   seo: { title_fr: "THÉRAVÈNE — Mode Femme & Homme", title_ar: "THÉRAVÈNE — أزياء النساء والرجال", description_fr: "THÉRAVÈNE, une nouvelle perspective sur le style. Découvrez nos univers Femme et Homme.", description_ar: "THÉRAVÈNE، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
   homepage: { sections: [
     { id: "hero", type: "hero", visible: true, title_fr: "THÉRAVÈNE", title_ar: "THÉRAVÈNE", text_fr: "Une nouvelle perspective sur le style. Lignes épurées, allure libre.", text_ar: "منظور جديد للأناقة. خطوط بسيطة وحضور حرّ.", image: "fashion-campaign", button_fr: "Découvrir", button_ar: "اكتشفوا", link: "/shop" },

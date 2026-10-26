@@ -12,7 +12,7 @@ function Shipping() {
   const qc = useQueryClient();
   const { data: s } = useQuery(settingsQuery);
   const zones = useQuery({ queryKey: ["zones"], queryFn: async () => (await supabase.from("shipping_zones").select("*").order("city")).data ?? [] });
-  const [fee, setFee] = useState(35);
+  const [fee, setFee] = useState(20);
   const [free, setFree] = useState(500);
   const [city, setCity] = useState("");
   const [zfee, setZfee] = useState(0);

@@ -4,8 +4,10 @@ vi.mock("@/integrations/supabase/client", () => ({ supabase: {} }));
 import { defaultSettings } from "@/lib/settings";
 
 describe("Fashion store defaults", () => {
-  it("preserves the 35 MAD shipping fee and 500 MAD free threshold", () => {
-    expect(defaultSettings.store.shipping_fee).toBe(35);
+  it("uses the requested 20 MAD store-wide shipping fee", () => {
+    expect(defaultSettings.store.shipping_fee).toBe(20);
+  });
+  it("preserves the 500 MAD free threshold", () => {
     expect(defaultSettings.store.free_shipping_threshold).toBe(500);
   });
   it("keeps the Nouveautés section disabled", () => {

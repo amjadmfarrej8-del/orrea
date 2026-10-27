@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { saveSetting, settingsQuery } from "@/lib/settings";
 import { AField, Card, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/shipping")({ component: Shipping });
+export const Route = createFileRoute("/_authenticated/admin/shipping")({ head: () => ({ meta: [{ title: "Livraison — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : livraison." }, { property: "og:title", content: "Livraison — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : livraison." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Shipping });
 
 function Shipping() {
   const qc = useQueryClient();

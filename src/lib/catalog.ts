@@ -1,8 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import fashionCampaign from "@/assets/fashion-campaign.jpg";
-import fashionFemme from "@/assets/fashion-femme.jpg";
-import fashionHomme from "@/assets/fashion-homme.jpg";
+import streetwearCampaign from "@/assets/streetwear-campaign.jpg";
+import streetwearFemme from "@/assets/streetwear-femme.jpg";
+import streetwearHomme from "@/assets/ensemble-noir-porte.png.asset.json";
 import creamAsset from "@/assets/theravene-creme-zones-intimes.png.asset.json";
 import eyeAsset from "@/assets/theravene-contour-yeux.png.asset.json";
 import gelAsset from "@/assets/theravene-gel-nettoyant.png.asset.json";
@@ -23,8 +24,9 @@ const localImages: Record<string, string> = Object.fromEntries(
 );
 Object.assign(localImages, {
   "fashion-campaign": fashionCampaign,
-  "fashion-femme": fashionFemme,
-  "fashion-homme": fashionHomme,
+  "fashion-femme": streetwearFemme,
+  "fashion-homme": streetwearHomme.url,
+  "streetwear-campaign": streetwearCampaign,
   "t-cream": creamAsset.url,
   "t-eye": eyeAsset.url,
   "t-gel": gelAsset.url,

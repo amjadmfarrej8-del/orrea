@@ -35,31 +35,33 @@
   --color-ring: var(--ring);
 }
 
-/* THÉRAVÈNE fashion — navy, white and cool editorial neutrals. */
+/* THÉRAVÈNE streetwear — dark photographic surfaces and signal orange. */
 :root {
   --radius: 2px;
-  --background: oklch(1 0 0);
-  --ink: oklch(0.27 0.047 253);
-  --foreground: oklch(0.27 0.047 253);
-  --card: oklch(0.982 0.005 255);
-  --card-foreground: oklch(0.27 0.047 253);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.27 0.047 253);
-  --primary: oklch(0.27 0.047 253);
-  --primary-foreground: oklch(1 0 0);
-  --primary-hover: oklch(0.35 0.055 253);
-  --secondary: oklch(0.982 0.005 255);
-  --secondary-foreground: oklch(0.27 0.047 253);
-  --muted: oklch(0.965 0.008 255);
-  --muted-foreground: oklch(0.55 0.04 255);
-  --accent: oklch(0.945 0.012 255);
-  --accent-foreground: oklch(0.27 0.047 253);
-  --champagne: oklch(0.55 0.04 255);
-  --destructive: oklch(0.55 0.17 28);
+  --background: oklch(0.135 0 0);
+  --ink: oklch(0.97 0 0);
+  --foreground: oklch(0.97 0 0);
+  --card: oklch(0.19 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.19 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.7 0.2 45);
+  --primary-foreground: oklch(0.135 0 0);
+  --primary-hover: oklch(0.64 0.2 45);
+  --secondary: oklch(0.19 0 0);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.19 0 0);
+  --muted-foreground: oklch(0.76 0 0);
+  --accent: oklch(0.26 0 0);
+  --accent-foreground: oklch(0.97 0 0);
+  --champagne: oklch(0.7 0.2 45);
+  --destructive: oklch(0.65 0.2 28);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.91 0.012 255);
-  --input: oklch(0.86 0.016 255);
-  --ring: oklch(0.55 0.04 255);
+  --border: oklch(0.3 0 0);
+  --input: oklch(0.4 0 0);
+  --ring: oklch(0.7 0.2 45);
+  --hero-shade: linear-gradient(90deg, oklch(0.08 0 0 / 0.8), oklch(0.08 0 0 / 0.15) 63%, transparent);
+  --metallic-logo: linear-gradient(180deg, oklch(1 0 0) 10%, oklch(0.55 0 0) 45%, oklch(1 0 0) 53%, oklch(0.6 0 0) 85%);
 }
 
 @layer base {
@@ -211,4 +213,32 @@
 @media (prefers-reduced-motion: reduce) {
   [data-scroll-reveal="pending"] { opacity: 1; }
   .animate-rise { animation: none; }
+}
+
+.streetwear-logo { font-family: var(--font-display); font-weight: 700; font-style: italic; background: var(--metallic-logo); background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+.streetwear-hero { height: 660px; position: relative; overflow: hidden; }
+.streetwear-hero-image { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.streetwear-shade { position: absolute; inset: 0; background: var(--hero-shade); pointer-events: none; }
+.streetwear-copy { position: absolute; inset-inline: 28px; top: 42%; max-width: 420px; }
+.streetwear-title { font-size: 54px; font-weight: 700; line-height: 0.92; }
+.streetwear-title span { display: block; color: var(--primary); font-size: 66px; }
+.streetwear-heading { font-size: 36px; font-weight: 700; text-transform: uppercase; }
+@media (min-width: 768px) {
+  .streetwear-hero { height: 790px; max-height: 90vh; min-height: 600px; }
+  .streetwear-copy { inset-inline-start: max(6%, calc((100vw - 1440px) / 2)); top: 38%; max-width: 670px; }
+  .streetwear-title { font-size: 88px; }
+  .streetwear-title span { font-size: 106px; }
+  .streetwear-heading { font-size: 48px; }
+}
+@media (max-width: 480px) {
+  .streetwear-hero { height: 590px; }
+  .streetwear-copy { inset-inline: 22px; top: 42%; max-width: 300px; }
+  .streetwear-title { font-size: 40px; }
+  .streetwear-title span { font-size: 49px; }
+  .streetwear-heading { font-size: 30px; }
+}
+@media (max-width: 360px) {
+  .streetwear-copy { inset-inline: 18px; max-width: 270px; }
+  .streetwear-title { font-size: 35px; }
+  .streetwear-title span { font-size: 43px; }
 }

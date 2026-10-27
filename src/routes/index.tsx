@@ -3,7 +3,9 @@ import { PackCard } from "@/components/site/PackCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import hero from "@/assets/fashion-campaign.jpg";
+import hero from "@/assets/streetwear-campaign.jpg";
+import mobileHero from "@/assets/streetwear-campaign-mobile.jpg";
+import { ArrowRight, ChevronLeft, ChevronRight, Truck, ShieldCheck, PackageCheck } from "lucide-react";
 import ritual from "@/assets/fashion-femme.jpg";
 import { categoriesQuery, productImage, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
@@ -11,7 +13,6 @@ import { settingsQuery, waLink, type Section } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CategoryGrid } from "./categories";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
@@ -80,62 +81,55 @@ function SectionView({ sec }: { sec: Section }) {
   const title = (ar ? sec.title_ar : sec.title_fr) ?? "";
   const text = (ar ? sec.text_ar : sec.text_fr) ?? "";
   const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState(0);
 
   switch (sec.type) {
-    case "hero":
+    case "hero": {
+      const slides = products.filter((p) => p.gallery?.length).flatMap((p) => [p.image, ...(p.gallery || [])]).filter(Boolean).slice(0, 2);
+      const campaignImages = [hero, ...slides];
+      const selected = photo % campaignImages.length;
+      const isDefault = !sec.image || sec.image === "streetwear-campaign";
+      const headline = title || "MOVE WITH PRESENCE";
+      const words = headline.split(" ");
+      const last = words.pop();
       return (
-        <section className="relative">
+        <section className="streetwear-hero">
           <picture>
-            <source media="(min-width:768px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
-            <img src={productImage(sec.image || hero)} alt="THÉRAVÈNE" width={1600} height={1104} fetchPriority="high" className="h-[72vh] min-h-[520px] max-h-[900px] w-full object-cover object-[65%_center] md:object-center" />
+            <source media="(min-width:768px)" srcSet={selected === 0 ? productImage(sec.image_desktop || sec.image || hero) : productImage(campaignImages[selected] ?? hero)} />
+            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected] ?? hero)} alt="Ensemble THÉRAVÈNE blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
           </picture>
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/65 to-transparent md:bg-none" />
-          <div className="absolute inset-0 mx-auto flex w-full max-w-[1600px] items-end px-5 pb-14 md:items-center md:px-10 md:pb-0 lg:px-12 xl:px-16">
-            <div className="max-w-lg animate-rise md:max-w-md lg:max-w-xl">
-              <p className="eyebrow">{t.heroEyebrow}</p>
-              <h1 className="mt-5 text-[2.1rem] leading-[1.08] md:text-[3rem] xl:text-[3.4rem]">{title}</h1>
-              <p className="mt-6 max-w-sm text-sm font-medium leading-relaxed text-foreground lg:max-w-md lg:text-base">{text}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild className="h-12 rounded-none px-6 text-xs uppercase"><Link to="/shop" search={{ c: "femme" }}>{L("Femme", "نساء")}</Link></Button>
-                <Button asChild variant="outline" className="h-12 rounded-none bg-background/80 px-6 text-xs uppercase"><Link to="/shop" search={{ c: "homme" }}>{L("Homme", "رجال")}</Link></Button>
-              </div>
-            </div>
+          <div className="streetwear-shade" aria-hidden />
+          <div className="streetwear-copy">
+            <p className="mb-4 flex items-center gap-3 text-[10px] uppercase md:text-xs">PREMIUM STREETWEAR <span className="h-px w-10 bg-foreground/60" /></p>
+            <h1 className="streetwear-title">{words.join(" ")}<span>{last}</span></h1>
+            <p className="mt-4 text-[10px] uppercase md:text-sm">{text}</p>
+            <Button asChild variant="outline" className="mt-6 h-11 rounded-none border-primary bg-transparent px-4 text-[10px] uppercase text-foreground hover:bg-primary hover:text-primary-foreground md:h-14 md:px-7 md:text-xs">
+              <Link to="/shop">{(ar ? sec.button_ar : sec.button_fr) || L("Découvrir la collection", "اكتشفوا المجموعة")}<ArrowRight className="ms-3 size-4" /></Link>
+            </Button>
+          </div>
+          <div className="absolute bottom-5 start-6 flex items-center gap-4 text-xs md:bottom-8 md:start-12">
+            <span className="tabular-nums">{String(selected + 1).padStart(2, "0")} / {String(campaignImages.length).padStart(2, "0")}</span>
+            <span className="h-px w-14 bg-foreground/50" />
+            <Button size="icon" variant="ghost" aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((selected + campaignImages.length - 1) % campaignImages.length)}><ChevronLeft className="size-4" /></Button>
+            <Button size="icon" variant="ghost" aria-label={L("Photo suivante", "الصورة التالية")} onClick={() => setPhoto((selected + 1) % campaignImages.length)}><ChevronRight className="size-4" /></Button>
           </div>
         </section>
       );
+    }
     case "promo":
       return <div className="bg-champagne/25 px-5 py-4 text-center text-sm tracking-[0.08em]">{title}</div>;
-    case "benefits":
-      return (
-        <section className="border-y border-border bg-card/60">
-          <ul className="mx-auto grid max-w-[1600px] grid-cols-2 md:grid-cols-4">
-            {t.values.map((v, i) => (
-              <li
-                key={v}
-                className={cn(
-                  "flex flex-col items-center justify-center gap-4 px-4 py-9 text-center md:gap-5 md:px-8 md:py-14",
-                  i % 2 === 0 && "border-e border-border",
-                  i < 2 && "border-b border-border md:border-b-0",
-                  i === 1 && "md:border-e md:border-border",
-                )}
-              >
-                <span aria-hidden className="flex shrink-0 items-center gap-2">
-                  <span className="h-px w-5 bg-champagne/50" />
-                  <span className="h-1 w-1 rotate-45 bg-champagne" />
-                  <span className="h-px w-5 bg-champagne/50" />
-                </span>
-                <span className="font-sans text-[0.68rem] font-medium leading-[1.6] tracking-[0.2em] uppercase text-foreground md:text-[0.74rem] md:tracking-[0.24em]">
-                  {v}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      );
+    case "benefits": {
+      const benefits = [
+        { icon: Truck, title: L("Livraison au Maroc", "التوصيل في المغرب"), detail: L(`${s.store.shipping_fee} MAD · offerte dès ${s.store.free_shipping_threshold} MAD`, `${s.store.shipping_fee} درهم · مجاناً من ${s.store.free_shipping_threshold} درهم`) },
+        { icon: ShieldCheck, title: L("Paiement à la livraison", "الدفع عند الاستلام"), detail: L("À réception de votre commande", "عند استلام طلبكم") },
+        { icon: PackageCheck, title: L("Suivi de commande", "تتبع الطلب"), detail: L("Votre commande, étape par étape", "طلبكم خطوة بخطوة") },
+      ];
+      return <section className="mx-auto grid max-w-6xl grid-cols-3 gap-2 px-4 py-7 md:py-12">{benefits.map(({ icon: Icon, title, detail }) => <div key={title} className="text-center"><Icon className="mx-auto mb-3 size-6 md:size-9" strokeWidth={1.2} /><p className="text-[9px] font-medium uppercase leading-tight md:text-xs">{title}</p><p className="mt-1 text-[9px] leading-tight text-muted-foreground md:text-xs">{detail}</p></div>)}</section>;
+    }
     case "categories":
       return (
-        <section className="mx-auto max-w-[1600px] px-5 pt-12 md:px-10 md:pt-16 lg:px-12 xl:px-16 xl:pt-20">
-          <h2 className="mb-10 text-ink text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem] lg:mb-12">{title}</h2>
+        <section className="mx-auto max-w-6xl px-5 pt-2 md:px-10 md:pt-6">
+          <div className="mb-6 text-center md:mb-10"><p className="mb-2 text-[10px] font-medium uppercase text-primary">THÉRAVÈNE</p><h2 className="streetwear-heading">{title}</h2><span className="mx-auto mt-3 block h-px w-10 bg-foreground/70" /></div>
           <CategoryGrid />
         </section>
       );

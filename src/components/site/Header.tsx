@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Menu, Search, ShoppingBag, User, X } from "lucide-react";
@@ -6,11 +6,12 @@ import { useCart } from "@/lib/cart";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { settingsQuery } from "@/lib/settings";
+import { Button } from "@/components/ui/button";
 
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
   if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="THÉRAVÈNE" className={`h-8 w-auto ${className}`} />;
-  return <span className={`tracking-[0.16em] ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>;
+  return <span className={`streetwear-logo ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>;
 }
 
 export function Header() {
@@ -23,6 +24,7 @@ export function Header() {
   const [q, setQ] = useState("");
   const navigate = useNavigate();
   const free = s?.store.free_shipping_threshold ?? 500;
+  const home = useRouterState({ select: (state) => state.location.pathname === "/" });
 
   const links = [
     { to: "/shop", label: t.shop },
@@ -41,32 +43,25 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur">
-        <div className="whitespace-nowrap bg-primary py-2 text-center text-[0.55rem] tracking-[0.08em] uppercase text-primary-foreground md:text-[0.8rem] md:tracking-[0.16em]">
+      <header className={home ? "absolute inset-x-0 top-0 z-40 bg-transparent" : "sticky top-0 z-40 border-b border-border bg-background"}>
+        <div className={`${home ? "hidden" : "block"} whitespace-nowrap bg-primary py-2 text-center text-[0.55rem] tracking-[0.08em] uppercase text-primary-foreground md:text-[0.8rem] md:tracking-[0.16em]`}>
           {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>
-        <div className="mx-auto grid max-w-[1600px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-5 py-4 md:px-10 md:py-5 lg:px-12 xl:px-16">
-          <div className="flex min-w-0 items-center md:hidden">
-            <button onClick={() => setOpen(true)} aria-label="Menu"><Menu className="h-5 w-5" strokeWidth={1.2} /></button>
-          </div>
-          <Link to="/" className="col-start-2 text-center text-2xl md:col-start-1 md:row-start-1 md:justify-self-start md:text-3xl"><Logo /></Link>
-          <nav className="hidden items-center justify-center gap-4 text-[0.8rem] tracking-[0.12em] uppercase md:col-start-2 md:row-start-1 md:flex lg:gap-6 xl:gap-8">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-5 py-7 md:px-10 lg:px-12">
+          <Link to="/" className="shrink-0 text-[26px] md:text-4xl"><Logo /></Link>
+          <nav className="hidden items-center justify-center gap-5 text-xs uppercase lg:flex">
             {links.map((l) => <Link key={l.to} to={l.to} className="link-lux whitespace-nowrap">{l.label}</Link>)}
           </nav>
-          <div className="col-start-3 row-start-1 flex min-w-0 items-center justify-end gap-4 text-[0.8rem] tracking-[0.12em] uppercase md:gap-5 lg:gap-6">
-            <button onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="h-5 w-5" strokeWidth={1.2} /></button>
-            <button onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="link-lux hidden md:inline">{lang === "fr" ? "عربي" : "FR"}</button>
-            <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="h-5 w-5" strokeWidth={1.2} /></Link>
-            <Link to="/cart" className="relative" aria-label={t.cart}>
-              <ShoppingBag className="h-5 w-5" strokeWidth={1.2} />
-              {count > 0 && (
-                <span className="absolute -end-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-champagne px-1 text-[0.8rem] text-primary">{count}</span>
-              )}
-            </Link>
+          <div className="flex items-center gap-2 md:gap-4">
+            <Button variant="ghost" size="icon" onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="size-6" strokeWidth={1.2} /></Button>
+            <Button variant="ghost" onClick={() => setLang(lang === "fr" ? "ar" : "fr")} className="hidden md:inline-flex">{lang === "fr" ? "عربي" : "FR"}</Button>
+            <Link to={user ? "/account" : "/login"} className="hidden md:inline" aria-label={L("Compte", "الحساب")}><User className="size-5" strokeWidth={1.2} /></Link>
+            <Link to="/cart" className="relative p-2" aria-label={t.cart}><ShoppingBag className="size-6" strokeWidth={1.2} /><span className="absolute end-0 top-0 flex size-4 items-center justify-center rounded-full bg-foreground text-[9px] text-background">{count}</span></Link>
+            <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Menu"><Menu className="size-7" strokeWidth={1.2} /></Button>
           </div>
         </div>
         {search && (
-          <form onSubmit={submit} className="border-t border-border">
+          <form onSubmit={submit} className="border-t border-border bg-background">
             <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-3">
               <Search className="h-4 w-4 text-muted-foreground" />
               <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} maxLength={80} placeholder={L("Rechercher un article…", "ابحثوا عن قطعة…")} className="flex-1 bg-transparent py-2 text-sm outline-none" />
@@ -76,12 +71,11 @@ export function Header() {
       </header>
       {open && (
         <div
-          className="fixed inset-0 z-[9999] md:hidden"
-          style={{ background: "var(--color-background, #f8f5ef)" }}
+          className="fixed inset-0 z-[9999] bg-background lg:hidden"
         >
           <div className="flex items-center justify-between px-5 py-5">
             <Logo className="text-2xl" />
-            <button onClick={() => setOpen(false)} aria-label="Fermer"><X className="h-5 w-5" /></button>
+            <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Fermer"><X className="h-5 w-5" /></Button>
           </div>
           <nav className="flex flex-col gap-1 px-5 pt-6">
             {links.map((l) => (

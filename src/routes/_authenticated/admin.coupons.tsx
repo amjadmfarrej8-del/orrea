@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AField, Card, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/coupons")({ component: Coupons });
+export const Route = createFileRoute("/_authenticated/admin/coupons")({ head: () => ({ meta: [{ title: "Codes promo — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : codes promo." }, { property: "og:title", content: "Codes promo — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : codes promo." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Coupons });
 
 function Coupons() {
   const qc = useQueryClient();

@@ -7,7 +7,7 @@ import { productImage } from "@/lib/catalog";
 import { formatMAD } from "@/lib/i18n";
 import { Card, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/products")({ component: ProductsLayout });
+export const Route = createFileRoute("/_authenticated/admin/products")({ head: () => ({ meta: [{ title: "Produits et stock — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : produits et stock." }, { property: "og:title", content: "Produits et stock — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : produits et stock." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ProductsLayout });
 
 function ProductsLayout() {
   const match = useMatchRoute();

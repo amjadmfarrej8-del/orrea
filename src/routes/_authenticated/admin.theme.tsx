@@ -6,7 +6,7 @@ import { defaultSettings, saveSetting, settingsQuery, type Theme } from "@/lib/s
 import { fontHref, themeCss } from "@/components/site/ThemeStyle";
 import { AField, Card, ImageUpload, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/theme")({ component: ThemeEditor });
+export const Route = createFileRoute("/_authenticated/admin/theme")({ head: () => ({ meta: [{ title: "Apparence — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : apparence." }, { property: "og:title", content: "Apparence — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : apparence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ThemeEditor });
 
 const colors: [keyof Theme, string][] = [
   ["background", "Fond"], ["foreground", "Texte"], ["primary", "Boutons / couleur principale"], ["primary_hover", "Survol des boutons"],

@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SECTION_TYPES, saveSetting, settingsQuery, type Section } from "@/lib/settings";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/homepage")({ component: HomepageBuilder });
+export const Route = createFileRoute("/_authenticated/admin/homepage")({ head: () => ({ meta: [{ title: "Éditeur accueil — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : éditeur accueil." }, { property: "og:title", content: "Éditeur accueil — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : éditeur accueil." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: HomepageBuilder });
 
 const typeLabel: Record<string, string> = {
   hero: "Bannière principale", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", offers: "Offres (packs)", featured: "Produits sélectionnés",

@@ -21,17 +21,17 @@ export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { secti
 export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
 
 export const defaultSettings: Settings = {
-  theme: { background: "#FFFFFF", foreground: "#14263D", primary: "#14263D", primary_hover: "#243D58", secondary: "#F7F9FC", accent: "#E7EDF4", champagne: "#64748B", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
+  theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
   store: { shipping_fee: 20, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
   seo: { title_fr: "THÉRAVÈNE — Mode Femme & Homme", title_ar: "THÉRAVÈNE — أزياء النساء والرجال", description_fr: "THÉRAVÈNE, une nouvelle perspective sur le style. Découvrez nos univers Femme et Homme.", description_ar: "THÉRAVÈNE، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
   homepage: { sections: [
-    { id: "hero", type: "hero", visible: true, title_fr: "THÉRAVÈNE", title_ar: "THÉRAVÈNE", text_fr: "Une nouvelle perspective sur le style. Lignes épurées, allure libre.", text_ar: "منظور جديد للأناقة. خطوط بسيطة وحضور حرّ.", image: "fashion-campaign", button_fr: "Découvrir", button_ar: "اكتشفوا", link: "/shop" },
-    { id: "categories", type: "categories", visible: true, title_fr: "Nos Univers", title_ar: "عوالمنا" },
+    { id: "hero", type: "hero", visible: true, title_fr: "MOVE WITH PRESENCE", title_ar: "تحرّك بحضور", text_fr: "STYLE / QUALITY / ATTITUDE", text_ar: "أسلوب / جودة / شخصية", image: "streetwear-campaign", image_desktop: "streetwear-campaign", button_fr: "Découvrir la collection", button_ar: "اكتشفوا المجموعة", link: "/shop" },
+    { id: "benefits", type: "benefits", visible: true },
+    { id: "categories", type: "categories", visible: true, title_fr: "Nos Collections", title_ar: "مجموعاتنا" },
     { id: "featured", type: "featured", visible: true, title_fr: "L’Essentiel", title_ar: "الأساسيات" },
-    { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le blanc rencontre le bleu marine. Une silhouette se dessine, entre simplicité et caractère. Bienvenue dans l’univers THÉRAVÈNE.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم THÉRAVÈNE.", image: "fashion-femme" },
+    { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le streetwear rencontre le caractère. Une silhouette se dessine, entre liberté et présence. Bienvenue dans l’univers THÉRAVÈNE.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم THÉRAVÈNE.", image: "fashion-femme" },
     { id: "bestsellers", type: "bestsellers", visible: true, title_fr: "Best-Sellers", title_ar: "الأكثر مبيعاً" },
     { id: "new", type: "new", visible: false, title_fr: "Nouveautés", title_ar: "الجديد" },
-    { id: "benefits", type: "benefits", visible: true }
   ] },
 };
 

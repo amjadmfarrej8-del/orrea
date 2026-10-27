@@ -95,8 +95,8 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="streetwear-hero">
           <picture>
-            <source media="(min-width:768px)" srcSet={selected === 0 ? productImage(sec.image_desktop || sec.image || hero) : productImage(campaignImages[selected])} />
-            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected])} alt="Ensemble THÉRAVÈNE blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
+            <source media="(min-width:768px)" srcSet={selected === 0 ? productImage(sec.image_desktop || sec.image || hero) : productImage(campaignImages[selected] ?? hero)} />
+            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected] ?? hero)} alt="Ensemble THÉRAVÈNE blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
           </picture>
           <div className="streetwear-shade" aria-hidden />
           <div className="streetwear-copy">

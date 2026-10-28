@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea, Toggle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/products/$id")({ head: () => ({ meta: [{ title: "Modifier un article — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : modifier un article." }, { property: "og:title", content: "Modifier un article — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : modifier un article." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: EditProduct });
+export const Route = createFileRoute("/_authenticated/admin/products/$id")({ head: () => ({ meta: [{ title: "Modifier un article — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : modifier un article." }, { property: "og:title", content: "Modifier un article — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : modifier un article." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: EditProduct });
 
 const empty = {
   slug: "", category_id: "" as string | null, name_fr: "", name_ar: "", tagline_fr: "", tagline_ar: "",

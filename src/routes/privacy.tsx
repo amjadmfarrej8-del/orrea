@@ -5,9 +5,9 @@ import { InfoPage } from "@/components/site/InfoPage";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Politique de confidentialité — THÉRAVÈNE" },
-      { name: "description", content: "Comment THÉRAVÈNE collecte et protège vos données personnelles." },
-      { property: "og:title", content: "Confidentialité — THÉRAVÈNE" },
+      { title: "Politique de confidentialité — ORRÉA" },
+      { name: "description", content: "Comment ORRÉA collecte et protège vos données personnelles." },
+      { property: "og:title", content: "Confidentialité — ORRÉA" },
       { property: "og:description", content: "Protection de vos données personnelles." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

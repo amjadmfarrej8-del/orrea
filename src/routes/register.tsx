@@ -8,10 +8,10 @@ import { AuthShell, Field } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/register")({
   head: () => ({
     meta: [
-      { title: "Créer un compte — THÉRAVÈNE" },
-      { name: "description", content: "Créez votre compte THÉRAVÈNE pour suivre vos commandes." },
-      { property: "og:title", content: "Créer un compte — THÉRAVÈNE" },
-      { property: "og:description", content: "Rejoignez la Maison THÉRAVÈNE." },
+      { title: "Créer un compte — ORRÉA" },
+      { name: "description", content: "Créez votre compte ORRÉA pour suivre vos commandes." },
+      { property: "og:title", content: "Créer un compte — ORRÉA" },
+      { property: "og:description", content: "Rejoignez la Maison ORRÉA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

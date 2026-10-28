@@ -12,9 +12,9 @@ import { metaEvents, pixelIdSchema } from "@/lib/meta-pixel";
 export const Route = createFileRoute("/_authenticated/admin/meta-pixel")({
   loader: ({ context }) => context.queryClient.ensureQueryData(metaPixelSettingsQuery),
   head: () => ({ meta: [
-    { title: "Meta Pixel — Administration THÉRAVÈNE" },
-    { name: "description", content: "Configuration administrateur et diagnostic du Meta Pixel de THÉRAVÈNE." },
-    { property: "og:title", content: "Meta Pixel — THÉRAVÈNE" },
+    { title: "Meta Pixel — Administration ORRÉA" },
+    { name: "description", content: "Configuration administrateur et diagnostic du Meta Pixel de ORRÉA." },
+    { property: "og:title", content: "Meta Pixel — ORRÉA" },
     { property: "og:description", content: "Réglages et préparation du suivi publicitaire de la boutique." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
@@ -83,7 +83,7 @@ function MetaPixelPage() {
         <h2 className="mb-4 text-xl">Créer votre Pixel dans Meta</h2>
         <p className="mb-4 text-sm leading-relaxed">« Connecter à Meta » ouvre Events Manager : ce bouton n’autorise pas de connexion à votre compte. Enregistrer un identifiant ne connecte pas un compte Meta.</p>
         <ol className="list-decimal space-y-3 ps-5 text-sm leading-relaxed">
-          <li>Connectez-vous à Meta Events Manager et sélectionnez le portefeuille professionnel de THÉRAVÈNE.</li>
+          <li>Connectez-vous à Meta Events Manager et sélectionnez le portefeuille professionnel de ORRÉA.</li>
           <li>Choisissez « Connecter des sources de données », puis « Web ». Créez un Pixel ou un jeu de données si vous n’en avez pas ; les intitulés peuvent varier.</li>
           <li>Ouvrez la source créée, puis « Paramètres ». Copiez l’identifiant du Pixel et enregistrez-le ci-dessus.</li>
           <li>Dans Events Manager, vérifiez la catégorie du site, les restrictions du jeu de données et les événements autorisés pour ce catalogue. Ne contournez pas une restriction en renommant les produits ou les événements.</li>

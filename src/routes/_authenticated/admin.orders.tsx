@@ -15,7 +15,7 @@ import { waLink } from "@/lib/settings";
 import { productImage } from "@/lib/catalog";
 import { Card, Input, PageTitle, StatusBadge } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/orders")({ head: () => ({ meta: [{ title: "Commandes — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : commandes." }, { property: "og:title", content: "Commandes — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : commandes." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Orders });
+export const Route = createFileRoute("/_authenticated/admin/orders")({ head: () => ({ meta: [{ title: "Commandes — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : commandes." }, { property: "og:title", content: "Commandes — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : commandes." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Orders });
 
 function Orders() {
   const qc = useQueryClient();
@@ -74,7 +74,7 @@ function Orders() {
     const csv = "\uFEFF" + [["Nom complet", "N° téléphone", "Adresse complète"], ...rows].map((r) => r.map(escape).join(";")).join("\r\n");
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
-    a.download = "commandes-theravene.csv";
+    a.download = "commandes-orrea.csv";
     a.click();
     URL.revokeObjectURL(a.href);
   };
@@ -135,7 +135,7 @@ function Orders() {
                   <div className="space-y-1">
                     <p className="eyebrow mb-2">Client</p>
                     <p>{o.customer_name}</p>
-                    <p><a href={`tel:${o.phone}`} className="link-lux">{o.phone}</a> · <a href={waLink(o.phone.startsWith("0") ? "212" + o.phone.slice(1) : o.phone, `Bonjour ${o.customer_name}, THÉRAVÈNE concernant votre commande ${o.order_number}.`)} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a></p>
+                    <p><a href={`tel:${o.phone}`} className="link-lux">{o.phone}</a> · <a href={waLink(o.phone.startsWith("0") ? "212" + o.phone.slice(1) : o.phone, `Bonjour ${o.customer_name}, ORRÉA concernant votre commande ${o.order_number}.`)} target="_blank" rel="noreferrer" className="link-lux">WhatsApp</a></p>
                     {o.email && <p>{o.email}</p>}
                     <p>{fullAddress(o.city, o.address)}</p>
                     {o.notes && <p className="italic text-muted-foreground">« {o.notes} »</p>}

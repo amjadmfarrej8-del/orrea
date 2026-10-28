@@ -87,8 +87,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "THÉRAVÈNE — Mode Femme & Homme" },
-      { name: "description", content: "THÉRAVÈNE, mode Femme et Homme. L’allure, simplement." },
+      { title: "ORRÉA — Mode Femme & Homme" },
+      { name: "description", content: "ORRÉA, mode Femme et Homme. L’allure, simplement." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

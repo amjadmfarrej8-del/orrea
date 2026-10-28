@@ -5,9 +5,9 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "La Maison — THÉRAVÈNE" },
-      { name: "description", content: "Découvrez l’univers mode Femme et Homme de THÉRAVÈNE." },
-      { property: "og:title", content: "La Maison — THÉRAVÈNE" },
+      { title: "La Maison — ORRÉA" },
+      { name: "description", content: "Découvrez l’univers mode Femme et Homme de ORRÉA." },
+      { property: "og:title", content: "La Maison — ORRÉA" },
       { property: "og:description", content: "Une nouvelle perspective sur le style, entre simplicité et caractère." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

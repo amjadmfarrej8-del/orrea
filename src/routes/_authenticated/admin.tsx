@@ -2,14 +2,14 @@ import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import logoAsset from "@/assets/theravene-logo.png.asset.json";
+import logoAsset from "@/assets/orrea-logo.png.asset.json";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   beforeLoad: async ({ context }) => {
     const { data } = await supabase.rpc("has_role", { _user_id: context.user.id, _role: "admin" });
     if (!data) throw redirect({ to: "/account" });
   },
-  head: () => ({ meta: [{ title: "Administration — THÉRAVÈNE" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Administration — ORRÉA" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 
@@ -51,13 +51,13 @@ function AdminLayout() {
   return (
     <div className="min-h-screen bg-card font-sans [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans" dir="ltr">
       <div className="flex items-center justify-between border-b border-border bg-background px-5 py-4 md:hidden">
-        <img src={logoAsset.url} alt="THÉRAVÈNE" className="h-5 w-auto" />
+        <img src={logoAsset.url} alt="ORRÉA" className="h-5 w-auto" />
         <button onClick={() => setOpen(!open)} aria-label="Menu">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
       </div>
       {open && <div className="border-b border-border bg-background p-4 md:hidden">{links}</div>}
       <div className="flex">
         <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-e border-border bg-background p-6 md:block">
-          <img src={logoAsset.url} alt="THÉRAVÈNE" className="mb-1 h-7 w-auto" />
+          <img src={logoAsset.url} alt="ORRÉA" className="mb-1 h-7 w-auto" />
           <p className="mb-10 text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground">Administration</p>
           {links}
         </aside>

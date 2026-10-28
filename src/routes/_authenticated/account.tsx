@@ -11,9 +11,9 @@ import { Field } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
     meta: [
-      { title: "Mon compte — THÉRAVÈNE" },
-      { name: "description", content: "Votre profil et vos commandes THÉRAVÈNE." },
-      { property: "og:title", content: "Mon compte — THÉRAVÈNE" },
+      { title: "Mon compte — ORRÉA" },
+      { name: "description", content: "Votre profil et vos commandes ORRÉA." },
+      { property: "og:title", content: "Mon compte — ORRÉA" },
       { property: "og:description", content: "Profil et commandes." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

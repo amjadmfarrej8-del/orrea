@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
-  if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="THÉRAVÈNE" className={`h-8 w-auto ${className}`} />;
-  return <span className={`streetwear-logo ${className}`} style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>;
+  if (data?.theme.logo_url) return <img src={data.theme.logo_url} alt="ORRÉA" className={`h-8 w-auto ${className}`} />;
+  return <span className={`streetwear-logo ${className}`} style={{ fontFamily: "var(--font-display)" }}>ORRÉA</span>;
 }
 
 export function Header() {

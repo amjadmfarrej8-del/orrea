@@ -20,12 +20,12 @@ export const Route = createFileRoute("/products/$slug")({
     return { name: p.name_fr, tagline: p.tagline_fr, description: p.description_fr, image: img.startsWith("https://") ? img : "" };
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Produit introuvable — THÉRAVÈNE" }, { name: "robots", content: "noindex" }] };
+    if (!loaderData) return { meta: [{ title: "Produit introuvable — ORRÉA" }, { name: "robots", content: "noindex" }] };
     return {
       meta: [
-        { title: `${loaderData.name} — THÉRAVÈNE` },
+        { title: `${loaderData.name} — ORRÉA` },
         { name: "description", content: loaderData.description.slice(0, 155) },
-        { property: "og:title", content: `${loaderData.name} — THÉRAVÈNE` },
+        { property: "og:title", content: `${loaderData.name} — ORRÉA` },
         { property: "og:description", content: loaderData.tagline },
       { name: "twitter:card", content: "summary_large_image" },
         { property: "og:type", content: "product" },

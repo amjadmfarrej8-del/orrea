@@ -8,9 +8,9 @@ import { InfoPage } from "@/components/site/InfoPage";
 export const Route = createFileRoute("/shipping")({
   head: () => ({
     meta: [
-      { title: "Livraison & retours — THÉRAVÈNE" },
-      { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour THÉRAVÈNE." },
-      { property: "og:title", content: "Livraison & retours — THÉRAVÈNE" },
+      { title: "Livraison & retours — ORRÉA" },
+      { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour ORRÉA." },
+      { property: "og:title", content: "Livraison & retours — ORRÉA" },
       { property: "og:description", content: "Livraison partout au Maroc, paiement à la livraison." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

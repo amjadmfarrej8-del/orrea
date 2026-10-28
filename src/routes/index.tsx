@@ -24,8 +24,8 @@ export const Route = createFileRoute("/")({
     return { seo: s.seo };
   },
   head: ({ loaderData }) => {
-    const title = loaderData?.seo.title_fr || "THÉRAVÈNE — Mode Femme & Homme";
-    const desc = loaderData?.seo.description_fr || "Découvrez les univers mode Femme et Homme de THÉRAVÈNE.";
+    const title = loaderData?.seo.title_fr || "ORRÉA — Mode Femme & Homme";
+    const desc = loaderData?.seo.description_fr || "Découvrez les univers mode Femme et Homme de ORRÉA.";
     const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
     return {
       meta: [
@@ -96,7 +96,7 @@ function SectionView({ sec }: { sec: Section }) {
         <section className="streetwear-hero">
           <picture>
             <source media="(min-width:768px)" srcSet={selected === 0 ? productImage(sec.image_desktop || sec.image || hero) : productImage(campaignImages[selected] ?? hero)} />
-            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected] ?? hero)} alt="Ensemble THÉRAVÈNE blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
+            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected] ?? hero)} alt="Ensemble ORRÉA blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
           </picture>
           <div className="streetwear-shade" aria-hidden />
           <div className="streetwear-copy">
@@ -129,7 +129,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "categories":
       return (
         <section className="mx-auto max-w-6xl px-5 pt-2 md:px-10 md:pt-6">
-          <div className="mb-6 text-center md:mb-10"><p className="mb-2 text-[10px] font-medium uppercase text-primary">THÉRAVÈNE</p><h2 className="streetwear-heading">{title}</h2><span className="mx-auto mt-3 block h-px w-10 bg-foreground/70" /></div>
+          <div className="mb-6 text-center md:mb-10"><p className="mb-2 text-[10px] font-medium uppercase text-primary">ORRÉA</p><h2 className="streetwear-heading">{title}</h2><span className="mx-auto mt-3 block h-px w-10 bg-foreground/70" /></div>
           <CategoryGrid />
         </section>
       );
@@ -137,7 +137,7 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="pt-14 md:pt-32 xl:pt-40">
           <div className="mx-auto mb-6 max-w-[1600px] px-5 text-center md:mb-12 md:px-10 lg:mb-16 lg:px-12 xl:px-16">
-            <p className="eyebrow">{L("Packs THÉRAVÈNE", "باكات THÉRAVÈNE")}</p>
+            <p className="eyebrow">{L("Packs ORRÉA", "باكات ORRÉA")}</p>
             <h2 className="mt-3 md:mt-4 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title || L("Offres", "العروض")}</h2>
           </div>
           <PackCard />
@@ -172,11 +172,11 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="mt-32 xl:mt-40">
           <div className="relative">
-            <img src={productImage(sec.image)} alt={title || "THÉRAVÈNE"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
+            <img src={productImage(sec.image)} alt={title || "ORRÉA"} width={1672} height={941} loading="lazy" className="block h-auto w-full" />
           </div>
           <div className="mx-auto max-w-[1600px] px-5 md:px-10 lg:px-12 xl:px-16">
             <div className="plate-lux relative z-10 mx-auto max-w-3xl bg-background px-6 py-8 text-center md:-mt-10 md:px-12 md:py-10">
-              <p className="eyebrow">THÉRAVÈNE</p>
+              <p className="eyebrow">ORRÉA</p>
               <h2 className="mt-4 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
               {text && <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground lg:text-base">{text}</p>}
               {btn && <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-8">{btn}</a>}
@@ -201,7 +201,7 @@ function SectionView({ sec }: { sec: Section }) {
             <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" className="field-lux flex-1" />
             <button className="btn-lux">{L("S'inscrire", "اشتراك")}</button>
           </form>
-          {s.store.instagram && <a href={s.store.instagram} target="_blank" rel="noreferrer" className="link-lux mt-10 inline-block text-xs tracking-[0.16em] uppercase">Instagram · @theraven</a>}
+          {s.store.instagram && <a href={s.store.instagram} target="_blank" rel="noreferrer" className="link-lux mt-10 inline-block text-xs tracking-[0.16em] uppercase">Instagram</a>}
         </section>
       );
     default:

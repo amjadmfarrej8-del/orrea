@@ -49,7 +49,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} THÉRAVÈNE. {t.rights}
+        © {new Date().getFullYear()} ORRÉA. {t.rights}
       </div>
     </footer>
   );

@@ -10,9 +10,9 @@ import { Field } from "@/components/site/AuthShell";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — THÉRAVÈNE" },
-      { name: "description", content: "Contactez THÉRAVÈNE par WhatsApp, téléphone ou e-mail." },
-      { property: "og:title", content: "Contact — THÉRAVÈNE" },
+      { title: "Contact — ORRÉA" },
+      { name: "description", content: "Contactez ORRÉA par WhatsApp, téléphone ou e-mail." },
+      { property: "og:title", content: "Contact — ORRÉA" },
       { property: "og:description", content: "Notre équipe vous répond." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -35,14 +35,14 @@ function Contact() {
     window.open(waLink(s.store.whatsapp, `${r.data.name} : ${r.data.message}`), "_blank", "noopener");
   };
   return (
-    <InfoPage eyebrow="THÉRAVÈNE" title={L("Nous contacter", "اتصلي بنا")}>
+    <InfoPage eyebrow="ORRÉA" title={L("Nous contacter", "اتصلي بنا")}>
       <div className="grid gap-12 md:grid-cols-2">
         <div className="space-y-4 text-foreground">
           {s?.store.phone && <p><span className="eyebrow block">{L("Téléphone", "الهاتف")}</span><a href={`tel:${s.store.phone.replace(/\s/g, "")}`}>{s.store.phone}</a></p>}
           {s?.store.email && <p><span className="eyebrow block">E-mail</span><a href={`mailto:${s.store.email}`}>{s.store.email}</a></p>}
           {(s?.store.address_fr || s?.store.address_ar) && <p><span className="eyebrow block">{L("Adresse", "العنوان")}</span>{lang === "ar" ? s.store.address_ar : s.store.address_fr}</p>}
           {!s?.store.phone && !s?.store.email && !s?.store.whatsapp && <p>{L("Les coordonnées de la boutique seront disponibles prochainement.", "ستتوفر بيانات التواصل مع المتجر قريباً.")}</p>}
-          {s?.store.whatsapp && <a className="btn-lux" href={waLink(s.store.whatsapp, "Bonjour THÉRAVÈNE")} target="_blank" rel="noreferrer">WhatsApp</a>}
+          {s?.store.whatsapp && <a className="btn-lux" href={waLink(s.store.whatsapp, "Bonjour ORRÉA")} target="_blank" rel="noreferrer">WhatsApp</a>}
         </div>
         {s?.store.whatsapp && <form onSubmit={send} className="space-y-7">
           <Field label={L("Nom", "الاسم")} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />

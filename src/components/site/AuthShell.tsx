@@ -11,7 +11,7 @@ import { useI18n } from "@/lib/i18n";
 export function AuthShell({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="mx-auto max-w-md px-5 py-20 animate-rise">
-      <p className="eyebrow text-center">THÉRAVÈNE</p>
+      <p className="eyebrow text-center">ORRÉA</p>
       <h1 className="mt-4 text-center text-[2rem] leading-tight md:text-[2.9rem]">{title}</h1>
       <div className="mt-12">{children}</div>
     </div>

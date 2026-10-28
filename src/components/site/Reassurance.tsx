@@ -6,7 +6,7 @@ export function Reassurance({ compact = false }: { compact?: boolean }) {
   const items = [
     { icon: Truck, t: L("Livraison partout au Maroc", "التوصيل لكل المغرب"), d: L("Offerte dès 500 MAD", "مجاني ابتداءً من 500 درهم") },
     { icon: Banknote, t: L("Paiement à la livraison", "الدفع عند الاستلام"), d: L("Réglez en espèces à réception", "ادفعي نقداً عند الاستلام") },
-    { icon: ShieldCheck, t: L("Produits authentiques", "منتجات أصلية"), d: L("Directement de la maison THÉRAVÈNE", "مباشرة من دار THÉRAVÈNE") },
+    { icon: ShieldCheck, t: L("Produits authentiques", "منتجات أصلية"), d: L("Directement de la maison ORRÉA", "مباشرة من دار ORRÉA") },
     { icon: Headphones, t: L("Service client", "خدمة العملاء"), d: L("Une équipe à votre écoute", "فريق في خدمتك") },
   ];
   return (

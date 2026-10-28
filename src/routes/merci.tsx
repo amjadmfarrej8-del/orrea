@@ -10,9 +10,9 @@ export const Route = createFileRoute("/merci")({
   validateSearch: z.object({ n: z.string().max(20).optional() }),
   head: () => ({
     meta: [
-      { title: "Merci — THÉRAVÈNE" },
-      { name: "description", content: "Votre commande THÉRAVÈNE est confirmée." },
-      { property: "og:title", content: "Merci — THÉRAVÈNE" },
+      { title: "Merci — ORRÉA" },
+      { name: "description", content: "Votre commande ORRÉA est confirmée." },
+      { property: "og:title", content: "Merci — ORRÉA" },
       { property: "og:description", content: "Commande confirmée." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,7 +38,7 @@ function Thanks() {
 
   return (
     <div className="mx-auto max-w-xl px-5 py-24 animate-rise">
-      <p className="eyebrow text-center">THÉRAVÈNE</p>
+      <p className="eyebrow text-center">ORRÉA</p>
       <h1 className="mt-5 text-center text-[2rem] leading-tight md:text-[2.9rem]">{t.thanksTitle}{o ? `, ${o.name.split(" ")[0]}` : ""}</h1>
       {n && <p className="mt-8 text-center text-sm">{t.orderNumber} : <span className="tracking-[0.15em]">{n}</span></p>}
       <p className="mt-4 text-center text-muted-foreground">{t.thanksText}</p>

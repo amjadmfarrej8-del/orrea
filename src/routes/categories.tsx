@@ -7,10 +7,10 @@ import { useI18n } from "@/lib/i18n";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Catégories — THÉRAVÈNE" },
-      { name: "description", content: "Explorez les collections mode Femme et Homme THÉRAVÈNE." },
-      { property: "og:title", content: "Catégories — THÉRAVÈNE" },
-      { property: "og:description", content: "Explorez les univers mode THÉRAVÈNE." },
+      { title: "Catégories — ORRÉA" },
+      { name: "description", content: "Explorez les collections mode Femme et Homme ORRÉA." },
+      { property: "og:title", content: "Catégories — ORRÉA" },
+      { property: "og:description", content: "Explorez les univers mode ORRÉA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

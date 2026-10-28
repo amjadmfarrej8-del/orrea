@@ -23,13 +23,13 @@ export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories"
 export const defaultSettings: Settings = {
   theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
   store: { shipping_fee: 20, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
-  seo: { title_fr: "THÉRAVÈNE — Mode Femme & Homme", title_ar: "THÉRAVÈNE — أزياء النساء والرجال", description_fr: "THÉRAVÈNE, une nouvelle perspective sur le style. Découvrez nos univers Femme et Homme.", description_ar: "THÉRAVÈNE، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
+  seo: { title_fr: "ORRÉA — Mode Femme & Homme", title_ar: "ORRÉA — أزياء النساء والرجال", description_fr: "ORRÉA, une nouvelle perspective sur le style. Découvrez nos univers Femme et Homme.", description_ar: "ORRÉA، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
   homepage: { sections: [
     { id: "hero", type: "hero", visible: true, title_fr: "MOVE WITH PRESENCE", title_ar: "تحرّك بحضور", text_fr: "STYLE / QUALITY / ATTITUDE", text_ar: "أسلوب / جودة / شخصية", image: "streetwear-campaign", image_desktop: "streetwear-campaign", button_fr: "Découvrir la collection", button_ar: "اكتشفوا المجموعة", link: "/shop" },
     { id: "benefits", type: "benefits", visible: true },
     { id: "categories", type: "categories", visible: true, title_fr: "Nos Collections", title_ar: "مجموعاتنا" },
     { id: "featured", type: "featured", visible: true, title_fr: "L’Essentiel", title_ar: "الأساسيات" },
-    { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le streetwear rencontre le caractère. Une silhouette se dessine, entre liberté et présence. Bienvenue dans l’univers THÉRAVÈNE.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم THÉRAVÈNE.", image: "fashion-femme" },
+    { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le streetwear rencontre le caractère. Une silhouette se dessine, entre liberté et présence. Bienvenue dans l’univers ORRÉA.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم ORRÉA.", image: "fashion-femme" },
     { id: "bestsellers", type: "bestsellers", visible: true, title_fr: "Best-Sellers", title_ar: "الأكثر مبيعاً" },
     { id: "new", type: "new", visible: false, title_fr: "Nouveautés", title_ar: "الجديد" },
   ] },

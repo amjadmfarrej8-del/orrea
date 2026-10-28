@@ -209,7 +209,7 @@ export const testSheetsConnection = createServerFn({ method: "POST" })
       const { api: gw } = await sheetsApi();
       await ensureHeaders(gw, cfg.spreadsheet_id, cfg.sheet_name);
       await appendRows(gw, cfg.spreadsheet_id, cfg.sheet_name, [[
-        "TEST THÉRAVÈNE", "0600000000", `Commande test — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}`,
+        "TEST ORRÉA", "0600000000", `Commande test — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}`,
       ]]);
       await context.supabase.from("google_sheets_config").update({ last_test_at: now, last_test_ok: true, last_error: null }).eq("id", 1);
       return { ok: true };

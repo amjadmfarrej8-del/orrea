@@ -10,7 +10,7 @@ import {
 } from "@/lib/sheets.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/sheets")({
-  head: () => ({ meta: [{ title: "Google Sheets — Administration THÉRAVÈNE" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Google Sheets — Administration ORRÉA" }, { name: "robots", content: "noindex" }] }),
   component: AdminSheets,
 });
 

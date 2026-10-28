@@ -10,10 +10,10 @@ export const Route = createFileRoute("/login")({
   validateSearch: z.object({ redirect: z.string().optional() }),
   head: () => ({
     meta: [
-      { title: "Connexion — THÉRAVÈNE" },
-      { name: "description", content: "Connectez-vous à votre compte THÉRAVÈNE." },
-      { property: "og:title", content: "Connexion — THÉRAVÈNE" },
-      { property: "og:description", content: "Accédez à votre compte THÉRAVÈNE." },
+      { title: "Connexion — ORRÉA" },
+      { name: "description", content: "Connectez-vous à votre compte ORRÉA." },
+      { property: "og:title", content: "Connexion — ORRÉA" },
+      { property: "og:description", content: "Accédez à votre compte ORRÉA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

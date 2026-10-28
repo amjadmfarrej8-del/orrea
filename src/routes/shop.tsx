@@ -14,10 +14,10 @@ export const Route = createFileRoute("/shop")({
   }),
   head: () => ({
     meta: [
-      { title: "Boutique — THÉRAVÈNE" },
-      { name: "description", content: "La boutique mode THÉRAVÈNE : collections Femme et Homme." },
-      { property: "og:title", content: "Boutique — THÉRAVÈNE" },
-      { property: "og:description", content: "Découvrez les articles et collections THÉRAVÈNE." },
+      { title: "Boutique — ORRÉA" },
+      { name: "description", content: "La boutique mode ORRÉA : collections Femme et Homme." },
+      { property: "og:title", content: "Boutique — ORRÉA" },
+      { property: "og:description", content: "Découvrez les articles et collections ORRÉA." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

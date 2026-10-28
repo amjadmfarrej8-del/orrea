@@ -6,7 +6,7 @@ import { defaultSettings, saveSetting, settingsQuery, type Theme } from "@/lib/s
 import { fontHref, themeCss } from "@/components/site/ThemeStyle";
 import { AField, Card, ImageUpload, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/theme")({ head: () => ({ meta: [{ title: "Apparence — Administration THÉRAVÈNE" }, { name: "description", content: "Administration THÉRAVÈNE : apparence." }, { property: "og:title", content: "Apparence — Administration THÉRAVÈNE" }, { property: "og:description", content: "Administration THÉRAVÈNE : apparence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ThemeEditor });
+export const Route = createFileRoute("/_authenticated/admin/theme")({ head: () => ({ meta: [{ title: "Apparence — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : apparence." }, { property: "og:title", content: "Apparence — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : apparence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ThemeEditor });
 
 const colors: [keyof Theme, string][] = [
   ["background", "Fond"], ["foreground", "Texte"], ["primary", "Boutons / couleur principale"], ["primary_hover", "Survol des boutons"],
@@ -62,7 +62,7 @@ function ThemeEditor() {
             </AField>
           </Card>
           <Card className="space-y-5">
-            <ImageUpload label="Logo (remplace le texte THÉRAVÈNE)" value={t.logo_url} onChange={(v) => setT({ ...t, logo_url: v })} />
+            <ImageUpload label="Logo (remplace le texte ORRÉA)" value={t.logo_url} onChange={(v) => setT({ ...t, logo_url: v })} />
             <ImageUpload label="Favicon" value={t.favicon_url} onChange={(v) => setT({ ...t, favicon_url: v })} />
           </Card>
         </div>
@@ -83,7 +83,7 @@ function Preview({ t }: { t: Theme }) {
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className="flex items-center justify-between border-b border-border pb-4">
         <span className="text-[0.76rem] tracking-[0.12em] uppercase">Boutique</span>
-        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>THÉRAVÈNE</span>}
+        {t.logo_url ? <img src={t.logo_url} alt="" className="h-7" /> : <span className="text-xl tracking-[0.16em]" style={{ fontFamily: "var(--font-display)" }}>ORRÉA</span>}
         <span className="text-[0.76rem] tracking-[0.12em] uppercase">Panier</span>
       </div>
       <p className="eyebrow mt-10">Collection 2026</p>

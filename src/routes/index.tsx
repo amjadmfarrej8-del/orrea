@@ -128,9 +128,11 @@ function SectionView({ sec }: { sec: Section }) {
     }
     case "categories":
       return (
-        <section className="mx-auto max-w-6xl px-5 pt-2 md:px-10 md:pt-6">
-          <div className="mb-6 text-center md:mb-10"><p className="mb-2 text-[10px] font-medium uppercase text-primary">ORRÉA</p><h2 className="streetwear-heading">{title}</h2><span className="mx-auto mt-3 block h-px w-10 bg-foreground/70" /></div>
-          <CategoryGrid />
+        <section className="bg-street-black py-12 md:py-20">
+          <div className="mx-auto max-w-6xl px-5 md:px-10">
+            <div className="mb-8 text-center md:mb-12"><p className="mb-2 text-[10px] font-medium uppercase text-primary">ORRÉA</p><h2 className="streetwear-heading">{title}</h2><span className="mx-auto mt-3 block h-px w-10 bg-primary/80" /></div>
+            <CategoryGrid />
+          </div>
         </section>
       );
     case "offers":

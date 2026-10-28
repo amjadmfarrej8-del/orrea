@@ -45,9 +45,11 @@ export function CategoryGrid() {
 function Categories() {
   const { L } = useI18n();
   return (
-    <div className="mx-auto max-w-7xl px-5 pt-16 md:px-10">
-      <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{L("Catégories", "الفئات")}</h1>
-      <div className="mt-12"><CategoryGrid /></div>
+    <div className="bg-street-black">
+      <div className="mx-auto max-w-6xl px-5 py-16 md:px-10 md:py-24">
+        <h1 className="streetwear-heading text-center">{L("Catégories", "الفئات")}</h1>
+        <div className="mt-12 md:mt-16"><CategoryGrid /></div>
+      </div>
     </div>
   );
 }

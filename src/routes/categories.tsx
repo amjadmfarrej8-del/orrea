@@ -22,19 +22,19 @@ export const Route = createFileRoute("/categories")({
 export function CategoryGrid() {
   const { lang } = useI18n();
   const { data: cats } = useSuspenseQuery(categoriesQuery);
-    return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:gap-8">
+  return (
+    <div className="cat-row" role="list">
       {cats.filter((c) => c.is_active).map((c) => {
-        const img = c.image;
         const name = lang === "ar" ? c.name_ar : c.name_fr;
         return (
-          <Link key={c.id} to="/shop" search={{ c: c.slug }} className="group relative block rounded-lg aspect-[3/4] min-w-0 overflow-hidden border border-border/40 bg-card">
-            {img && <img src={productImage(img)} alt={name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-[1.04]" />}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background via-background/40 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-2 pb-4 text-center text-ink md:px-4 md:pb-8">
-              <p className="text-[1.5rem] leading-tight uppercase tracking-[0.06em] md:text-xl md:tracking-[0.08em] lg:text-[1.45rem]" style={{ fontFamily: "var(--font-display)" }}>{name}</p>
-              <span className="mt-3 flex size-9 items-center justify-center rounded-full border border-foreground/80 transition-colors group-hover:bg-primary group-hover:text-primary-foreground md:size-12"><ArrowRight className="size-5" /></span>
-            </div>
+          <Link key={c.id} to="/shop" search={{ c: c.slug }} role="listitem" className="group flex flex-col items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:gap-4">
+            <span className="block aspect-square w-full overflow-hidden rounded-full border border-primary/70 transition-colors duration-500 group-hover:border-primary">
+              {c.image && <img src={productImage(c.image)} alt={name} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
+            </span>
+            <span className="text-center text-[11px] font-bold uppercase tracking-[0.14em] text-foreground md:text-sm">{name}</span>
+            <span className="flex size-8 items-center justify-center rounded-full border border-primary text-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground md:size-9">
+              <ArrowRight className="size-4 rtl:-scale-x-100" />
+            </span>
           </Link>
         );
       })}

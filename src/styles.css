@@ -244,3 +244,22 @@
   .streetwear-title { font-size: 35px; }
   .streetwear-title span { font-size: 43px; }
 }
+
+/* Category circles — one row, swipeable on mobile, five columns on desktop. */
+.cat-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.25rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.25rem 0.25rem 0.5rem;
+  box-sizing: border-box;
+}
+.cat-row::-webkit-scrollbar { display: none; }
+.cat-row > * { flex-shrink: 0; width: min(34vw, 10rem); }
+@media (min-width: 768px) {
+  .cat-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; overflow: visible; padding: 0.25rem; }
+  .cat-row > * { width: auto; }
+}

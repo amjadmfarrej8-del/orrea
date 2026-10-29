@@ -216,6 +216,8 @@ export type Database = {
           product_id: string | null
           product_name: string
           quantity: number
+          selected_color: string | null
+          selected_size: string | null
           unit_price: number
         }
         Insert: {
@@ -224,6 +226,8 @@ export type Database = {
           product_id?: string | null
           product_name: string
           quantity: number
+          selected_color?: string | null
+          selected_size?: string | null
           unit_price: number
         }
         Update: {
@@ -232,6 +236,8 @@ export type Database = {
           product_id?: string | null
           product_name?: string
           quantity?: number
+          selected_color?: string | null
+          selected_size?: string | null
           unit_price?: number
         }
         Relationships: [
@@ -318,6 +324,7 @@ export type Database = {
           benefits_fr: string
           bundle_items: Json
           category_id: string | null
+          colors: Json
           compare_at_price: number | null
           created_at: string
           description_ar: string
@@ -337,7 +344,9 @@ export type Database = {
           name_fr: string
           pack_sort_order: number
           price: number
+          price_confirmed: boolean
           size: string
+          sizes: string[]
           sku: string
           slug: string
           stock: number
@@ -354,6 +363,7 @@ export type Database = {
           benefits_fr?: string
           bundle_items?: Json
           category_id?: string | null
+          colors?: Json
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
@@ -373,7 +383,9 @@ export type Database = {
           name_fr: string
           pack_sort_order?: number
           price: number
+          price_confirmed?: boolean
           size?: string
+          sizes?: string[]
           sku?: string
           slug: string
           stock?: number
@@ -390,6 +402,7 @@ export type Database = {
           benefits_fr?: string
           bundle_items?: Json
           category_id?: string | null
+          colors?: Json
           compare_at_price?: number | null
           created_at?: string
           description_ar?: string
@@ -409,7 +422,9 @@ export type Database = {
           name_fr?: string
           pack_sort_order?: number
           price?: number
+          price_confirmed?: boolean
           size?: string
+          sizes?: string[]
           sku?: string
           slug?: string
           stock?: number

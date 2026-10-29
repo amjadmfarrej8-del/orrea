@@ -8,6 +8,13 @@
       "when": 1793232768868,
       "tag": "0000_clothing_options_quick_orders",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793232793013,
+      "tag": "0001_place_order_clothing_selections",
+      "breakpoints": true
     }
   ]
 }

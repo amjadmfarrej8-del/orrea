@@ -151,7 +151,7 @@ function SectionView({ sec }: { sec: Section }) {
       return <Grid title={title} list={list} />;
     }
     case "bestsellers":
-      return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 3)} cols={3} />;
+      return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 4)} />;
     case "new": {
       const isPack = (p: Product) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
       return <Grid title={title} list={products.filter((p) => p.is_new && !isPack(p)).slice(0, 4)} />;

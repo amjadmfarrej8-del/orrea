@@ -151,10 +151,10 @@ function SectionView({ sec }: { sec: Section }) {
       return <Grid title={title} list={list} />;
     }
     case "bestsellers":
-      return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 4)} />;
+      return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 6)} />;
     case "new": {
       const isPack = (p: Product) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
-      return <Grid title={title} list={products.filter((p) => p.is_new && !isPack(p)).slice(0, 4)} />;
+      return <Grid title={title} list={products.filter((p) => p.is_new && !isPack(p)).slice(0, 6)} />;
     }
     case "story":
       return (
@@ -183,6 +183,7 @@ function SectionView({ sec }: { sec: Section }) {
               {text && <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground lg:text-base">{text}</p>}
               {btn && <a href={sec.link?.startsWith("/") ? sec.link : "/shop"} className="btn-lux mt-8">{btn}</a>}
             </div>
+            {sec.id === "campaign" && <div className="mt-8 grid grid-cols-2 gap-5 md:grid-cols-3">{products.filter(p => p.is_new).slice(0, 6).map(p => <ProductCard key={p.id} p={p} />)}</div>}
           </div>
         </section>
       );

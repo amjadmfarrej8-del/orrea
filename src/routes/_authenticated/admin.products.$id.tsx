@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
+import { clothingOptionsSchema } from "@/lib/clothing";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea, Toggle } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/products/$id")({ head: () => ({ meta: [{ title: "Modifier un article — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : modifier un article." }, { property: "og:title", content: "Modifier un article — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : modifier un article." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: EditProduct });
@@ -44,6 +45,7 @@ function EditProduct() {
 
   const save = async () => {
     if (!f.name_fr.trim() || !f.name_ar.trim() || (f.price_confirmed && f.price <= 0)) return void toast.error("Nom FR, nom AR et prix confirmé sont obligatoires.");
+    if (!clothingOptionsSchema.safeParse({ sizes: f.sizes, colors: f.colors }).success) return void toast.error("Vérifiez les tailles et les couleurs.");
     setSaving(true);
     const payload = { ...f, slug: f.slug.trim() || slugify(f.name_fr), category_id: f.category_id || null };
     const res = isNew ? await supabase.from("products").insert(payload).select("id").single() : await supabase.from("products").update(payload).eq("id", id).select("id").single();
@@ -109,8 +111,8 @@ function EditProduct() {
               <AField label="Alerte stock"><Input type="number" min={0} value={f.low_stock_threshold} onChange={(e) => set("low_stock_threshold", parseInt(e.target.value) || 0)} /></AField>
             </div>
             {txt("sku", "SKU")}{txt("size", "Taille / dimensions (information exacte)")}{txt("badge", "Badge (ex. Édition limitée)")}{txt("slug", "Lien (slug)")}
-            <AField label="Tailles disponibles (séparées par des virgules)"><Input value={f.sizes.join(", ")} onChange={(e) => set("sizes", [...new Set(e.target.value.split(",").map(x => x.trim()).filter(Boolean))].slice(0, 30))} placeholder="Ex. S, M, L" /></AField>
-            <AField label="Couleurs (séparées par des virgules)"><Input value={f.colors.map(c => c.name).join(", ")} onChange={(e) => set("colors", e.target.value.split(",").map(x => x.trim()).filter(Boolean).slice(0, 30).map(name => f.colors.find(c => c.name === name) ?? { name }))} /></AField>
+            <AField label="Tailles disponibles (séparées par des virgules)"><Input key={`sizes-${prod.data?.id ?? "new"}`} defaultValue={f.sizes.join(", ")} onBlur={(e) => set("sizes", [...new Set(e.target.value.split(",").map(x => x.trim()).filter(Boolean))].slice(0, 30))} placeholder="Ex. S, M, L" /></AField>
+            <AField label="Couleurs (séparées par des virgules)"><Input key={`colors-${prod.data?.id ?? "new"}`} defaultValue={f.colors.map(c => c.name).join(", ")} onBlur={(e) => set("colors", e.target.value.split(",").map(x => x.trim()).filter(Boolean).slice(0, 30).map(name => f.colors.find(c => c.name === name) ?? { name }))} /></AField>
             <Toggle label="Prix confirmé" checked={f.price_confirmed} onChange={(v) => set("price_confirmed", v)} />
           </Card>
           <Card className="space-y-3">

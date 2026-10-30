@@ -1,9 +1,10 @@
 # THÉRAVÉN roadmap
 
 ## Done
-- [ ] Add six supplied clothing models and confirmed-photo colors; prices, sizes and stock await the user
-- [ ] Add best-sellers, Nouvelle Collection and ORRÉA campaign presentation
-- [ ] Add direct three-field ordering with saved size/color and premium immersive product pages
+- [x] Add six supplied clothing models and photo colors; prices are explicitly unconfirmed and stock stays zero
+- [x] Add best-sellers, Nouvelle Collection and ORRÉA campaign presentation
+- [x] Add direct three-field ordering with saved size/color and premium immersive product pages
+- [ ] New clothing availability and end-to-end order verification: awaiting actual prices, sizes, stock, and an admin account (no auth users exist)
 - [x] Match uploaded streetwear reference with black/orange storefront, photographic hero, overlaid navigation and collection cards
 - [x] Convert public storefront to fashion, replace cosmetics visuals/copy and retain existing administration and order logic
 - [x] Add supplied men's ensemble at 259 MAD with six photos; set store-wide delivery to 20 MAD

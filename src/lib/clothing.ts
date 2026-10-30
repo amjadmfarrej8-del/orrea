@@ -9,7 +9,7 @@ export const clothingOptionsSchema = z.object({
   sizes: z.array(z.string().trim().min(1).max(40)).max(30),
   colors: z.array(z.object({ name: z.string().trim().min(1).max(60), image: z.string().max(2000).optional() })).max(30),
 });
-export type ClothingColor = { name: string; image?: string };
+export type ClothingColor = { name: string; image?: string | undefined };
 export const readColors = (value: unknown): ClothingColor[] => {
   const result = clothingOptionsSchema.shape.colors.safeParse(value);
   return result.success ? result.data : [];

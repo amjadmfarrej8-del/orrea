@@ -10,7 +10,7 @@ describe("Fashion store defaults", () => {
   it("preserves the 500 MAD free threshold", () => {
     expect(defaultSettings.store.free_shipping_threshold).toBe(500);
   });
-  it("keeps the Nouveautés section disabled", () => {
-    expect(defaultSettings.homepage.sections.find((section) => section.type === "new")?.visible).toBe(false);
+  it("shows the newly requested collection", () => {
+    expect(defaultSettings.homepage.sections.find((section) => section.type === "new")?.visible).toBe(true);
   });
 });

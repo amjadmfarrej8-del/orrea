@@ -1,16 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { productImage, type Product } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
-import { useCart } from "@/lib/cart";
 
 export function ProductCard({ p }: { p: Product }) {
-  const { lang, t } = useI18n();
-  const { add } = useCart();
-  const [done, setDone] = useState(false);
+  const { lang, t, L } = useI18n();
   return (
-    <Link to="/products/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col border border-border/50 bg-card text-center transition-colors duration-500 hover:border-champagne/70">
-      <div className="relative aspect-square w-full shrink-0 overflow-hidden bg-card">
+    <Link to="/products/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col text-start">
+      <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-card">
         <img
           src={productImage(p.image)}
           alt={lang === "ar" ? p.name_ar : p.name_fr}
@@ -36,26 +32,13 @@ export function ProductCard({ p }: { p: Product }) {
         <h3 className="line-clamp-2 text-[1rem] leading-snug md:text-[1.18rem]">{lang === "ar" ? p.name_ar : p.name_fr}</h3>
       </div>
       <div className="mt-2 flex items-baseline justify-center gap-2 px-2 font-sans text-sm md:text-base">
-        <span className="font-medium tracking-wide">{formatMAD(Number(p.price), lang)}</span>
+        <span className="font-medium">{p.price_confirmed ? formatMAD(Number(p.price), lang) : L("Prix à confirmer", "السعر قيد التأكيد")}</span>
         {p.compare_at_price && (
           <span className="text-xs text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
         )}
       </div>
       <div className="mt-auto px-3 pb-4 pt-4 md:px-5 md:pb-6">
-      <button
-        type="button"
-        disabled={p.stock === 0}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          add({ id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping }, 1);
-          setDone(true);
-          setTimeout(() => setDone(false), 1500);
-        }}
-        className="min-h-11 w-full border border-foreground/70 bg-background px-2 font-sans text-[0.66rem] tracking-[0.16em] text-foreground uppercase transition-colors duration-300 hover:bg-foreground hover:text-background disabled:opacity-50 md:text-[0.72rem] md:tracking-[0.2em]"
-      >
-        {p.stock === 0 ? t.outOfStock : done ? t.added : t.addToCart}
-      </button>
+      <span className="flex min-h-11 w-full items-center justify-center border border-border text-xs uppercase transition-colors group-hover:border-primary group-hover:text-primary">{L("Voir l’article", "عرض المنتج")}</span>
       </div>
     </Link>
   );

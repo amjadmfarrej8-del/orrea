@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
+import { clothingOptionsSchema } from "@/lib/clothing";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea, Toggle } from "@/components/admin/ui";
 
 export const Route = createFileRoute("/_authenticated/admin/products/$id")({ head: () => ({ meta: [{ title: "Modifier un article — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : modifier un article." }, { property: "og:title", content: "Modifier un article — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : modifier un article." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: EditProduct });
@@ -13,7 +14,7 @@ const empty = {
   description_fr: "", description_ar: "", ingredients_fr: "", ingredients_ar: "", usage_fr: "", usage_ar: "",
   benefits_fr: "", benefits_ar: "", warnings_fr: "", warnings_ar: "", size: "", sku: "", badge: "",
   price: 0, compare_at_price: null as number | null, stock: 0, low_stock_threshold: 5, image: "", gallery: [] as string[],
-  is_featured: false, is_bestseller: false, is_new: false, is_active: true,
+  is_featured: false, is_bestseller: false, is_new: false, is_active: true, price_confirmed: true, sizes: [] as string[], colors: [] as { name: string; image?: string }[],
 };
 
 const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80);
@@ -31,7 +32,7 @@ function EditProduct() {
   useEffect(() => {
     if (prod.data) {
       const { id: _i, created_at: _c, ...rest } = prod.data;
-      setF({ ...empty, ...rest, price: Number(rest.price), compare_at_price: rest.compare_at_price ? Number(rest.compare_at_price) : null });
+      setF({ ...empty, ...rest, colors: Array.isArray(rest.colors) ? rest.colors as { name: string; image?: string }[] : [], price: Number(rest.price), compare_at_price: rest.compare_at_price ? Number(rest.compare_at_price) : null });
     }
   }, [prod.data]);
 
@@ -43,7 +44,8 @@ function EditProduct() {
   );
 
   const save = async () => {
-    if (!f.name_fr.trim() || !f.name_ar.trim() || f.price <= 0) return void toast.error("Nom FR, nom AR et prix sont obligatoires.");
+    if (!f.name_fr.trim() || !f.name_ar.trim() || (f.price_confirmed && f.price <= 0)) return void toast.error("Nom FR, nom AR et prix confirmé sont obligatoires.");
+    if (!clothingOptionsSchema.safeParse({ sizes: f.sizes, colors: f.colors }).success) return void toast.error("Vérifiez les tailles et les couleurs.");
     setSaving(true);
     const payload = { ...f, slug: f.slug.trim() || slugify(f.name_fr), category_id: f.category_id || null };
     const res = isNew ? await supabase.from("products").insert(payload).select("id").single() : await supabase.from("products").update(payload).eq("id", id).select("id").single();
@@ -109,6 +111,9 @@ function EditProduct() {
               <AField label="Alerte stock"><Input type="number" min={0} value={f.low_stock_threshold} onChange={(e) => set("low_stock_threshold", parseInt(e.target.value) || 0)} /></AField>
             </div>
             {txt("sku", "SKU")}{txt("size", "Taille / dimensions (information exacte)")}{txt("badge", "Badge (ex. Édition limitée)")}{txt("slug", "Lien (slug)")}
+            <AField label="Tailles disponibles (séparées par des virgules)"><Input key={`sizes-${prod.data?.id ?? "new"}`} defaultValue={f.sizes.join(", ")} onBlur={(e) => set("sizes", [...new Set(e.target.value.split(",").map(x => x.trim()).filter(Boolean))].slice(0, 30))} placeholder="Ex. S, M, L" /></AField>
+            <AField label="Couleurs (séparées par des virgules)"><Input key={`colors-${prod.data?.id ?? "new"}`} defaultValue={f.colors.map(c => c.name).join(", ")} onBlur={(e) => set("colors", e.target.value.split(",").map(x => x.trim()).filter(Boolean).slice(0, 30).map(name => f.colors.find(c => c.name === name) ?? { name }))} /></AField>
+            <Toggle label="Prix confirmé" checked={f.price_confirmed} onChange={(v) => set("price_confirmed", v)} />
           </Card>
           <Card className="space-y-3">
             <Toggle label="En ligne" checked={f.is_active} onChange={(v) => set("is_active", v)} />

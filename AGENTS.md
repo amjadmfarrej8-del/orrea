@@ -11,6 +11,7 @@
 
 ## THÉRAVÉN store
 - Orders are created only via the `place_order` security-definer RPC, which re-prices from the DB and decrements stock — never trust client prices.
+- Clothing options are stored on products and validated again by place_order; selected size/color are immutable order-item snapshots. Unconfirmed prices block ordering. Product-page quick orders use the existing RPC without cart navigation.
 - Bilingual content lives in paired `_fr`/`_ar` columns; UI strings in `src/lib/i18n.tsx` (RTL set on <html> for Arabic).
 - Product images: `products.image` is a local asset key (see `src/lib/catalog.ts`) or a full URL.
 - Store config (theme, store contact/shipping, SEO, homepage sections) lives in `site_settings` key/value rows read via `settingsQuery`; theme is applied as CSS variables by `ThemeStyle`.

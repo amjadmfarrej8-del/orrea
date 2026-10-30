@@ -1,11 +1,12 @@
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Minus, Plus } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { productImage, productQuery, productsQuery } from "@/lib/catalog";
 import { formatMAD, useI18n } from "@/lib/i18n";
-import { useCart } from "@/lib/cart";
+import { canOrderClothing, readColors } from "@/lib/clothing";
+import { QuickOrder } from "@/components/site/QuickOrder";
 import { settingsQuery, waLink } from "@/lib/settings";
 import { ProductCard } from "@/components/site/ProductCard";
 import { PackCard, isPack } from "@/components/site/PackCard";
@@ -49,17 +50,17 @@ function ProductPage() {
   const { data: all } = useSuspenseQuery(productsQuery);
   const { data: s } = useQuery(settingsQuery);
   const { t, lang, L } = useI18n();
-  const { add } = useCart();
-  const navigate = useNavigate();
-  const [qty, setQty] = useState(1);
-  const [added, setAdded] = useState(false);
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
   const [zoom, setZoom] = useState<string | null>(null);
   const [photo, setPhoto] = useState(0);
   const [tab, setTab] = useState<"description" | "benefits" | "ingredients" | "usage" | "warnings">("description");
   if (!p) return null;
   const ar = lang === "ar";
   const name = ar ? p.name_ar : p.name_fr;
-  const images = [p.image, ...(p.gallery ?? [])].filter(Boolean).map(productImage);
+  const colors = readColors(p.colors);
+  const colorImage = colors.find(c => c.name === color)?.image;
+  const images = [...new Set([colorImage || p.image, p.image, ...(p.gallery ?? [])].filter(Boolean))].map(productImage);
   const currentPhoto = photo % images.length;
   const content: Record<typeof tab, string> = {
     description: ar ? p.description_ar : p.description_fr,
@@ -76,26 +77,17 @@ function ProductPage() {
   const singles = all.filter((x) => !isPack(x));
   const related = singles.filter((x) => x.id !== p.id && x.category_id === p.category_id).concat(singles.filter((x) => x.id !== p.id && x.category_id !== p.category_id)).slice(0, 4);
 
-  const item = { id: p.id, slug: p.slug, name_fr: p.name_fr, name_ar: p.name_ar, price: Number(p.price), image: p.image, stock: p.stock, free_shipping: p.free_shipping };
-  const onAdd = () => {
-    add(item, qty);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1800);
-  };
-  const buyNow = () => {
-    add(item, qty);
-    navigate({ to: "/checkout" });
-  };
+  const available = canOrderClothing(p, colors, size, color);
   return (
     <>
       <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
         <Link to="/" className="hover:text-foreground">{L("Accueil", "الرئيسية")}</Link> / <Link to={isPack(p) ? "/offres" : "/shop"} className="hover:text-foreground">{isPack(p) ? L("Offres", "العروض") : t.shop}</Link> / <span className="text-foreground">{name}</span>
       </nav>
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 pt-6 md:grid-cols-2 md:gap-20 md:px-10 md:pt-16">
+      <div className="grid gap-8 pt-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.8fr)] lg:gap-12">
         <div>
-          <button className="block w-full cursor-zoom-in bg-card" onClick={() => setZoom(images[currentPhoto] ?? null)}>
-            <img src={images[currentPhoto]} alt={name} width={912} height={1104} className="aspect-square w-full object-contain" />
-          </button>
+          <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-card p-0 hover:bg-card" onClick={() => setZoom(images[currentPhoto] ?? null)}>
+            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[70svh] min-h-96 w-full object-contain lg:h-[calc(100svh-120px)]" />
+          </Button>
           {images.length > 1 && (
             <div className="mt-3 flex items-center justify-center gap-5">
               <Button variant="ghost" size="icon" title={L("Photo précédente", "الصورة السابقة")} aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((currentPhoto + images.length - 1) % images.length)}><ChevronLeft /></Button>
@@ -104,12 +96,12 @@ function ProductPage() {
             </div>
           )}
         </div>
-        <div className="md:sticky md:top-32 md:self-start">
+        <div className="px-5 lg:sticky lg:top-28 lg:self-start lg:pe-12 lg:pb-10">
           <p className="eyebrow">{p.size}{p.sku && ` · ${p.sku}`}</p>
-          <h1 className="mt-4 text-[1.9rem] leading-tight md:text-[2.6rem]">{name}</h1>
+          <h1 className="mt-4 font-sans text-[1.9rem] font-medium leading-tight md:text-[2.6rem]">{name}</h1>
           <p className="mt-3 text-muted-foreground">{ar ? p.tagline_ar : p.tagline_fr}</p>
           <div className="mt-8 flex items-baseline gap-4 text-2xl">
-            {formatMAD(Number(p.price), lang)}
+            {p.price_confirmed ? formatMAD(Number(p.price), lang) : L("Prix à confirmer", "السعر قيد التأكيد")}
             {discount > 0 && (
               <>
                 <span className="text-base text-muted-foreground line-through">{formatMAD(Number(p.compare_at_price), lang)}</span>
@@ -121,19 +113,9 @@ function ProductPage() {
             {p.stock === 0 ? t.outOfStock : p.stock <= p.low_stock_threshold ? L(`Plus que ${p.stock} en stock`, `تبقى ${p.stock} فقط`) : L("En stock", "متوفر")}
           </p>
 
-          <div className="mt-8 flex gap-4">
-            <div className="flex items-center border border-border">
-              <button className="p-4" onClick={() => setQty(Math.max(1, qty - 1))} aria-label="-"><Minus className="h-3 w-3" /></button>
-              <span className="w-8 text-center text-sm">{qty}</span>
-              <button className="p-4" onClick={() => setQty(Math.min(p.stock, 20, qty + 1))} aria-label="+"><Plus className="h-3 w-3" /></button>
-            </div>
-            <button className="btn-lux flex-1" disabled={p.stock === 0} onClick={onAdd}>
-              {p.stock === 0 ? t.outOfStock : added ? t.added : t.addToCart}
-            </button>
-          </div>
-          <div className="mt-3">
-            <button className="btn-ghost-lux w-full" disabled={p.stock === 0} onClick={buyNow}>{L("Acheter", "اشتري الآن")}</button>
-          </div>
+          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full object-contain" /></Button>)}</div></fieldset>}
+          <fieldset className="mt-6"><legend className="text-sm">{L("Taille", "المقاس")}</legend>{p.sizes.length ? <div className="mt-3 flex flex-wrap gap-2">{p.sizes.map(value => <Button key={value} variant={size === value ? "default" : "outline"} aria-pressed={size === value} onClick={() => setSize(value)} className="h-10 min-w-12 rounded-none">{value}</Button>)}</div> : <p className="mt-2 text-xs text-muted-foreground">{L("Tailles à confirmer", "المقاسات قيد التأكيد")}</p>}</fieldset>
+          <QuickOrder key={p.id} productId={p.id} price={p.price_confirmed ? Number(p.price) : 0} freeShipping={p.free_shipping} size={size} color={color} disabled={!available} />
           {s?.store.whatsapp && (
             <a className="link-lux mt-4 inline-block text-xs text-muted-foreground" target="_blank" rel="noreferrer"
               href={waLink(s.store.whatsapp, L(`Bonjour, j'ai une question sur ${p.name_fr}.`, `مرحباً، لدي سؤال عن ${p.name_ar}.`))}>
@@ -174,9 +156,10 @@ function ProductPage() {
       )}
 
       {zoom && (
-        <button className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-background/95 p-4" onClick={() => setZoom(null)}>
+        <div role="dialog" aria-modal="true" aria-label={name} className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4">
+          <Button variant="ghost" size="icon" aria-label={L("Fermer", "إغلاق")} className="absolute end-4 top-4" onClick={() => setZoom(null)}><X /></Button>
           <img src={zoom} alt={name} className="max-h-full max-w-full object-contain" />
-        </button>
+        </div>
       )}
     </>
   );

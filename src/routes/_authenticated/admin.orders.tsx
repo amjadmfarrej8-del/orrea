@@ -153,7 +153,7 @@ function Orders() {
                             ) : (
                               <span className={`shrink-0 border border-border bg-muted ${isComponent ? "h-7 w-7" : "h-11 w-11"}`} />
                             )}
-                            <span className="min-w-0 flex-1 truncate">{i.product_name} × {i.quantity}</span>
+                            <span className="min-w-0 flex-1">{i.product_name} × {i.quantity}{(i.selected_size || i.selected_color) && <span className="block text-xs text-muted-foreground">{[i.selected_size, i.selected_color].filter(Boolean).join(" · ")}</span>}</span>
                             <span>{formatMAD(Number(i.unit_price) * i.quantity, "fr")}</span>
                           </li>
                         );

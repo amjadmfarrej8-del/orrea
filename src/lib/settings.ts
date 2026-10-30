@@ -31,7 +31,8 @@ export const defaultSettings: Settings = {
     { id: "featured", type: "featured", visible: true, title_fr: "L’Essentiel", title_ar: "الأساسيات" },
     { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le streetwear rencontre le caractère. Une silhouette se dessine, entre liberté et présence. Bienvenue dans l’univers ORRÉA.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم ORRÉA.", image: "fashion-femme" },
     { id: "bestsellers", type: "bestsellers", visible: true, title_fr: "Best-Sellers", title_ar: "الأكثر مبيعاً" },
-    { id: "new", type: "new", visible: false, title_fr: "Nouveautés", title_ar: "الجديد" },
+    { id: "new", type: "new", visible: true, title_fr: "Nouvelle Collection", title_ar: "المجموعة الجديدة" },
+    { id: "campaign", type: "panel", visible: true, title_fr: "Campagne ORRÉA", title_ar: "حملة ORRÉA", image: "streetwear-campaign", button_fr: "Découvrir", button_ar: "اكتشفوا", link: "/shop" },
   ] },
 };
 

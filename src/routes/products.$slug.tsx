@@ -80,9 +80,6 @@ function ProductPage() {
   const available = canOrderClothing(p, colors, size, color);
   return (
     <>
-      <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
-        <Link to="/" className="hover:text-foreground">{L("Accueil", "الرئيسية")}</Link> / <Link to={isPack(p) ? "/offres" : "/shop"} className="hover:text-foreground">{isPack(p) ? L("Offres", "العروض") : t.shop}</Link> / <span className="text-foreground">{name}</span>
-      </nav>
       <div className="grid gap-6 pt-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
         <div className="min-w-0">
           <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-studio p-0 hover:bg-studio" onClick={() => setZoom(images[currentPhoto] ?? null)}>

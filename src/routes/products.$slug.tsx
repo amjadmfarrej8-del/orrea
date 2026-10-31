@@ -83,16 +83,18 @@ function ProductPage() {
       <nav className="mx-auto max-w-7xl px-5 pt-6 font-sans text-[0.7rem] tracking-[0.12em] text-muted-foreground uppercase md:px-10">
         <Link to="/" className="hover:text-foreground">{L("Accueil", "الرئيسية")}</Link> / <Link to={isPack(p) ? "/offres" : "/shop"} className="hover:text-foreground">{isPack(p) ? L("Offres", "العروض") : t.shop}</Link> / <span className="text-foreground">{name}</span>
       </nav>
-      <div className="grid gap-8 pt-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(340px,0.8fr)] lg:gap-12">
+      <div className="grid gap-6 pt-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
         <div>
-          <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-card p-0 hover:bg-card" onClick={() => setZoom(images[currentPhoto] ?? null)}>
-            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[70svh] min-h-96 w-full object-contain lg:h-[calc(100svh-120px)]" />
+          <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-studio p-0 hover:bg-studio" onClick={() => setZoom(images[currentPhoto] ?? null)}>
+            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[82svh] min-h-[28rem] w-full object-contain lg:h-[calc(100svh-88px)]" />
           </Button>
           {images.length > 1 && (
-            <div className="mt-3 flex items-center justify-center gap-5">
-              <Button variant="ghost" size="icon" title={L("Photo précédente", "الصورة السابقة")} aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((currentPhoto + images.length - 1) % images.length)}><ChevronLeft /></Button>
-              <span className="text-xs tabular-nums text-muted-foreground" aria-live="polite">{currentPhoto + 1} / {images.length}</span>
-              <Button variant="ghost" size="icon" title={L("Photo suivante", "الصورة التالية")} aria-label={L("Photo suivante", "الصورة التالية")} onClick={() => setPhoto((currentPhoto + 1) % images.length)}><ChevronRight /></Button>
+            <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {images.map((src, i) => (
+                <Button key={src} variant="ghost" aria-label={L(`Photo ${i + 1}`, `الصورة ${i + 1}`)} aria-current={i === currentPhoto} onClick={() => setPhoto(i)} className={`h-24 w-20 shrink-0 overflow-hidden rounded-none bg-studio p-0 hover:bg-studio ${i === currentPhoto ? "ring-1 ring-primary" : "opacity-60"}`}>
+                  <img src={src} alt="" className="h-full w-full object-contain" />
+                </Button>
+              ))}
             </div>
           )}
         </div>

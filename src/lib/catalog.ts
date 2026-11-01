@@ -22,12 +22,14 @@ import catTshirts from "@/assets/cat-tshirts.jpg";
 import catPantalons from "@/assets/cat-pantalons.jpg";
 import catEnsembles from "@/assets/cat-ensembles.jpg";
 import catJackets from "@/assets/cat-jackets.jpg";
+import storyAsset from "@/assets/orrea-story.png.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
   Object.entries(files).map(([path, url]) => [path.split("/").at(-1)?.replace(".jpg", "") ?? path, url]),
 );
 Object.assign(localImages, {
+  "orrea-story": storyAsset.url,
   "fashion-campaign": fashionCampaign,
   "fashion-femme": streetwearFemme,
   "fashion-homme": streetwearHomme.url,

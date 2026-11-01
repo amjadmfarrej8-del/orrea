@@ -39,7 +39,7 @@ export function PackCard({ className = "", productIds, excludeIds = [] }: { clas
           return (
             <article key={p.id} className="card-lux flex h-full min-w-0 flex-col border border-border/60 bg-card">
               <Link to="/products/$slug" params={{ slug: p.slug }} className="relative block bg-transparent p-0 md:bg-background/60 md:p-6 lg:p-8">
-                <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full object-contain" />
+                <img src={productImage(p.image)} alt={ar ? p.name_ar : p.name_fr} loading="lazy" width={1104} height={1104} className="aspect-square w-full bg-studio object-contain" />
                 {discount > 0 && <span className="absolute left-3 top-3 bg-champagne px-2 py-1 text-[0.62rem] font-medium tracking-[0.08em] text-ink md:left-6 md:top-6 md:px-3 md:py-1.5 md:text-[0.8rem]">-{discount}%</span>}
               </Link>
               <div className="flex min-w-0 flex-1 flex-col items-center border-t border-border/60 px-3 py-4 text-center md:px-6 md:py-9 lg:px-8 lg:py-10">

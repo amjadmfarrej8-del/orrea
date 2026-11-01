@@ -6,7 +6,7 @@ export function ProductCard({ p }: { p: Product }) {
   const { lang, t, L } = useI18n();
   return (
     <Link to="/products/$slug" params={{ slug: p.slug }} className="group flex h-full flex-col text-start">
-      <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-card">
+      <div className="relative aspect-[3/4] w-full shrink-0 overflow-hidden bg-studio">
         <img
           src={productImage(p.image)}
           alt={lang === "ar" ? p.name_ar : p.name_fr}

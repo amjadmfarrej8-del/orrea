@@ -112,7 +112,7 @@ function ProductPage() {
             {p.stock === 0 ? t.outOfStock : p.stock <= p.low_stock_threshold ? L(`Plus que ${p.stock} en stock`, `تبقى ${p.stock} فقط`) : L("En stock", "متوفر")}
           </p>
 
-          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full object-contain" /></Button>)}</div></fieldset>}
+          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full bg-studio object-contain" /></Button>)}</div></fieldset>}
           <fieldset className="mt-6"><legend className="text-sm">{L("Taille", "المقاس")}</legend>{p.sizes.length ? <div className="mt-3 flex flex-wrap gap-2">{p.sizes.map(value => <Button key={value} variant={size === value ? "default" : "outline"} aria-pressed={size === value} onClick={() => setSize(value)} className="h-10 min-w-12 rounded-none">{value}</Button>)}</div> : <p className="mt-2 text-xs text-muted-foreground">{L("Tailles à confirmer", "المقاسات قيد التأكيد")}</p>}</fieldset>
           <QuickOrder key={p.id} productId={p.id} price={p.price_confirmed ? Number(p.price) : 0} freeShipping={p.free_shipping} size={size} color={color} disabled={!available} />
           {s?.store.whatsapp && (
@@ -157,7 +157,7 @@ function ProductPage() {
       {zoom && (
         <div role="dialog" aria-modal="true" aria-label={name} className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4">
           <Button variant="ghost" size="icon" aria-label={L("Fermer", "إغلاق")} className="absolute end-4 top-4" onClick={() => setZoom(null)}><X /></Button>
-          <img src={zoom} alt={name} className="max-h-full max-w-full object-contain" />
+          <img src={zoom} alt={name} className="max-h-full max-w-full bg-studio object-contain" />
         </div>
       )}
     </>

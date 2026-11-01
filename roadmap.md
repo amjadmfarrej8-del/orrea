@@ -1,6 +1,8 @@
 # THÉRAVÉN roadmap
 
 ## Done
+- [x] Remove breadcrumbs globally from product pages only
+- [x] Make all storefront product photo display backgrounds pure white without altering photos or surrounding black design
 - [x] Add six supplied clothing models and photo colors; prices are explicitly unconfirmed and stock stays zero
 - [x] Add best-sellers, Nouvelle Collection and ORRÉA campaign presentation
 - [x] Add direct three-field ordering with saved size/color and premium immersive product pages

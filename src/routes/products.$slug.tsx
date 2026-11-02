@@ -80,7 +80,7 @@ function ProductPage() {
   const available = canOrderClothing(p, colors, size, color);
   return (
     <>
-      <div className="grid gap-6 pt-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
         <div className="min-w-0">
           <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-studio p-0 hover:bg-studio" onClick={() => setZoom(images[currentPhoto] ?? null)}>
             <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[82svh] min-h-[28rem] w-full object-contain lg:h-[calc(100svh-88px)]" />

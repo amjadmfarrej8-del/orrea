@@ -44,7 +44,7 @@ export function Header() {
 
   return (
     <>
-      <header className={home ? "absolute inset-x-0 top-0 z-40 bg-transparent" : "sticky top-0 z-40 border-b border-border bg-background"}>
+      <header className={home ? "absolute inset-x-0 top-0 z-40 bg-transparent" : "sticky top-0 z-40 border-b border-border bg-transparent"}>
         <div className={`${home ? "hidden" : "block"} whitespace-nowrap bg-primary py-2 text-center text-[0.55rem] tracking-[0.08em] uppercase text-primary-foreground md:text-[0.8rem] md:tracking-[0.16em]`}>
           {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
         </div>

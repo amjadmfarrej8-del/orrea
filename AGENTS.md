@@ -14,6 +14,7 @@
 - Clothing options are stored on products and validated again by place_order; selected size/color are immutable order-item snapshots. Unconfirmed prices block ordering. Product-page quick orders use the existing RPC without cart navigation.
 - Bilingual content lives in paired `_fr`/`_ar` columns; UI strings in `src/lib/i18n.tsx` (RTL set on <html> for Arabic).
 - Product images: `products.image` is a local asset key (see `src/lib/catalog.ts`) or a full URL.
+- Per-color name, image and optional HEX stay in products.colors JSON; the admin manager uploads through existing private media storage and validates unique names plus required images so storefront selections remain unambiguous.
 - Store config (theme, store contact/shipping, SEO, homepage sections) lives in `site_settings` key/value rows read via `settingsQuery`; theme is applied as CSS variables by `ThemeStyle`.
 - Empty remixed stores use complete editable homepage/theme defaults from settings.ts; campaign asset keys resolve through catalog.ts, so the page stays usable before configuration without seeding products.
 - Shipping/coupon pricing is computed only by the `quote_order` SQL function, reused by `place_order`.

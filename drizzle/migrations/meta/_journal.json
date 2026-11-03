@@ -15,6 +15,13 @@
       "when": 1793232793013,
       "tag": "0001_place_order_clothing_selections",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793664444428,
+      "tag": "0002_unlimited_product_colors",
+      "breakpoints": true
     }
   ]
 }

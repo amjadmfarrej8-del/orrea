@@ -1,7 +1,7 @@
 # THÉRAVÉN roadmap
 
 ## Done
-- [ ] Add individual color-image management and verify saved associations on the storefront
+- [x] Add individual color-image management and verify uploaded photos, persistence, editing, deletion and storefront selection
 - [x] Remove breadcrumbs globally from product pages only
 - [x] Make all storefront product photo display backgrounds pure white without altering photos or surrounding black design
 - [x] Add six supplied clothing models and photo colors; prices are explicitly unconfirmed and stock stays zero

@@ -83,13 +83,13 @@ function ProductPage() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
         <div className="min-w-0">
           <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-studio p-0 hover:bg-studio" onClick={() => setZoom(images[currentPhoto] ?? null)}>
-            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[82svh] min-h-[28rem] w-full object-contain lg:h-[calc(100svh-88px)]" />
+            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[82svh] min-h-[28rem] w-full object-cover object-top lg:h-[calc(100svh-88px)]" />
           </Button>
           {images.length > 1 && (
             <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {images.map((src, i) => (
                 <Button key={src} variant="ghost" aria-label={L(`Photo ${i + 1}`, `الصورة ${i + 1}`)} aria-current={i === currentPhoto} onClick={() => setPhoto(i)} className={`h-24 w-20 shrink-0 overflow-hidden rounded-none bg-studio p-0 hover:bg-studio ${i === currentPhoto ? "ring-1 ring-primary" : "opacity-60"}`}>
-                  <img src={src} alt="" className="h-full w-full object-contain" />
+                  <img src={src} alt="" className="h-full w-full object-cover object-top" />
                 </Button>
               ))}
             </div>
@@ -112,7 +112,7 @@ function ProductPage() {
             {p.stock === 0 ? t.outOfStock : p.stock <= p.low_stock_threshold ? L(`Plus que ${p.stock} en stock`, `تبقى ${p.stock} فقط`) : L("En stock", "متوفر")}
           </p>
 
-          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full bg-studio object-contain" /></Button>)}</div></fieldset>}
+          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full bg-studio object-cover object-top" /></Button>)}</div></fieldset>}
           <fieldset className="mt-6"><legend className="text-sm">{L("Taille", "المقاس")}</legend>{p.sizes.length ? <div className="mt-3 flex flex-wrap gap-2">{p.sizes.map(value => <Button key={value} variant={size === value ? "default" : "outline"} aria-pressed={size === value} onClick={() => setSize(value)} className="h-10 min-w-12 rounded-none">{value}</Button>)}</div> : <p className="mt-2 text-xs text-muted-foreground">{L("Tailles à confirmer", "المقاسات قيد التأكيد")}</p>}</fieldset>
           <QuickOrder key={p.id} productId={p.id} price={p.price_confirmed ? Number(p.price) : 0} freeShipping={p.free_shipping} size={size} color={color} disabled={!available} />
           {s?.store.whatsapp && (

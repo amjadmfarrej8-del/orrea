@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
-import { clothingOptionsSchema, productColorManagerSchema, type ClothingColor } from "@/lib/clothing";
+import { clothingOptionsSchema, productColorManagerSchema, readColors, type ClothingColor } from "@/lib/clothing";
 import { ColorImageManager } from "@/components/admin/ColorImageManager";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea, Toggle } from "@/components/admin/ui";
 
@@ -48,11 +48,12 @@ function EditProduct() {
   const save = async () => {
     if (uploadingColors) return void toast.error("Attendez la fin de l’envoi des photos.");
     if (!f.name_fr.trim() || !f.name_ar.trim() || (f.price_confirmed && f.price <= 0)) return void toast.error("Nom FR, nom AR et prix confirmé sont obligatoires.");
-    const colors = productColorManagerSchema.safeParse(f.colors);
+    const legacyColors = readColors(prod.data?.colors);
+    const colors = productColorManagerSchema.safeParse(f.colors.map(entry => ({ ...entry, image: entry.image || (legacyColors.some(old => old.name === entry.name && !old.image) ? prod.data?.image : "") })));
     if (!colors.success) return void toast.error(colors.error.issues[0]?.message || "Vérifiez les couleurs.");
     if (!clothingOptionsSchema.safeParse({ sizes: f.sizes, colors: f.colors }).success) return void toast.error("Vérifiez les tailles et les couleurs.");
     setSaving(true);
-    const payload = { ...f, colors: colors.data, slug: f.slug.trim() || slugify(f.name_fr), category_id: f.category_id || null };
+    const payload = { ...f, colors: clothingOptionsSchema.shape.colors.parse(f.colors), slug: f.slug.trim() || slugify(f.name_fr), category_id: f.category_id || null };
     const res = isNew ? await supabase.from("products").insert(payload).select("id").single() : await supabase.from("products").update(payload).eq("id", id).select("id").single();
     setSaving(false);
     if (res.error) return void toast.error(res.error.message.includes("duplicate") ? "Ce lien (slug) existe déjà." : res.error.message);

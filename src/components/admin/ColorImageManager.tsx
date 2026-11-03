@@ -33,8 +33,8 @@ function ColorEntry({ value, onChange, onRemove, onBusy }: { value: ClothingColo
       <AField label="Nom de la couleur"><Input value={value.name} maxLength={60} placeholder="Ex. Beige, Noir, Gris" onChange={e => onChange({ name: e.target.value })} /></AField>
       <AField label="HEX (facultatif)">
         <div className="flex items-center gap-2">
-          <Input type="color" aria-label="Choisir la teinte HEX" value={/^#[0-9a-fA-F]{6}$/.test(value.hex ?? "") ? value.hex : "#000000"} onChange={e => onChange({ hex: e.target.value })} className="h-9 w-12 shrink-0 cursor-pointer p-1" />
-          <Input value={value.hex ?? ""} aria-label="Code HEX" maxLength={7} placeholder="#000000" onChange={e => onChange({ hex: e.target.value || undefined })} />
+          <Input type="color" aria-label="Choisir la teinte HEX" value={/^#[0-9a-fA-F]{6}$/.test(value.hex ?? "") ? value.hex : "#000000"} onChange={e => onChange({ hex: e.target.value })} className="h-9 w-12! shrink-0 cursor-pointer p-1" />
+          <Input value={value.hex ?? ""} aria-label="Code HEX" maxLength={7} placeholder="#000000" className="min-w-0 flex-1" onChange={e => onChange({ hex: e.target.value || undefined })} />
           {value.hex && <Button type="button" variant="ghost" size="icon" title="Retirer la teinte HEX" aria-label="Retirer la teinte HEX" onClick={() => onChange({ hex: undefined })}><X /></Button>}
         </div>
       </AField>

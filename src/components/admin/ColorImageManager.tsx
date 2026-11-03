@@ -45,6 +45,7 @@ function ColorEntry({ value, onChange, onRemove, onBusy }: { value: ClothingColo
 export function ColorImageManager({ value, onChange, onUploadingChange }: { value: ClothingColor[]; onChange: (update: (colors: ClothingColor[]) => ClothingColor[]) => void; onUploadingChange: (busy: boolean) => void }) {
   const ids = useRef(value.map((_, index) => `existing-${index}`));
   const uploads = useRef(new Set<string>());
+  while (ids.current.length < value.length) ids.current.push(`existing-${ids.current.length}`);
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">

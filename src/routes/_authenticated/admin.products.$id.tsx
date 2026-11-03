@@ -117,7 +117,7 @@ function EditProduct() {
             </div>
             {txt("sku", "SKU")}{txt("size", "Taille / dimensions (information exacte)")}{txt("badge", "Badge (ex. Édition limitée)")}{txt("slug", "Lien (slug)")}
             <AField label="Tailles disponibles (séparées par des virgules)"><Input key={`sizes-${prod.data?.id ?? "new"}`} defaultValue={f.sizes.join(", ")} onBlur={(e) => set("sizes", [...new Set(e.target.value.split(",").map(x => x.trim()).filter(Boolean))].slice(0, 30))} placeholder="Ex. S, M, L" /></AField>
-            {(isNew || prod.data) && <ColorImageManager key={`${id}-${prod.data?.updated_at ?? prod.data?.created_at ?? "new"}-${prod.data ? "loaded" : "new"}`} value={f.colors} onChange={update => setF(current => ({ ...current, colors: update(current.colors) }))} onUploadingChange={setUploadingColors} />}
+            {(isNew || prod.data) && <ColorImageManager key={id} value={f.colors} onChange={update => setF(current => ({ ...current, colors: update(current.colors) }))} onUploadingChange={setUploadingColors} />}
             <Toggle label="Prix confirmé" checked={f.price_confirmed} onChange={(v) => set("price_confirmed", v)} />
           </Card>
           <Card className="space-y-3">

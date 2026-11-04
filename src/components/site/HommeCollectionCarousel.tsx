@@ -5,8 +5,8 @@ import { ProductCard } from "@/components/site/ProductCard";
 import { type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
 
-/** Intentionally used only by the Homme collection. */
-export function HommeCollectionCarousel({ products }: { products: Product[] }) {
+/** Used by the Homme collection and the homepage Nouvelle Collection row. */
+export function HommeCollectionCarousel({ products, className = "mt-12" }: { products: Product[]; className?: string }) {
   const { L } = useI18n();
   const autoScroll = useMemo(() => AutoScroll({
     speed: 0.6,
@@ -102,7 +102,7 @@ export function HommeCollectionCarousel({ products }: { products: Product[] }) {
   }, [api, autoScroll]);
 
   return (
-    <div ref={region} role="region" aria-roledescription="carousel" aria-label={L("Collection Homme", "مجموعة الرجال")} data-reveal-skip className="mt-12 min-w-0">
+    <div ref={region} role="region" aria-roledescription="carousel" aria-label={L("Collection Homme", "مجموعة الرجال")} data-reveal-skip className={`${className} min-w-0`}>
       <div ref={viewportRef} dir="ltr" className="cursor-grab overflow-hidden touch-pan-y active:cursor-grabbing">
         <div className="-ml-3 flex md:-ml-6">
           {slides.map((p, index) => (

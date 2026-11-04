@@ -1,11 +1,11 @@
 {
-  "asset_id": "8b410884-ee5d-4f09-9f1e-bf24d20d41ad",
-  "content_type": "image/png",
-  "created_at": "2026-10-04T21:26:10Z",
-  "original_filename": "theravene-pack-solaire-gel-contour.png",
+  "version": 1,
+  "asset_id": "2f682029-3286-4db3-b78c-2b13a21916ac",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/8b410884-ee5d-4f09-9f1e-bf24d20d41ad/theravene-pack-solaire-gel-contour.png",
-  "size": 2040031,
-  "url": "/__l5e/assets-v1/8b410884-ee5d-4f09-9f1e-bf24d20d41ad/theravene-pack-solaire-gel-contour.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/2f682029-3286-4db3-b78c-2b13a21916ac/theravene-pack-solaire-gel-contour.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/2f682029-3286-4db3-b78c-2b13a21916ac/theravene-pack-solaire-gel-contour.webp",
+  "original_filename": "theravene-pack-solaire-gel-contour.webp",
+  "size": 167658,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:38:38Z"
 }

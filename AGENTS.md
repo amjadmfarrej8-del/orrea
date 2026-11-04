@@ -24,3 +24,4 @@
 - Meta Pixel configuration is stored in an administrator-only table, not public site_settings; activation is blocked in both application and database until dataset eligibility and advertising consent are verified, to prevent sensitive catalog information reaching Meta.
 
 - Streetwear campaign assets are resolved by catalog keys; the hero uses a dedicated mobile crop and real product gallery slides, keeping navigation functional and homepage configuration editable.
+- Raster images are stored as WebP (max 1600px wide) via asset pointers; below-the-fold images use loading="lazy" decoding="async", the first visible photo uses fetchPriority="high" — keeps pages light on mobile.

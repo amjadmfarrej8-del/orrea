@@ -1,11 +1,11 @@
 {
-  "asset_id": "87dfd389-8320-4cac-9640-4ba31282c345",
-  "content_type": "image/png",
-  "created_at": "2026-10-05T00:06:10Z",
-  "original_filename": "theravene-creme-solaire-v2.png",
+  "version": 1,
+  "asset_id": "20e3c6ac-6584-46f3-a7fd-740ff938bef1",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/87dfd389-8320-4cac-9640-4ba31282c345/theravene-creme-solaire-v2.png",
-  "size": 2054521,
-  "url": "/__l5e/assets-v1/87dfd389-8320-4cac-9640-4ba31282c345/theravene-creme-solaire-v2.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/20e3c6ac-6584-46f3-a7fd-740ff938bef1/theravene-creme-solaire-v2.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/20e3c6ac-6584-46f3-a7fd-740ff938bef1/theravene-creme-solaire-v2.webp",
+  "original_filename": "theravene-creme-solaire-v2.webp",
+  "size": 120326,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:36:40Z"
 }

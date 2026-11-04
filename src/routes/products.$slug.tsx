@@ -89,7 +89,7 @@ function ProductPage() {
             <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {images.map((src, i) => (
                 <Button key={src} variant="ghost" aria-label={L(`Photo ${i + 1}`, `الصورة ${i + 1}`)} aria-current={i === currentPhoto} onClick={() => setPhoto(i)} className={`h-24 w-20 shrink-0 overflow-hidden rounded-none bg-studio p-0 hover:bg-studio ${i === currentPhoto ? "ring-1 ring-primary" : "opacity-60"}`}>
-                  <img src={src} alt="" className="h-full w-full object-cover object-top" />
+                  <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
                 </Button>
               ))}
             </div>
@@ -112,7 +112,7 @@ function ProductPage() {
             {p.stock === 0 ? t.outOfStock : p.stock <= p.low_stock_threshold ? L(`Plus que ${p.stock} en stock`, `تبقى ${p.stock} فقط`) : L("En stock", "متوفر")}
           </p>
 
-          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} className="h-full w-full bg-studio object-cover object-top" /></Button>)}</div></fieldset>}
+          {colors.length > 0 && <fieldset className="mt-7"><legend className="text-sm">{L("Couleur", "اللون")}{color && ` · ${color}`}</legend><div className="mt-3 flex flex-wrap gap-3">{colors.map(c => <Button key={c.name} variant="outline" aria-label={c.name} aria-pressed={color === c.name} onClick={() => { setColor(c.name); setPhoto(0); }} className={`h-20 w-16 overflow-hidden rounded-none p-0 ${color === c.name ? "border-primary ring-1 ring-primary" : "border-border"}`}><img src={productImage(c.image || p.image)} alt={c.name} loading="lazy" decoding="async" className="h-full w-full bg-studio object-cover object-top" /></Button>)}</div></fieldset>}
           <fieldset className="mt-6"><legend className="text-sm">{L("Taille", "المقاس")}</legend>{p.sizes.length ? <div className="mt-3 flex flex-wrap gap-2">{p.sizes.map(value => <button key={value} type="button" aria-pressed={size === value} onClick={() => setSize(value)} className={`h-11 min-w-14 rounded-[10px] border border-cta px-4 text-sm uppercase tracking-wide transition-all duration-200 ${size === value ? "bg-cta font-medium text-street-black" : "bg-street-black text-foreground hover:bg-cta/15"}`}>{value}</button>)}</div> : <p className="mt-2 text-xs text-muted-foreground">{L("Tailles à confirmer", "المقاسات قيد التأكيد")}</p>}</fieldset>
           <QuickOrder key={p.id} productId={p.id} price={p.price_confirmed ? Number(p.price) : 0} freeShipping={p.free_shipping} size={size} color={color} disabled={!available} />
           {s?.store.whatsapp && (

@@ -29,7 +29,7 @@ export function CategoryGrid() {
         return (
           <Link key={c.id} to="/shop" search={{ c: c.slug }} role="listitem" className="group flex flex-col items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary md:gap-4">
             <span className="block aspect-square w-full overflow-hidden rounded-full border border-primary/70 transition-colors duration-500 group-hover:border-primary">
-              {c.image && <img src={productImage(c.image)} alt={name} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
+              {c.image && <img src={productImage(c.image)} alt={name} loading="lazy" decoding="async" width={1024} height={1024} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
             </span>
             <span className="text-center text-[11px] font-bold uppercase tracking-[0.14em] text-foreground md:text-sm">{name}</span>
             <span className="flex size-8 items-center justify-center rounded-full border border-primary text-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground md:size-9">

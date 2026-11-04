@@ -250,7 +250,6 @@
 .streetwear-heading { font-size: 36px; font-weight: 700; text-transform: uppercase; }
 @media (min-width: 768px) {
   .streetwear-hero { height: 790px; max-height: 90vh; min-height: 600px; }
-  .streetwear-hero-image { object-fit: contain; object-position: center; }
   .streetwear-copy { inset-inline-start: max(6%, calc((100vw - 1440px) / 2)); top: 38%; max-width: 670px; }
   .streetwear-title { font-size: 88px; }
   .streetwear-title span { font-size: 106px; }

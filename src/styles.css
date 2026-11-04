@@ -35,6 +35,7 @@
   --color-ring: var(--ring);
   --color-street-black: var(--street-black);
   --color-studio: var(--studio);
+  --color-cta: var(--cta);
 }
 
 /* ORRÉA streetwear — dark photographic surfaces and signal orange. */
@@ -64,6 +65,7 @@
   --ring: oklch(0.7 0.2 45);
   --street-black: oklch(0 0 0);
   --studio: #FFFFFF;
+  --cta: #F58220;
   --hero-shade: linear-gradient(90deg, oklch(0.08 0 0 / 0.8), oklch(0.08 0 0 / 0.15) 63%, transparent);
   --metallic-logo: linear-gradient(180deg, oklch(1 0 0) 10%, oklch(0.55 0 0) 45%, oklch(1 0 0) 53%, oklch(0.6 0 0) 85%);
 }
@@ -171,6 +173,25 @@
   outline: none;
   transition: border-color 0.3s ease;
   &:focus { border-color: var(--color-foreground); }
+}
+
+/* Checkout fields — boxed orange-bordered premium inputs. */
+@utility field-checkout {
+  width: 100%;
+  height: 3.25rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--color-cta);
+  border-radius: 10px;
+  background: var(--color-street-black);
+  color: var(--color-foreground);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  &:hover { border-color: oklch(from var(--color-cta) calc(l + 0.06) c h); }
+  &:focus {
+    border-color: var(--color-cta);
+    box-shadow: 0 0 0 3px oklch(from var(--color-cta) l c h / 0.28);
+  }
 }
 
 /* Premium card relief — soft warm diffuse shadow, light top edge, gentle lift on hover. */

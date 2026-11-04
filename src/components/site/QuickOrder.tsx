@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD, useI18n } from "@/lib/i18n";
 import { quickOrderSchema } from "@/lib/clothing";
@@ -41,11 +40,11 @@ export function QuickOrder({ productId, price, freeShipping, size, color, disabl
   if (result) return <section className="mt-8 border-t border-primary pt-6" role="status"><h2 className="text-2xl">{L("Commande enregistrée", "تم تسجيل الطلب")}</h2><p className="mt-3">{result.order_number}</p><p>{formatMAD(result.total, lang)} · {L("Paiement à la livraison", "الدفع عند الاستلام")}</p></section>;
   return <form onSubmit={submit} className="mt-8 space-y-4 border-t border-border pt-6">
     <h2 className="text-2xl">{L("Commander", "اطلبوا الآن")}</h2>
-    {([ ["name", L("Nom complet", "الاسم الكامل"), "text", "name", 100], ["phone", L("Numéro de téléphone", "رقم الهاتف"), "tel", "tel", 20], ["address", L("Adresse complète", "العنوان الكامل"), "text", "street-address", 300] ] as const).map(([key,label,type,autocomplete,max]) => <label key={key} className="block text-sm"><span>{label}</span><input className="field-lux" type={type} autoComplete={autocomplete} maxLength={max} required value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} /></label>)}
+    {([ ["name", L("Nom complet", "الاسم الكامل"), "text", "name", 100], ["phone", L("Numéro de téléphone", "رقم الهاتف"), "tel", "tel", 20], ["address", L("Adresse complète", "العنوان الكامل"), "text", "street-address", 300] ] as const).map(([key,label,type,autocomplete,max]) => <label key={key} className="block"><span className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">{label}</span><input className="field-checkout" type={type} autoComplete={autocomplete} maxLength={max} required value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))} /></label>)}
     {quote.data && <div className="flex justify-between text-sm"><span>{L("Livraison", "التوصيل")}</span><span>{formatMAD(freeShipping ? 0 : quote.data.shipping, lang)}</span></div>}
     {quote.data && <div className="flex justify-between font-medium"><span>Total</span><span>{formatMAD(price + (freeShipping ? 0 : quote.data.shipping), lang)}</span></div>}
     <p className="text-xs text-muted-foreground">{L("Paiement à la livraison", "الدفع عند الاستلام")}</p>
     {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-    <Button type="submit" disabled={disabled || loading} className="h-12 w-full rounded-none">{loading ? L("Enregistrement…", "جاري التسجيل…") : L("COMMANDER", "تأكيد الطلب")}</Button>
+    <button type="submit" disabled={disabled || loading} className="h-12 w-full rounded-[10px] bg-cta text-sm font-semibold uppercase tracking-[0.18em] text-street-black transition-all duration-200 hover:bg-cta/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 disabled:cursor-not-allowed disabled:opacity-40">{loading ? L("Enregistrement…", "جاري التسجيل…") : L("COMMANDER", "تأكيد الطلب")}</button>
   </form>;
 }

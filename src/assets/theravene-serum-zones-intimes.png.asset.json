@@ -1,11 +1,11 @@
 {
-  "asset_id": "d4feda63-388a-4309-ab8d-7aa274161a34",
-  "content_type": "image/png",
-  "created_at": "2026-10-03T16:47:23Z",
-  "original_filename": "theravene-serum-zones-intimes.png",
+  "version": 1,
+  "asset_id": "ce6079fc-4950-4fcb-9f52-6a67debc2a19",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/d4feda63-388a-4309-ab8d-7aa274161a34/theravene-serum-zones-intimes.png",
-  "size": 1466055,
-  "url": "/__l5e/assets-v1/d4feda63-388a-4309-ab8d-7aa274161a34/theravene-serum-zones-intimes.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/ce6079fc-4950-4fcb-9f52-6a67debc2a19/theravene-serum-zones-intimes.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/ce6079fc-4950-4fcb-9f52-6a67debc2a19/theravene-serum-zones-intimes.webp",
+  "original_filename": "theravene-serum-zones-intimes.webp",
+  "size": 61718,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:39:00Z"
 }

@@ -1,11 +1,11 @@
 {
-  "asset_id": "0314c275-3b2b-48ef-adf0-ed6bfc4f7f2d",
-  "content_type": "image/png",
-  "created_at": "2026-10-03T21:51:59Z",
-  "original_filename": "theravene-cat-visage.png",
+  "version": 1,
+  "asset_id": "e77459c4-0607-4c40-80e1-0a2baf691869",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/0314c275-3b2b-48ef-adf0-ed6bfc4f7f2d/theravene-cat-visage.png",
-  "size": 2154680,
-  "url": "/__l5e/assets-v1/0314c275-3b2b-48ef-adf0-ed6bfc4f7f2d/theravene-cat-visage.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/e77459c4-0607-4c40-80e1-0a2baf691869/theravene-cat-visage.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/e77459c4-0607-4c40-80e1-0a2baf691869/theravene-cat-visage.webp",
+  "original_filename": "theravene-cat-visage.webp",
+  "size": 146732,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:36:15Z"
 }

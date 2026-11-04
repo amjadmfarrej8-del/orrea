@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "75b076fd-2029-4bdf-b1b4-6a7fc4d2d0f3",
+  "asset_id": "d8a16567-9de2-48bb-91e4-4eae33377cd0",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "url": "/__l5e/assets-v1/75b076fd-2029-4bdf-b1b4-6a7fc4d2d0f3/orrea-ensemble-blanc.png",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/75b076fd-2029-4bdf-b1b4-6a7fc4d2d0f3/orrea-ensemble-blanc.png",
-  "original_filename": "orrea-ensemble-blanc.png",
-  "size": 1508643,
-  "content_type": "image/png",
-  "created_at": "2026-10-29T00:12:47Z"
+  "url": "/__l5e/assets-v1/d8a16567-9de2-48bb-91e4-4eae33377cd0/orrea-ensemble-blanc.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/d8a16567-9de2-48bb-91e4-4eae33377cd0/orrea-ensemble-blanc.webp",
+  "original_filename": "orrea-ensemble-blanc.webp",
+  "size": 50648,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:35:11Z"
 }

@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "44775422-f849-410f-ae6a-15f4128f500c",
+  "asset_id": "08c154ab-da96-48a6-8dac-02a3c38d922c",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "url": "/__l5e/assets-v1/44775422-f849-410f-ae6a-15f4128f500c/ensemble-blanc.png",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/44775422-f849-410f-ae6a-15f4128f500c/ensemble-blanc.png",
-  "original_filename": "ensemble-blanc.png",
-  "size": 1673806,
-  "content_type": "image/png",
-  "created_at": "2026-10-26T00:02:13Z"
+  "url": "/__l5e/assets-v1/08c154ab-da96-48a6-8dac-02a3c38d922c/ensemble-blanc.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/08c154ab-da96-48a6-8dac-02a3c38d922c/ensemble-blanc.webp",
+  "original_filename": "ensemble-blanc.webp",
+  "size": 47904,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:34:46Z"
 }

@@ -1,11 +1,11 @@
 {
-  "asset_id": "60c8ac61-442c-4e8e-94e3-30fb124636f5",
-  "content_type": "image/png",
-  "created_at": "2026-10-04T21:54:13Z",
-  "original_filename": "theravene-pack-gel-contour-creme-v2.png",
+  "version": 1,
+  "asset_id": "d340c7bf-3dd9-4ea5-bb48-bea2fa9fbf5d",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/60c8ac61-442c-4e8e-94e3-30fb124636f5/theravene-pack-gel-contour-creme-v2.png",
-  "size": 1983459,
-  "url": "/__l5e/assets-v1/60c8ac61-442c-4e8e-94e3-30fb124636f5/theravene-pack-gel-contour-creme-v2.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/d340c7bf-3dd9-4ea5-bb48-bea2fa9fbf5d/theravene-pack-gel-contour-creme-v2.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/d340c7bf-3dd9-4ea5-bb48-bea2fa9fbf5d/theravene-pack-gel-contour-creme-v2.webp",
+  "original_filename": "theravene-pack-gel-contour-creme-v2.webp",
+  "size": 152592,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:37:33Z"
 }

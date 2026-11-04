@@ -1,11 +1,11 @@
 {
-  "asset_id": "eb83bf0b-4b34-48b8-9724-fafebfbc46b6",
-  "content_type": "image/png",
-  "created_at": "2026-10-04T13:43:28Z",
-  "original_filename": "theravene-hero-wide.png",
+  "version": 1,
+  "asset_id": "b2e993ce-81c3-4e59-8071-5f48561f2615",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/eb83bf0b-4b34-48b8-9724-fafebfbc46b6/theravene-hero-wide.png",
-  "size": 1933262,
-  "url": "/__l5e/assets-v1/eb83bf0b-4b34-48b8-9724-fafebfbc46b6/theravene-hero-wide.png",
-  "version": 1
+  "url": "/__l5e/assets-v1/b2e993ce-81c3-4e59-8071-5f48561f2615/theravene-hero-wide.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/b2e993ce-81c3-4e59-8071-5f48561f2615/theravene-hero-wide.webp",
+  "original_filename": "theravene-hero-wide.webp",
+  "size": 96474,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:37:24Z"
 }

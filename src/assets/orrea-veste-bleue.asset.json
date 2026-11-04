@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "1e83e74f-6485-4b9e-ad77-3b12c18d31fc",
+  "asset_id": "17ebf77d-a973-4102-a1fc-e7557dc4057e",
   "project_id": "3769e2db-fef9-4016-b576-ba9e1efd41f2",
-  "url": "/__l5e/assets-v1/1e83e74f-6485-4b9e-ad77-3b12c18d31fc/orrea-veste-bleue.jpeg",
-  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/1e83e74f-6485-4b9e-ad77-3b12c18d31fc/orrea-veste-bleue.jpeg",
-  "original_filename": "orrea-veste-bleue.jpeg",
-  "size": 522489,
-  "content_type": "image/jpeg",
-  "created_at": "2026-10-29T00:12:40Z"
+  "url": "/__l5e/assets-v1/17ebf77d-a973-4102-a1fc-e7557dc4057e/orrea-veste-bleue.webp",
+  "r2_key": "a/v1/3769e2db-fef9-4016-b576-ba9e1efd41f2/17ebf77d-a973-4102-a1fc-e7557dc4057e/orrea-veste-bleue.webp",
+  "original_filename": "orrea-veste-bleue.webp",
+  "size": 322230,
+  "content_type": "image/webp",
+  "created_at": "2026-11-04T11:35:29Z"
 }

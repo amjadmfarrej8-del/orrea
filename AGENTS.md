@@ -25,3 +25,5 @@
 
 - Streetwear campaign assets are resolved by catalog keys; the hero uses a dedicated mobile crop and real product gallery slides, keeping navigation functional and homepage configuration editable.
 - Raster images are stored as WebP (max 1600px wide) via asset pointers; below-the-fold images use loading="lazy" decoding="async", the first visible photo uses fetchPriority="high" — keeps pages light on mobile.
+- Public page head tags are built with `pageHead()` in src/lib/seo.ts and every route declares `staticData.sitemap`; keeps canonical/og:url/hreflang self-referencing and the router-derived /sitemap.xml accurate.
+- Product JSON-LD emits an Offer only for confirmed prices; never publish unconfirmed prices to search engines.

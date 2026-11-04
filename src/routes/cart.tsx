@@ -46,7 +46,7 @@ function CartPage() {
     <div className="mx-auto grid max-w-6xl gap-14 px-5 pt-16 md:grid-cols-[1fr_340px] md:px-10">
       <div>
         <h1 className="text-[2rem] leading-tight md:text-[2.9rem]">{t.cart}</h1>
-        <FreeBar subtotal={subtotal} free={hasFreeShipping(items) ? 0 : (st?.store.free_shipping_threshold ?? 500)} />
+        <FreeBar subtotal={subtotal} free={st?.store.free_shipping_threshold ?? 0} />
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {items.map((i) => (
             <li key={i.id} className="flex gap-5 py-6">
@@ -81,7 +81,6 @@ function CartPage() {
 
 export function Summary({ subtotal, shipping, discount = 0, children }: { subtotal: number; shipping: number; discount?: number; children?: React.ReactNode }) {
   const { t, lang, L } = useI18n();
-  const { data: st } = useQuery(settingsQuery);
   return (
     <aside className="h-fit bg-card p-8 md:mt-20">
       <p className="eyebrow">{t.summary}</p>
@@ -91,7 +90,7 @@ export function Summary({ subtotal, shipping, discount = 0, children }: { subtot
         {discount > 0 && <div className="flex justify-between"><dt>{L("Remise", "الخصم")}</dt><dd>−{formatMAD(discount, lang)}</dd></div>}
         <div className="flex justify-between border-t border-border pt-4 text-lg"><dt>{t.total}</dt><dd>{formatMAD(subtotal - discount + shipping, lang)}</dd></div>
       </dl>
-      <p className="mt-4 text-xs text-muted-foreground">{L(`Livraison offerte dès ${st?.store.free_shipping_threshold ?? 500} MAD`, `توصيل مجاني ابتداءً من ${st?.store.free_shipping_threshold ?? 500} درهم`)}</p>
+      <p className="mt-4 text-xs text-muted-foreground">{L("Livraison gratuite sur tous les produits", "توصيل مجاني على جميع المنتجات")}</p>
       {children}
     </aside>
   );
@@ -103,7 +102,7 @@ function FreeBar({ subtotal, free }: { subtotal: number; free: number }) {
   const pct = free === 0 ? 100 : Math.min(100, (subtotal / free) * 100);
   return (
     <div className="mt-8 border border-border bg-card p-4 font-sans text-sm">
-      <p>{left > 0 ? L(`Plus que ${formatMAD(left, lang)} pour la livraison offerte`, `تبقى ${formatMAD(left, lang)} للتوصيل المجاني`) : L("Livraison offerte sur votre commande", "التوصيل مجاني لطلبك")}</p>
+      <p>{left > 0 ? L(`Plus que ${formatMAD(left, lang)} pour la livraison offerte`, `تبقى ${formatMAD(left, lang)} للتوصيل المجاني`) : L("Livraison gratuite sur tous les produits", "توصيل مجاني على جميع المنتجات")}</p>
       <div className="mt-3 h-1 bg-border"><div className="h-1 bg-champagne transition-all" style={{ width: `${pct}%` }} /></div>
     </div>
   );

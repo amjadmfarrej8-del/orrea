@@ -22,7 +22,7 @@ export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories"
 
 export const defaultSettings: Settings = {
   theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
-  store: { shipping_fee: 20, free_shipping_threshold: 500, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
+  store: { shipping_fee: 0, free_shipping_threshold: 0, whatsapp: "", email: "", phone: "", address_fr: "", address_ar: "", instagram: "", facebook: "", tiktok: "" },
   seo: { title_fr: "ORRÉA — Mode Femme & Homme", title_ar: "ORRÉA — أزياء النساء والرجال", description_fr: "ORRÉA, une nouvelle perspective sur le style. Découvrez nos univers Femme et Homme.", description_ar: "ORRÉA، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
   homepage: { sections: [
     { id: "hero", type: "hero", visible: true, title_fr: "MOVE WITH PRESENCE", title_ar: "تحرّك بحضور", text_fr: "STYLE / QUALITY / ATTITUDE", text_ar: "أسلوب / جودة / شخصية", image: "streetwear-campaign", image_desktop: "streetwear-campaign", button_fr: "Découvrir la collection", button_ar: "اكتشفوا المجموعة", link: "/shop" },

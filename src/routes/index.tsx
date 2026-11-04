@@ -110,7 +110,7 @@ function SectionView({ sec }: { sec: Section }) {
       return <div className="bg-champagne/25 px-5 py-4 text-center text-sm tracking-[0.08em]">{title}</div>;
     case "benefits": {
       const benefits = [
-        { icon: Truck, title: L("Livraison au Maroc", "التوصيل في المغرب"), detail: L(`${s.store.shipping_fee} MAD · offerte dès ${s.store.free_shipping_threshold} MAD`, `${s.store.shipping_fee} درهم · مجاناً من ${s.store.free_shipping_threshold} درهم`) },
+        { icon: Truck, title: L("Livraison au Maroc", "التوصيل في المغرب"), detail: L("Livraison gratuite sur tous les produits", "توصيل مجاني على جميع المنتجات") },
         { icon: ShieldCheck, title: L("Paiement à la livraison", "الدفع عند الاستلام"), detail: L("À réception de votre commande", "عند استلام طلبكم") },
         { icon: PackageCheck, title: L("Suivi de commande", "تتبع الطلب"), detail: L("Votre commande, étape par étape", "طلبكم خطوة بخطوة") },
       ];

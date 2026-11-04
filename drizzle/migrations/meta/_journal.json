@@ -22,6 +22,13 @@
       "when": 1793664444428,
       "tag": "0002_unlimited_product_colors",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793751636998,
+      "tag": "0003_free_delivery_all_products",
+      "breakpoints": true
     }
   ]
 }

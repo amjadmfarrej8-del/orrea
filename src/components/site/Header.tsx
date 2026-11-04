@@ -53,7 +53,7 @@ export function Header() {
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-5 py-4 md:px-10 lg:px-12">
           <Link to="/" className="shrink-0 text-[26px] md:text-4xl"><Logo /></Link>
           <nav className="hidden items-center justify-center gap-5 text-xs uppercase lg:flex">
-            {links.filter((l) => l.to !== "/track").map((l) => <Link key={l.to + (l as { search?: unknown }).search + ""} to={l.to} search={"search" in l ? l.search : undefined} className="link-lux whitespace-nowrap">{l.label}</Link>)}
+            {links.filter((l) => l.to !== "/track").map((l) => <Link key={l.label} to={l.to} search={"search" in l ? l.search : undefined} className="link-lux whitespace-nowrap">{l.label}</Link>)}
           </nav>
           <div className="flex items-center gap-2 md:gap-4">
             <Button variant="ghost" size="icon" onClick={() => setSearch((v) => !v)} aria-label={L("Rechercher", "بحث")}><Search className="size-6" strokeWidth={1.2} /></Button>
@@ -82,7 +82,7 @@ export function Header() {
           </div>
           <nav className="flex flex-col gap-1 px-5 pt-6">
             {links.map((l) => (
-              <Link key={l.to + (l as { search?: unknown }).search + ""} to={l.to} search={"search" in l ? l.search : undefined} onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{l.label}</Link>
+              <Link key={l.label} to={l.to} search={"search" in l ? l.search : undefined} onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{l.label}</Link>
             ))}
             <button onClick={() => { setLang(lang === "fr" ? "ar" : "fr"); setOpen(false); }} className="mt-8 self-start btn-ghost-lux">{lang === "fr" ? "عربي" : "Français"}</button>
           </nav>

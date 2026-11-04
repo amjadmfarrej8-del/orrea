@@ -45,7 +45,7 @@ function Shop() {
   if (sort === "price-desc") list = [...list].sort((a, b) => Number(b.price) - Number(a.price));
   if (sort === "new") list = [...list].sort((a, b) => b.created_at.localeCompare(a.created_at));
   const packIds = products.filter((p) => isPack(p) && matches(p)).map((p) => p.id);
-  const showPacks = (!c || offers) && packIds.length > 0;
+  const showPacks = !c && !f && packIds.length > 0;
   const excluded = products.filter((p) => isPack(p) && !packIds.includes(p.id)).map((p) => p.id);
 
   const pill = (active: boolean) =>

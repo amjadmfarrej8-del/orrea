@@ -5,7 +5,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import hero from "@/assets/streetwear-campaign.jpg";
 import mobileHero from "@/assets/streetwear-campaign-mobile.jpg";
-import { ArrowRight, ChevronLeft, ChevronRight, Truck, ShieldCheck, PackageCheck } from "lucide-react";
+import { ArrowRight, Truck, ShieldCheck, PackageCheck } from "lucide-react";
 import ritual from "@/assets/fashion-femme.jpg";
 import { categoriesQuery, productImage, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
@@ -81,7 +81,6 @@ function SectionView({ sec }: { sec: Section }) {
   const title = (ar ? sec.title_ar : sec.title_fr) ?? "";
   const text = (ar ? sec.text_ar : sec.text_fr) ?? "";
   const [email, setEmail] = useState("");
-  const [photo, setPhoto] = useState(0);
 
   switch (sec.type) {
     case "hero": {

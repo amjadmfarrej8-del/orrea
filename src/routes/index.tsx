@@ -11,6 +11,7 @@ import ritual from "@/assets/fashion-femme.jpg";
 import { categoriesQuery, productImage, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink, type Section } from "@/lib/settings";
+import { HommeCollectionCarousel } from "@/components/site/HommeCollectionCarousel";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CategoryGrid } from "./categories";
 import { Button } from "@/components/ui/button";
@@ -136,7 +137,17 @@ function SectionView({ sec }: { sec: Section }) {
       return <Grid title={title} list={products.filter((p) => p.is_bestseller).slice(0, 6)} />;
     case "new": {
       const isPack = (p: Product) => Array.isArray(p.bundle_items) && p.bundle_items.length > 0;
-      return <Grid title={title} list={products.filter((p) => p.is_new && !isPack(p)).slice(0, 6)} />;
+      const list = products.filter((p) => p.is_new && !isPack(p)).slice(0, 6);
+      if (!list.length) return null;
+      return (
+        <section className="mx-auto max-w-[1600px] px-5 pt-14 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+          <div className="flex items-end justify-between">
+            <h2 className="text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
+            <Link to="/shop" className="link-lux text-[0.8rem] tracking-[0.12em] uppercase">{t.viewAll}</Link>
+          </div>
+          <HommeCollectionCarousel products={list} className="mt-6 lg:mt-16" />
+        </section>
+      );
     }
     case "story":
       return (

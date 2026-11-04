@@ -12,7 +12,7 @@ var m=${payload};if(window.opener&&window.opener!==window){window.opener.postMes
   );
 };
 
-export const Route = createFileRoute("/api/public/google-oauth/callback")({
+export const Route = createFileRoute("/api/public/google-oauth/callback")({ staticData: { sitemap: false },
   server: {
     handlers: {
       GET: async ({ request }) => {

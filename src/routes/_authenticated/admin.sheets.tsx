@@ -9,7 +9,7 @@ import {
   saveOAuthClient, saveSheetsConfig, setSheetsSync, startGoogleOAuth, syncSheetsNow, testSheetsConnection,
 } from "@/lib/sheets.functions";
 
-export const Route = createFileRoute("/_authenticated/admin/sheets")({
+export const Route = createFileRoute("/_authenticated/admin/sheets")({ staticData: { sitemap: false },
   head: () => ({ meta: [{ title: "Google Sheets — Administration ORRÉA" }, { name: "robots", content: "noindex" }] }),
   component: AdminSheets,
 });

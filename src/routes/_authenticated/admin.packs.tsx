@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
 import { AField, Card, ImageUpload, Input, PageTitle, Toggle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/packs")({ head: () => ({ meta: [{ title: "Packs et offres — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : packs et offres." }, { property: "og:title", content: "Packs et offres — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : packs et offres." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: PacksAdmin });
+export const Route = createFileRoute("/_authenticated/admin/packs")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Packs et offres — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : packs et offres." }, { property: "og:title", content: "Packs et offres — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : packs et offres." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: PacksAdmin });
 
 type Item = { product_id: string; quantity: number };
 type Draft = {

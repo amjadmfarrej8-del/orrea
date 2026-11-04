@@ -6,7 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { productImage } from "@/lib/catalog";
 import { Card, ImageUpload, Input, PageTitle, Toggle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/categories")({ head: () => ({ meta: [{ title: "Catégories — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : catégories." }, { property: "og:title", content: "Catégories — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : catégories." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Categories });
+export const Route = createFileRoute("/_authenticated/admin/categories")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Catégories — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : catégories." }, { property: "og:title", content: "Catégories — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : catégories." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Categories });
 
 type Cat = { id?: string; slug: string; name_fr: string; name_ar: string; sort_order: number; image: string; is_active: boolean };
 

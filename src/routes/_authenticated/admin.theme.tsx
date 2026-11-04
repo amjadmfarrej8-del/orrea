@@ -6,7 +6,7 @@ import { defaultSettings, saveSetting, settingsQuery, type Theme } from "@/lib/s
 import { fontHref, themeCss } from "@/components/site/ThemeStyle";
 import { AField, Card, ImageUpload, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/theme")({ head: () => ({ meta: [{ title: "Apparence — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : apparence." }, { property: "og:title", content: "Apparence — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : apparence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ThemeEditor });
+export const Route = createFileRoute("/_authenticated/admin/theme")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Apparence — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : apparence." }, { property: "og:title", content: "Apparence — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : apparence." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: ThemeEditor });
 
 const colors: [keyof Theme, string][] = [
   ["background", "Fond"], ["foreground", "Texte"], ["primary", "Boutons / couleur principale"], ["primary_hover", "Survol des boutons"],

@@ -25,6 +25,7 @@ import catJackets from "@/assets/cat-jackets.jpg";
 import storyAsset from "@/assets/orrea-story.png.asset.json";
 import collectionHommeAsset from "@/assets/orrea-collection-homme.webp.asset.json";
 import collectionFemmeAsset from "@/assets/orrea-collection-femme.webp.asset.json";
+import bannerAsset from "@/assets/orrea-streetwear-banner.webp.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
@@ -33,6 +34,7 @@ const localImages: Record<string, string> = Object.fromEntries(
 Object.assign(localImages, {
   "orrea-collection-homme": collectionHommeAsset.url,
   "orrea-collection-femme": collectionFemmeAsset.url,
+  "orrea-streetwear-banner": bannerAsset.url,
   "orrea-story": storyAsset.url,
   "fashion-campaign": fashionCampaign,
   "fashion-femme": streetwearFemme,

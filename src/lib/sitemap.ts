@@ -1,4 +1,3 @@
-```ts
 import type { AnyRoute, AnyRouter, ParsedLocation } from "@tanstack/react-router";
 
 // Static sitemap URLs update automatically from each route's staticData.sitemap.
@@ -100,4 +99,3 @@ export function sitemapXML(baseURL: string, entries: SitemapEntry[]): string {
   }
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join("")}</urlset>`;
 }
-```

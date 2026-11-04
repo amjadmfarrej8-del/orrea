@@ -48,7 +48,7 @@ export function HommeCollectionCarousel({ products, className = "mt-12" }: { pro
       timer = setTimeout(() => { interacting = false; sync(); }, 1200);
     };
     const pointerUp = () => { if (!pressed) return; pressed = false; settleInteraction(); };
-    const focusIn = () => { focused = true; sync(); };
+    const focusIn = () => { focused = !pressed; sync(); };
     const focusOut = (event: FocusEvent) => {
       focused = event.relatedTarget instanceof Node && element.contains(event.relatedTarget);
       sync();

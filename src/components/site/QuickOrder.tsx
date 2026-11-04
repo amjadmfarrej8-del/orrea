@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD, useI18n } from "@/lib/i18n";
 import { quickOrderSchema } from "@/lib/clothing";
@@ -46,6 +45,6 @@ export function QuickOrder({ productId, price, freeShipping, size, color, disabl
     {quote.data && <div className="flex justify-between font-medium"><span>Total</span><span>{formatMAD(price + (freeShipping ? 0 : quote.data.shipping), lang)}</span></div>}
     <p className="text-xs text-muted-foreground">{L("Paiement à la livraison", "الدفع عند الاستلام")}</p>
     {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
-    <Button type="submit" disabled={disabled || loading} className="h-12 w-full rounded-none">{loading ? L("Enregistrement…", "جاري التسجيل…") : L("COMMANDER", "تأكيد الطلب")}</Button>
+    <button type="submit" disabled={disabled || loading} className="h-12 w-full rounded-[10px] bg-cta text-sm font-semibold uppercase tracking-[0.18em] text-street-black transition-all duration-200 hover:bg-cta/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta/50 disabled:cursor-not-allowed disabled:opacity-40">{loading ? L("Enregistrement…", "جاري التسجيل…") : L("COMMANDER", "تأكيد الطلب")}</button>
   </form>;
 }

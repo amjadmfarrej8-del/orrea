@@ -84,7 +84,8 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="streetwear-hero">
           <picture>
-            <source media="(min-width:768px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
+            <source media="(min-width:1280px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
+            <source media="(min-width:768px) and (max-width:1279px)" srcSet={productImage(sec.image_tablet || sec.image_desktop || sec.image || hero)} />
             <img src={isDefault ? mobileHero : productImage(sec.image || hero)} alt="Ensemble ORRÉA blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
           </picture>
           <div className="streetwear-shade" aria-hidden />

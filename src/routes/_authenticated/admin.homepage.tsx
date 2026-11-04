@@ -10,7 +10,7 @@ import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/compone
 export const Route = createFileRoute("/_authenticated/admin/homepage")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Éditeur accueil — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : éditeur accueil." }, { property: "og:title", content: "Éditeur accueil — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : éditeur accueil." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: HomepageBuilder });
 
 const typeLabel: Record<string, string> = {
-  hero: "Bannière principale", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", offers: "Offres (packs)", featured: "Produits sélectionnés",
+  hero: "Bannière principale", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", collections: "Choisir Votre Collection", offers: "Offres (packs)", featured: "Produits sélectionnés",
   story: "Histoire de la marque", bestsellers: "Best-sellers", new: "Nouveautés", reviews: "Avis clientes", newsletter: "Newsletter & Instagram",
 };
 const hasText = new Set(["hero", "story", "newsletter", "panel"]);

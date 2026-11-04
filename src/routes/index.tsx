@@ -161,6 +161,38 @@ function SectionView({ sec }: { sec: Section }) {
           </div>
         </section>
       );
+    case "collections":
+      return (
+        <section className="mx-auto max-w-[1600px] px-5 pt-14 md:px-10 md:pt-32 lg:px-12 xl:px-16 xl:pt-40">
+          <div className="text-center">
+            <p className="eyebrow">{L("ORRÉA", "ORRÉA")}</p>
+            <h2 className="mt-3 text-[1.6rem] uppercase tracking-[0.14em] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>
+          </div>
+          <div className="mt-8 grid grid-cols-2 gap-3 md:mt-12 md:gap-6">
+            {([
+              { key: "orrea-collection-homme", fr: "Homme", ar: "رجال", c: "homme" },
+              { key: "orrea-collection-femme", fr: "Femme", ar: "نساء", c: "femme" },
+            ] as const).map((it) => (
+              <Link key={it.key} to="/shop" search={{ c: it.c }} className="group relative block overflow-hidden" aria-label={ar ? it.ar : it.fr}>
+                <img
+                  src={productImage(it.key)}
+                  alt={`${it.fr} — ORRÉA`}
+                  loading="lazy"
+                  decoding="async"
+                  width={1024}
+                  height={1536}
+                  className="aspect-[3/4] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[4/5]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-5 flex flex-col items-center gap-3 md:bottom-8">
+                  <span className="text-base font-light uppercase tracking-[0.3em] text-white md:text-2xl">{ar ? it.ar : it.fr}</span>
+                  <span className="h-px w-10 bg-cta transition-all duration-500 group-hover:w-20" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      );
     case "panel": {
       if (!sec.image) return null;
       const btn = (ar ? sec.button_ar : sec.button_fr) ?? "";

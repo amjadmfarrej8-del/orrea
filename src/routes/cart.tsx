@@ -81,7 +81,6 @@ function CartPage() {
 
 export function Summary({ subtotal, shipping, discount = 0, children }: { subtotal: number; shipping: number; discount?: number; children?: React.ReactNode }) {
   const { t, lang, L } = useI18n();
-  const { data: st } = useQuery(settingsQuery);
   return (
     <aside className="h-fit bg-card p-8 md:mt-20">
       <p className="eyebrow">{t.summary}</p>

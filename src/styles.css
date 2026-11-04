@@ -35,6 +35,7 @@
   --color-ring: var(--ring);
   --color-street-black: var(--street-black);
   --color-studio: var(--studio);
+  --color-cta: var(--cta);
 }
 
 /* ORRÉA streetwear — dark photographic surfaces and signal orange. */
@@ -64,6 +65,7 @@
   --ring: oklch(0.7 0.2 45);
   --street-black: oklch(0 0 0);
   --studio: #FFFFFF;
+  --cta: #F58220;
   --hero-shade: linear-gradient(90deg, oklch(0.08 0 0 / 0.8), oklch(0.08 0 0 / 0.15) 63%, transparent);
   --metallic-logo: linear-gradient(180deg, oklch(1 0 0) 10%, oklch(0.55 0 0) 45%, oklch(1 0 0) 53%, oklch(0.6 0 0) 85%);
 }

@@ -1,7 +1,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import fashionCampaign from "@/assets/fashion-campaign.jpg";
-import streetwearCampaign from "@/assets/streetwear-campaign.jpg";
+import streetwearCampaign from "@/assets/streetwear-campaign.webp";
 import streetwearFemme from "@/assets/streetwear-femme.jpg";
 import streetwearHomme from "@/assets/ensemble-noir-porte.png.asset.json";
 import creamAsset from "@/assets/theravene-creme-zones-intimes.png.asset.json";

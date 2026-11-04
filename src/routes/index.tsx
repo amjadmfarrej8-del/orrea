@@ -103,12 +103,6 @@ function SectionView({ sec }: { sec: Section }) {
               <Link to="/shop">{(ar ? sec.button_ar : sec.button_fr) || L("Découvrir la collection", "اكتشفوا المجموعة")}<ArrowRight className="ms-3 size-4" /></Link>
             </Button>
           </div>
-          <div className="absolute bottom-5 start-6 flex items-center gap-4 text-xs md:bottom-8 md:start-12">
-            <span className="tabular-nums">{String(selected + 1).padStart(2, "0")} / {String(campaignImages.length).padStart(2, "0")}</span>
-            <span className="h-px w-14 bg-foreground/50" />
-            <Button size="icon" variant="ghost" aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((selected + campaignImages.length - 1) % campaignImages.length)}><ChevronLeft className="size-4" /></Button>
-            <Button size="icon" variant="ghost" aria-label={L("Photo suivante", "الصورة التالية")} onClick={() => setPhoto((selected + 1) % campaignImages.length)}><ChevronRight className="size-4" /></Button>
-          </div>
         </section>
       );
     }

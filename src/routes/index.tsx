@@ -84,9 +84,6 @@ function SectionView({ sec }: { sec: Section }) {
 
   switch (sec.type) {
     case "hero": {
-      const slides = products.filter((p) => p.gallery?.length).flatMap((p) => [p.image, ...(p.gallery || [])]).filter(Boolean).slice(0, 2);
-      const campaignImages = [hero, ...slides];
-      const selected = photo % campaignImages.length;
       const isDefault = !sec.image || sec.image === "streetwear-campaign";
       const headline = title || "MOVE WITH PRESENCE";
       const words = headline.split(" ");

@@ -173,21 +173,26 @@ function SectionView({ sec }: { sec: Section }) {
               { key: "orrea-collection-homme", fr: "Homme", ar: "رجال", c: "homme" },
               { key: "orrea-collection-femme", fr: "Femme", ar: "نساء", c: "femme" },
             ] as const).map((it) => (
-              <Link key={it.key} to="/shop" search={{ c: it.c }} className="group relative block overflow-hidden" aria-label={ar ? it.ar : it.fr}>
-                <img
-                  src={productImage(it.key)}
-                  alt={`${it.fr} — ORRÉA`}
-                  loading="lazy"
-                  decoding="async"
-                  width={1024}
-                  height={1536}
-                  className="aspect-[3/4] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[4/5]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-5 flex flex-col items-center gap-3 md:bottom-8">
-                  <span className="text-base font-light uppercase tracking-[0.3em] text-white md:text-2xl">{ar ? it.ar : it.fr}</span>
-                  <span className="h-px w-10 bg-cta transition-all duration-500 group-hover:w-20" />
+              <Link key={it.key} to="/shop" search={{ c: it.c }} className="group block" aria-label={`${ar ? it.ar : it.fr} — ORRÉA`}>
+                <div className="relative overflow-hidden border border-cta">
+                  <img
+                    src={productImage(it.key)}
+                    alt={`${it.fr} — ORRÉA`}
+                    loading="lazy"
+                    decoding="async"
+                    width={1024}
+                    height={1536}
+                    className="aspect-[3/4] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[4/5]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-5 flex flex-col items-center gap-3 md:bottom-8">
+                    <span className="text-base font-light uppercase tracking-[0.3em] text-white md:text-2xl">{ar ? it.ar : it.fr}</span>
+                    <span className="h-px w-10 bg-cta transition-all duration-500 group-hover:w-20" />
+                  </div>
                 </div>
+                <span className="mx-auto mt-4 block w-fit border border-cta bg-street-black px-6 py-2.5 text-[0.75rem] uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-cta/15 md:mt-5 md:px-8 md:text-[0.8rem]">
+                  {L("Découvrir", "اكتشفوا")}
+                </span>
               </Link>
             ))}
           </div>

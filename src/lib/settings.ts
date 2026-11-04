@@ -18,7 +18,7 @@ export type Section = {
 };
 export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { sections: Section[] } };
 
-export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
+export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "collections", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
 
 export const defaultSettings: Settings = {
   theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
@@ -32,7 +32,7 @@ export const defaultSettings: Settings = {
     { id: "story", type: "story", visible: true, title_fr: "L’allure, simplement.", title_ar: "الأناقة ببساطة.", text_fr: "Le streetwear rencontre le caractère. Une silhouette se dessine, entre liberté et présence. Bienvenue dans l’univers ORRÉA.", text_ar: "يلتقي الأبيض بالأزرق الداكن. إطلالة تجمع البساطة والشخصية. مرحباً بكم في عالم ORRÉA.", image: "orrea-story" },
     { id: "bestsellers", type: "bestsellers", visible: true, title_fr: "Best-Sellers", title_ar: "الأكثر مبيعاً" },
     { id: "new", type: "new", visible: true, title_fr: "Nouvelle Collection", title_ar: "المجموعة الجديدة" },
-    { id: "campaign", type: "panel", visible: true, title_fr: "Campagne ORRÉA", title_ar: "حملة ORRÉA", image: "streetwear-campaign", button_fr: "Découvrir", button_ar: "اكتشفوا", link: "/shop" },
+    { id: "collections", type: "collections", visible: true, title_fr: "Choisir Votre Collection", title_ar: "اختر مجموعتك" },
   ] },
 };
 

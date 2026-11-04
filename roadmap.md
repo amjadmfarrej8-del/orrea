@@ -1,7 +1,7 @@
 # THÉRAVÉN roadmap
 
 ## Done
-- [x] Homme only: continuous single-row product carousel with swipe, drag, interaction pauses and mobile verification
+- [x] Keep carousel only in homepage Nouvelle Collection; restore Homme grid and verify both on mobile and desktop
 - [x] Add individual color-image management and verify uploaded photos, persistence, editing, deletion and storefront selection
 - [x] Remove breadcrumbs globally from product pages only
 - [x] Make all storefront product photo display backgrounds pure white without altering photos or surrounding black design

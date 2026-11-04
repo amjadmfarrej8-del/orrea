@@ -27,4 +27,4 @@
 - Raster images are stored as WebP (max 1600px wide) via asset pointers; below-the-fold images use loading="lazy" decoding="async", the first visible photo uses fetchPriority="high" — keeps pages light on mobile.
 - Public page head tags are built with `pageHead()` in src/lib/seo.ts and every route declares `staticData.sitemap`; keeps canonical/og:url/hreflang self-referencing and the router-derived /sitemap.xml accurate.
 - Product JSON-LD emits an Offer only for confirmed prices; never publish unconfirmed prices to search engines.
-- Only the homepage Nouvelle Collection row and Homme's product row use Embla with auto-scroll; reuse unchanged ProductCard and pause offscreen, on interaction and for reduced motion to keep other collections unchanged and rendering lightweight.
+- Only the homepage Nouvelle Collection row uses Embla with auto-scroll; Homme and all other collections retain their product grids. Reuse unchanged ProductCard and pause offscreen, on interaction and for reduced motion to keep rendering lightweight.

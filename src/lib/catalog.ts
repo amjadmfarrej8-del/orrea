@@ -26,7 +26,7 @@ import storyAsset from "@/assets/orrea-story.png.asset.json";
 import collectionHommeAsset from "@/assets/orrea-collection-homme.webp.asset.json";
 import collectionFemmeAsset from "@/assets/orrea-collection-femme.webp.asset.json";
 import bannerAsset from "@/assets/orrea-streetwear-banner.webp.asset.json";
-import heroDesktopAsset from "@/assets/orrea-hero-desktop2.webp.asset.json";
+import heroDesktopAsset from "@/assets/orrea-hero-desktop3.webp.asset.json";
 import heroMobileAsset from "@/assets/orrea-hero-mobile.webp.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;

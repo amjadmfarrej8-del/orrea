@@ -42,7 +42,7 @@ function CartPage() {
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {items.map((i) => (
             <li key={i.id} className="flex gap-5 py-6">
-              <img src={productImage(i.image)} alt="" loading="lazy" decoding="async" className="h-28 w-24 bg-studio object-cover" />
+              <img src={productImage(i.image)} alt={i.name_fr ?? ""} loading="lazy" decoding="async" className="h-28 w-24 bg-studio object-cover" />
               <div className="flex flex-1 flex-col justify-between">
                 <div className="flex justify-between gap-4">
                   <Link to="/products/$slug" params={{ slug: i.slug }} className="text-lg" style={{ fontFamily: "var(--font-display)" }}>

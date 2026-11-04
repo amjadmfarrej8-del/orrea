@@ -19,7 +19,7 @@ function About() {
         <p className="mt-8 max-w-md leading-relaxed text-muted-foreground">{t.aboutText}</p>
         <Link to="/shop" className="btn-lux mt-10">{t.discover}</Link>
       </div>
-      <img src={ritual} alt="" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
+      <img src={ritual} alt="Univers mode ORRÉA" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
     </div>
   );
 }

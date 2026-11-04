@@ -31,7 +31,7 @@ function Shop() {
   const offers = c === "offres";
   const matches = (p: (typeof products)[number]) =>
     !needle || [p.name_fr, p.name_ar, p.sku, p.ingredients_fr, p.tagline_fr].some((f) => f.toLowerCase().includes(needle));
-  let list = products.filter((p) => !isPack(p) && !offers && (!c || p.categories?.slug === c) && matches(p));
+  let list = products.filter((p) => !isPack(p) && !offers && (!c || c === "homme" || p.categories?.slug === c) && matches(p));
   if (f === "nouveautes") list = list.filter((p) => p.is_new);
   if (f === "best") list = list.filter((p) => p.is_bestseller);
   if (sort === "price-asc") list = [...list].sort((a, b) => Number(a.price) - Number(b.price));

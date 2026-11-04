@@ -30,7 +30,7 @@ export const Route = createFileRoute("/shop")({
 
 function Shop() {
   const { t, lang, L } = useI18n();
-  const { c, q, sort } = Route.useSearch();
+  const { c, q, sort, f } = Route.useSearch();
   const navigate = useNavigate({ from: "/shop" });
   const { data: products } = useSuspenseQuery(productsQuery);
   const { data: cats } = useSuspenseQuery(categoriesQuery);
@@ -39,6 +39,8 @@ function Shop() {
   const matches = (p: (typeof products)[number]) =>
     !needle || [p.name_fr, p.name_ar, p.sku, p.ingredients_fr, p.tagline_fr].some((f) => f.toLowerCase().includes(needle));
   let list = products.filter((p) => !isPack(p) && !offers && (!c || p.categories?.slug === c) && matches(p));
+  if (f === "nouveautes") list = list.filter((p) => p.is_new);
+  if (f === "best") list = list.filter((p) => p.is_bestseller);
   if (sort === "price-asc") list = [...list].sort((a, b) => Number(a.price) - Number(b.price));
   if (sort === "price-desc") list = [...list].sort((a, b) => Number(b.price) - Number(a.price));
   if (sort === "new") list = [...list].sort((a, b) => b.created_at.localeCompare(a.created_at));

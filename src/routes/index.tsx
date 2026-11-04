@@ -5,7 +5,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import hero from "@/assets/streetwear-campaign.jpg";
 import mobileHero from "@/assets/streetwear-campaign-mobile.jpg";
-import { ArrowRight, ChevronLeft, ChevronRight, Truck, ShieldCheck, PackageCheck } from "lucide-react";
+import { ArrowRight, Truck, ShieldCheck, PackageCheck } from "lucide-react";
 import ritual from "@/assets/fashion-femme.jpg";
 import { categoriesQuery, productImage, productsQuery, type Product } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
@@ -81,13 +81,9 @@ function SectionView({ sec }: { sec: Section }) {
   const title = (ar ? sec.title_ar : sec.title_fr) ?? "";
   const text = (ar ? sec.text_ar : sec.text_fr) ?? "";
   const [email, setEmail] = useState("");
-  const [photo, setPhoto] = useState(0);
 
   switch (sec.type) {
     case "hero": {
-      const slides = products.filter((p) => p.gallery?.length).flatMap((p) => [p.image, ...(p.gallery || [])]).filter(Boolean).slice(0, 2);
-      const campaignImages = [hero, ...slides];
-      const selected = photo % campaignImages.length;
       const isDefault = !sec.image || sec.image === "streetwear-campaign";
       const headline = title || "MOVE WITH PRESENCE";
       const words = headline.split(" ");
@@ -95,8 +91,8 @@ function SectionView({ sec }: { sec: Section }) {
       return (
         <section className="streetwear-hero">
           <picture>
-            <source media="(min-width:768px)" srcSet={selected === 0 ? productImage(sec.image_desktop || sec.image || hero) : productImage(campaignImages[selected] ?? hero)} />
-            <img src={selected === 0 ? (isDefault ? mobileHero : productImage(sec.image || hero)) : productImage(campaignImages[selected] ?? hero)} alt="Ensemble ORRÉA blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
+            <source media="(min-width:768px)" srcSet={productImage(sec.image_desktop || sec.image || hero)} />
+            <img src={isDefault ? mobileHero : productImage(sec.image || hero)} alt="Ensemble ORRÉA blanc et orange" width={848} height={1264} fetchPriority="high" className="streetwear-hero-image" />
           </picture>
           <div className="streetwear-shade" aria-hidden />
           <div className="streetwear-copy">
@@ -106,12 +102,6 @@ function SectionView({ sec }: { sec: Section }) {
             <Button asChild variant="outline" className="mt-6 h-11 rounded-none border-primary bg-transparent px-4 text-[10px] uppercase text-foreground hover:bg-primary hover:text-primary-foreground md:h-14 md:px-7 md:text-xs">
               <Link to="/shop">{(ar ? sec.button_ar : sec.button_fr) || L("Découvrir la collection", "اكتشفوا المجموعة")}<ArrowRight className="ms-3 size-4" /></Link>
             </Button>
-          </div>
-          <div className="absolute bottom-5 start-6 flex items-center gap-4 text-xs md:bottom-8 md:start-12">
-            <span className="tabular-nums">{String(selected + 1).padStart(2, "0")} / {String(campaignImages.length).padStart(2, "0")}</span>
-            <span className="h-px w-14 bg-foreground/50" />
-            <Button size="icon" variant="ghost" aria-label={L("Photo précédente", "الصورة السابقة")} onClick={() => setPhoto((selected + campaignImages.length - 1) % campaignImages.length)}><ChevronLeft className="size-4" /></Button>
-            <Button size="icon" variant="ghost" aria-label={L("Photo suivante", "الصورة التالية")} onClick={() => setPhoto((selected + 1) % campaignImages.length)}><ChevronRight className="size-4" /></Button>
           </div>
         </section>
       );

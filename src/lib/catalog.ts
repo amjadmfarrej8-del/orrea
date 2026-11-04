@@ -27,6 +27,7 @@ import collectionHommeAsset from "@/assets/orrea-collection-homme.webp.asset.jso
 import collectionFemmeAsset from "@/assets/orrea-collection-femme.webp.asset.json";
 import bannerAsset from "@/assets/orrea-streetwear-banner.webp.asset.json";
 import heroDesktopAsset from "@/assets/orrea-hero-desktop4.webp.asset.json";
+import heroTabletAsset from "@/assets/orrea-hero-tablet.webp.asset.json";
 import heroMobileAsset from "@/assets/orrea-hero-mobile.webp.asset.json";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
@@ -38,6 +39,7 @@ Object.assign(localImages, {
   "orrea-collection-femme": collectionFemmeAsset.url,
   "orrea-streetwear-banner": bannerAsset.url,
   "orrea-hero-desktop": heroDesktopAsset.url,
+  "orrea-hero-tablet": heroTabletAsset.url,
   "orrea-hero-mobile": heroMobileAsset.url,
   "orrea-story": storyAsset.url,
   "fashion-campaign": fashionCampaign,

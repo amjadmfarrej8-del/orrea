@@ -61,7 +61,11 @@ function Shop() {
       {q && <p className="mt-4 text-muted-foreground">{L("Résultats pour", "نتائج البحث عن")} « {q} » · {list.length + (showPacks ? packIds.length : 0)}</p>}
       <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
         <div className="-mx-5 flex max-w-[calc(100%+2.5rem)] gap-2.5 overflow-x-auto px-5 pb-2 md:mx-0 md:max-w-full md:gap-3 md:px-0">
-          <Link to="/shop" search={{ q, sort }} className={pill(!c)}>{t.all}</Link>
+          <Link to="/shop" search={{ q, sort }} className={pill(!c && !f)}>{t.all}</Link>
+          <Link to="/shop" search={{ f: "nouveautes", q, sort }} className={pill(f === "nouveautes")}>{L("Nouveautés", "الجديد")}</Link>
+          <Link to="/shop" search={{ c: "homme", q, sort }} className={pill(c === "homme")}>{L("Homme", "رجال")}</Link>
+          <Link to="/shop" search={{ c: "femme", q, sort }} className={pill(c === "femme")}>{L("Femme", "نساء")}</Link>
+          <Link to="/shop" search={{ f: "best", q, sort }} className={pill(f === "best")}>{L("Best-Sellers", "الأكثر مبيعاً")}</Link>
           <Link to="/shop" search={{ c: "offres", q, sort }} className={`${pill(offers)} ${offers ? "" : "border-champagne text-foreground"}`}>{L("Offres", "العروض")}</Link>
           {cats.map((cat) => (
             <Link key={cat.id} to="/shop" search={{ c: cat.slug, q, sort }} className={pill(c === cat.slug)}>

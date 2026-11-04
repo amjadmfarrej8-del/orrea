@@ -19,7 +19,7 @@ export const Route = createFileRoute("/products/$slug")({
     if (!p) throw notFound();
     await context.queryClient.ensureQueryData(productsQuery);
     const img = productImage(p.image);
-    const gallery = [p.image, ...((p.gallery as string[] | null) ?? [])].map(productImage).filter((u) => u.startsWith("https://"));
+    const gallery = [p.image, ...(p.gallery ?? [])].map(productImage).filter((u) => u.startsWith("https://"));
     return {
       slug: p.slug, name: p.name_fr, tagline: p.tagline_fr, description: p.description_fr, sku: p.sku,
       image: img.startsWith("https://") ? img : "", images: [...new Set(gallery)],

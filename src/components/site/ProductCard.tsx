@@ -10,7 +10,7 @@ export function ProductCard({ p }: { p: Product }) {
         <img
           src={productImage(p.image)}
           alt={lang === "ar" ? p.name_ar : p.name_fr}
-          loading="lazy"
+          loading="lazy" decoding="async"
           className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
         {(p.stock === 0 || p.badge) && (

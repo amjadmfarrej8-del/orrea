@@ -18,7 +18,7 @@ export type Section = {
 };
 export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { sections: Section[] } };
 
-export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "collections", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
+export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "collections", "banner", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
 
 export const defaultSettings: Settings = {
   theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
@@ -33,6 +33,7 @@ export const defaultSettings: Settings = {
     { id: "bestsellers", type: "bestsellers", visible: true, title_fr: "Best-Sellers", title_ar: "الأكثر مبيعاً" },
     { id: "new", type: "new", visible: true, title_fr: "Nouvelle Collection", title_ar: "المجموعة الجديدة" },
     { id: "collections", type: "collections", visible: true, title_fr: "Choisir Votre Collection", title_ar: "اختر مجموعتك" },
+    { id: "banner", type: "banner", visible: true },
   ] },
 };
 

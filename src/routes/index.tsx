@@ -198,6 +198,14 @@ function SectionView({ sec }: { sec: Section }) {
           </div>
         </section>
       );
+    case "banner": {
+      if (!sec.image) return null;
+      return (
+        <section className="mt-14 md:mt-32 xl:mt-40">
+          <img src={productImage(sec.image)} alt={title || "ORRÉA"} loading="lazy" decoding="async" className="block h-auto w-full" />
+        </section>
+      );
+    }
     case "panel": {
       if (!sec.image) return null;
       const btn = (ar ? sec.button_ar : sec.button_fr) ?? "";

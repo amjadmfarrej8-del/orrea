@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
@@ -13,16 +14,8 @@ export const Route = createFileRoute("/shop")({
     sort: z.enum(["new", "price-asc", "price-desc"]).optional(),
     f: z.enum(["nouveautes", "best"]).optional(),
   }),
-  head: () => ({
-    meta: [
-      { title: "Boutique — ORRÉA" },
-      { name: "description", content: "La boutique mode ORRÉA : collections Femme et Homme." },
-      { property: "og:title", content: "Boutique — ORRÉA" },
-      { property: "og:description", content: "Découvrez les articles et collections ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/shop", title: "Boutique mode en ligne au Maroc — Hoodies, Jackets & Ensembles | ORRÉA", description: "Streetwear homme et vêtements femme au Maroc : hoodies, t-shirts, pantalons, ensembles et jackets ORRÉA. Livraison gratuite, paiement à la livraison." }),
   loader: ({ context }) =>
     Promise.all([context.queryClient.ensureQueryData(productsQuery), context.queryClient.ensureQueryData(categoriesQuery)]),
   component: Shop,

@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { Fragment } from "react";
 import { PackCard } from "@/components/site/PackCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -23,21 +24,12 @@ export const Route = createFileRoute("/")({
     ]);
     return { seo: s.seo };
   },
+  staticData: { sitemap: true },
   head: ({ loaderData }) => {
-    const title = loaderData?.seo.title_fr || "ORRÉA — Mode Femme & Homme";
-    const desc = loaderData?.seo.description_fr || "Découvrez les univers mode Femme et Homme de ORRÉA.";
-    const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: title },
-        { property: "og:description", content: desc },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-        ...(og ? [{ property: "og:image", content: og }, { name: "twitter:image", content: og }] : []),
-      ],
-    };
+    const title = loaderData?.seo.title_fr || "ORRÉA — Streetwear homme & mode femme en ligne au Maroc";
+    const desc = loaderData?.seo.description_fr || "ORRÉA, mode en ligne au Maroc : hoodies, t-shirts, ensembles, pantalons et jackets pour homme et femme. Livraison gratuite et paiement à la livraison.";
+    const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : undefined;
+    return pageHead({ path: "/", title, description: desc, image: og });
   },
   component: Home,
 });

@@ -83,12 +83,15 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ORRÉA — Mode Femme & Homme" },
-      { name: "description", content: "ORRÉA, mode Femme et Homme. L’allure, simplement." },
+      { title: "ORRÉA — Streetwear homme & mode femme au Maroc" },
+      { name: "description", content: "ORRÉA, mode en ligne au Maroc : streetwear homme et vêtements femme." },
+      { property: "og:site_name", content: "ORRÉA" },
+      { name: "theme-color", content: "#000000" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -101,6 +104,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+    ],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Organization", name: "ORRÉA", url: "https://orrea.lovable.app/", logo: "https://orrea.lovable.app/favicon.png", areaServed: "MA" }) },
+      { type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: "ORRÉA", url: "https://orrea.lovable.app/", inLanguage: ["fr-MA", "ar-MA"], potentialAction: { "@type": "SearchAction", target: "https://orrea.lovable.app/shop?q={search_term_string}", "query-input": "required name=search_term_string" } }) },
     ],
   }),
   shellComponent: RootShell,

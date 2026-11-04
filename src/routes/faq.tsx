@@ -1,18 +1,11 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { InfoPage } from "@/components/site/InfoPage";
 
 export const Route = createFileRoute("/faq")({
-  head: () => ({
-    meta: [
-      { title: "Questions fréquentes — ORRÉA" },
-      { name: "description", content: "Livraison, paiement à la livraison, retours et conseils produits ORRÉA." },
-      { property: "og:title", content: "FAQ — ORRÉA" },
-      { property: "og:description", content: "Toutes les réponses à vos questions." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/faq", title: "FAQ — Livraison, paiement et retours | ORRÉA", description: "Livraison gratuite au Maroc, paiement à la livraison, tailles et retours : toutes les réponses aux questions fréquentes ORRÉA." }),
   component: Faq,
 });
 

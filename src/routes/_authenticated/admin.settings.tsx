@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { saveSetting, settingsQuery, type Seo, type Store } from "@/lib/settings";
 import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/settings")({ head: () => ({ meta: [{ title: "Réglages de la boutique — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : réglages de la boutique." }, { property: "og:title", content: "Réglages de la boutique — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : réglages de la boutique." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Settings });
+export const Route = createFileRoute("/_authenticated/admin/settings")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Réglages de la boutique — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : réglages de la boutique." }, { property: "og:title", content: "Réglages de la boutique — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : réglages de la boutique." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Settings });
 
 function Settings() {
   const qc = useQueryClient();

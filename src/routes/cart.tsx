@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -9,17 +10,8 @@ import { PackCard } from "@/components/site/PackCard";
 import { productsQuery } from "@/lib/catalog";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({
-    meta: [
-      { title: "Panier — ORRÉA" },
-      { name: "description", content: "Votre panier ORRÉA." },
-      { property: "og:title", content: "Panier — ORRÉA" },
-      { property: "og:description", content: "Votre sélection ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/cart", title: "Panier | ORRÉA", description: "Votre sélection ORRÉA.", noindex: true }),
   component: CartPage,
 });
 
@@ -50,7 +42,7 @@ function CartPage() {
         <ul className="mt-10 divide-y divide-border border-y border-border">
           {items.map((i) => (
             <li key={i.id} className="flex gap-5 py-6">
-              <img src={productImage(i.image)} alt="" loading="lazy" decoding="async" className="h-28 w-24 bg-studio object-cover" />
+              <img src={productImage(i.image)} alt={i.name_fr ?? ""} loading="lazy" decoding="async" className="h-28 w-24 bg-studio object-cover" />
               <div className="flex flex-1 flex-col justify-between">
                 <div className="flex justify-between gap-4">
                   <Link to="/products/$slug" params={{ slug: i.slug }} className="text-lg" style={{ fontFamily: "var(--font-display)" }}>

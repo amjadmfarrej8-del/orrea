@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -8,16 +9,8 @@ import { InfoPage } from "@/components/site/InfoPage";
 import { Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact — ORRÉA" },
-      { name: "description", content: "Contactez ORRÉA par WhatsApp, téléphone ou e-mail." },
-      { property: "og:title", content: "Contact — ORRÉA" },
-      { property: "og:description", content: "Notre équipe vous répond." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/contact", title: "Contact ORRÉA — Service client mode au Maroc", description: "Une question sur une commande ou un article ? Contactez le service client ORRÉA par WhatsApp, téléphone ou e-mail." }),
   component: Contact,
 });
 

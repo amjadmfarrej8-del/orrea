@@ -1,3 +1,4 @@
+import { pageHead, breadcrumbLd, SITE_URL, SITE_NAME } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -18,19 +19,32 @@ export const Route = createFileRoute("/products/$slug")({
     if (!p) throw notFound();
     await context.queryClient.ensureQueryData(productsQuery);
     const img = productImage(p.image);
-    return { name: p.name_fr, tagline: p.tagline_fr, description: p.description_fr, image: img.startsWith("https://") ? img : "" };
-  },
-  head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: "Produit introuvable — ORRÉA" }, { name: "robots", content: "noindex" }] };
+    const gallery = [p.image, ...(p.gallery ?? [])].map(productImage).filter((u) => u.startsWith("https://"));
     return {
-      meta: [
-        { title: `${loaderData.name} — ORRÉA` },
-        { name: "description", content: loaderData.description.slice(0, 155) },
-        { property: "og:title", content: `${loaderData.name} — ORRÉA` },
-        { property: "og:description", content: loaderData.tagline },
-      { name: "twitter:card", content: "summary_large_image" },
-        { property: "og:type", content: "product" },
-        ...(loaderData.image ? [{ property: "og:image", content: loaderData.image }, { name: "twitter:image", content: loaderData.image }] : []),
+      slug: p.slug, name: p.name_fr, tagline: p.tagline_fr, description: p.description_fr, sku: p.sku,
+      image: img.startsWith("https://") ? img : "", images: [...new Set(gallery)],
+      price: p.price_confirmed && p.price > 0 ? Number(p.price) : null, inStock: p.stock > 0,
+    };
+  },
+  staticData: { sitemap: true },
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [{ title: "Produit introuvable | ORRÉA" }, { name: "robots", content: "noindex" }] };
+    const d = loaderData;
+    const path = `/products/${d.slug}`;
+    const description = (d.description || d.tagline || `${d.name} — mode ORRÉA au Maroc. Livraison gratuite, paiement à la livraison.`).replace(/\s+/g, " ").trim();
+    const head = pageHead({ path, title: `${d.name} | ORRÉA Maroc`, description, image: d.image || undefined, type: "product" });
+    const product: Record<string, unknown> = {
+      "@context": "https://schema.org", "@type": "Product", name: d.name, description, sku: d.sku || undefined,
+      image: d.images.length ? d.images : undefined, brand: { "@type": "Brand", name: SITE_NAME }, url: `${SITE_URL}${path}`,
+    };
+    // Offer only when the price is confirmed by the store — never publish unconfirmed prices.
+    if (d.price) product["offers"] = { "@type": "Offer", price: d.price.toFixed(2), priceCurrency: "MAD", url: `${SITE_URL}${path}`,
+      availability: d.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", itemCondition: "https://schema.org/NewCondition" };
+    return {
+      ...head,
+      scripts: [
+        { type: "application/ld+json", children: JSON.stringify(product) },
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbLd([{ name: "Accueil", path: "/" }, { name: "Boutique", path: "/shop" }, { name: d.name, path }])) },
       ],
     };
   },

@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/orrea-logo.png.asset.json";
 
-export const Route = createFileRoute("/_authenticated/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({ staticData: { sitemap: false },
   beforeLoad: async ({ context }) => {
     const { data } = await supabase.rpc("has_role", { _user_id: context.user.id, _role: "admin" });
     if (!data) throw redirect({ to: "/account" });

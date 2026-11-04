@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
 import { Card, Input, PageTitle } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/customers")({ head: () => ({ meta: [{ title: "Clients — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : clients." }, { property: "og:title", content: "Clients — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : clients." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Customers });
+export const Route = createFileRoute("/_authenticated/admin/customers")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Clients — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : clients." }, { property: "og:title", content: "Clients — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : clients." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Customers });
 
 type Row = { key: string; name: string; phone: string; email: string; city: string; orders: number; spent: number; last: string; registered: boolean };
 

@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -8,16 +9,8 @@ import { AuthShell, Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/login")({
   validateSearch: z.object({ redirect: z.string().optional() }),
-  head: () => ({
-    meta: [
-      { title: "Connexion — ORRÉA" },
-      { name: "description", content: "Connectez-vous à votre compte ORRÉA." },
-      { property: "og:title", content: "Connexion — ORRÉA" },
-      { property: "og:description", content: "Accédez à votre compte ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/login", title: "Connexion | ORRÉA", description: "Connectez-vous à votre compte ORRÉA.", noindex: true }),
   component: Login,
 });
 

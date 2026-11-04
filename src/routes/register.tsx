@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
@@ -6,16 +7,8 @@ import { useI18n } from "@/lib/i18n";
 import { AuthShell, Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({
-    meta: [
-      { title: "Créer un compte — ORRÉA" },
-      { name: "description", content: "Créez votre compte ORRÉA pour suivre vos commandes." },
-      { property: "og:title", content: "Créer un compte — ORRÉA" },
-      { property: "og:description", content: "Rejoignez la Maison ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/register", title: "Créer un compte | ORRÉA", description: "Créez votre compte ORRÉA.", noindex: true }),
   component: Register,
 });
 

@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -5,16 +6,8 @@ import { useI18n } from "@/lib/i18n";
 import { AuthShell, Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/forgot-password")({
-  head: () => ({
-    meta: [
-      { title: "Mot de passe oublié — ORRÉA" },
-      { name: "description", content: "Réinitialisez votre mot de passe ORRÉA." },
-      { property: "og:title", content: "Mot de passe oublié — ORRÉA" },
-      { property: "og:description", content: "Recevez un lien de réinitialisation." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/forgot-password", title: "Mot de passe oublié | ORRÉA", description: "Réinitialisez votre mot de passe ORRÉA.", noindex: true }),
   component: Forgot,
 });
 

@@ -26,6 +26,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrackRouteImport } from './routes/track'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
@@ -129,6 +130,11 @@ const ShippingRoute = ShippingRouteImport.update({
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -261,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
   '/account': typeof AuthenticatedAccountRoute
@@ -299,6 +306,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
   '/account': typeof AuthenticatedAccountRoute
@@ -338,6 +346,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/shipping': typeof ShippingRoute
   '/shop': typeof ShopRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/track': typeof TrackRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
@@ -378,6 +387,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/shipping'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms'
     | '/track'
     | '/account'
@@ -416,6 +426,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/shipping'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms'
     | '/track'
     | '/account'
@@ -454,6 +465,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/shipping'
     | '/shop'
+    | '/sitemap.xml'
     | '/terms'
     | '/track'
     | '/_authenticated/account'
@@ -494,6 +506,7 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   ShippingRoute: typeof ShippingRoute
   ShopRoute: typeof ShopRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrackRoute: typeof TrackRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
@@ -619,6 +632,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -844,6 +864,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   ShippingRoute: ShippingRoute,
   ShopRoute: ShopRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrackRoute: TrackRoute,
   ProductsSlugRoute: ProductsSlugRoute,

@@ -1,18 +1,11 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { PackCard } from "@/components/site/PackCard";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/offres")({
-  head: () => ({
-    meta: [
-      { title: "Offres — ORRÉA" },
-      { name: "description", content: "Découvrez les offres disponibles dans la boutique ORRÉA." },
-      { property: "og:title", content: "Offres — ORRÉA" },
-      { property: "og:description", content: "Découvrez les offres disponibles dans la boutique ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/offres", title: "Offres et coffrets mode au Maroc | ORRÉA", description: "Les offres et coffrets du moment chez ORRÉA, avec livraison gratuite au Maroc et paiement à la livraison." }),
   component: OffresPage,
 });
 

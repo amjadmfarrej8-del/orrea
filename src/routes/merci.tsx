@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -8,17 +9,8 @@ import { settingsQuery, waLink } from "@/lib/settings";
 
 export const Route = createFileRoute("/merci")({
   validateSearch: z.object({ n: z.string().max(20).optional() }),
-  head: () => ({
-    meta: [
-      { title: "Merci — ORRÉA" },
-      { name: "description", content: "Votre commande ORRÉA est confirmée." },
-      { property: "og:title", content: "Merci — ORRÉA" },
-      { property: "og:description", content: "Commande confirmée." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/merci", title: "Merci pour votre commande | ORRÉA", description: "Votre commande ORRÉA est confirmée.", noindex: true }),
   component: Thanks,
 });
 

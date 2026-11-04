@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatMAD } from "@/lib/i18n";
 import { Card, PageTitle, StatusBadge } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/")({ component: Overview });
+export const Route = createFileRoute("/_authenticated/admin/")({ staticData: { sitemap: false }, component: Overview });
 
 function Overview() {
   const { data } = useQuery({

@@ -1,18 +1,11 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { InfoPage } from "@/components/site/InfoPage";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Conditions générales de vente — ORRÉA" },
-      { name: "description", content: "Conditions générales de vente de la boutique ORRÉA." },
-      { property: "og:title", content: "CGV — ORRÉA" },
-      { property: "og:description", content: "Conditions générales de vente." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/terms", title: "Conditions générales de vente | ORRÉA", description: "Conditions générales de vente de la boutique de mode en ligne ORRÉA au Maroc." }),
   component: () => {
     const { L } = useI18n();
     return (

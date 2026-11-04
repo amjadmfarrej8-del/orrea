@@ -15,7 +15,7 @@ import { waLink } from "@/lib/settings";
 import { productImage } from "@/lib/catalog";
 import { Card, Input, PageTitle, StatusBadge } from "@/components/admin/ui";
 
-export const Route = createFileRoute("/_authenticated/admin/orders")({ head: () => ({ meta: [{ title: "Commandes — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : commandes." }, { property: "og:title", content: "Commandes — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : commandes." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Orders });
+export const Route = createFileRoute("/_authenticated/admin/orders")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Commandes — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : commandes." }, { property: "og:title", content: "Commandes — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : commandes." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Orders });
 
 function Orders() {
   const qc = useQueryClient();

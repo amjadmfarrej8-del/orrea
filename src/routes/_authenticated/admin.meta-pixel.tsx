@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { metaPixelSettingsQuery, saveMetaPixelSettings } from "@/lib/meta-pixel-settings";
 import { metaEvents, pixelIdSchema } from "@/lib/meta-pixel";
 
-export const Route = createFileRoute("/_authenticated/admin/meta-pixel")({
+export const Route = createFileRoute("/_authenticated/admin/meta-pixel")({ staticData: { sitemap: false },
   loader: ({ context }) => context.queryClient.ensureQueryData(metaPixelSettingsQuery),
   head: () => ({ meta: [
     { title: "Meta Pixel — Administration ORRÉA" },

@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { Fragment } from "react";
 import { PackCard } from "@/components/site/PackCard";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -23,21 +24,12 @@ export const Route = createFileRoute("/")({
     ]);
     return { seo: s.seo };
   },
+  staticData: { sitemap: true },
   head: ({ loaderData }) => {
-    const title = loaderData?.seo.title_fr || "ORRÉA — Mode Femme & Homme";
-    const desc = loaderData?.seo.description_fr || "Découvrez les univers mode Femme et Homme de ORRÉA.";
-    const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : "";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: title },
-        { property: "og:description", content: desc },
-        { property: "og:type", content: "website" },
-        { name: "twitter:card", content: "summary_large_image" },
-        ...(og ? [{ property: "og:image", content: og }, { name: "twitter:image", content: og }] : []),
-      ],
-    };
+    const title = loaderData?.seo.title_fr || "ORRÉA — Streetwear homme & mode femme en ligne au Maroc";
+    const desc = loaderData?.seo.description_fr || "ORRÉA, mode en ligne au Maroc : hoodies, t-shirts, ensembles, pantalons et jackets pour homme et femme. Livraison gratuite et paiement à la livraison.";
+    const og = loaderData?.seo.og_image?.startsWith("https://") ? loaderData.seo.og_image : undefined;
+    return pageHead({ path: "/", title, description: desc, image: og });
   },
   component: Home,
 });
@@ -149,7 +141,7 @@ function SectionView({ sec }: { sec: Section }) {
     case "story":
       return (
         <section className="mx-auto mt-32 grid max-w-[1600px] items-center gap-12 px-5 md:grid-cols-2 md:gap-20 md:px-10 lg:px-12 xl:mt-40 xl:gap-28 xl:px-16">
-          <img src={productImage(sec.image || ritual)} alt="" loading="lazy" decoding="async" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
+          <img src={productImage(sec.image || ritual)} alt={sec.title_fr || "ORRÉA"} loading="lazy" decoding="async" width={1200} height={1408} className="aspect-[4/5] w-full object-cover" />
           <div>
             <p className="eyebrow">{t.ritualEyebrow}</p>
             <h2 className="mt-5 text-[1.6rem] leading-snug md:text-[2.1rem] xl:text-[2.3rem]">{title}</h2>

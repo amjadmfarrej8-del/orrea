@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -5,16 +6,8 @@ import { formatMAD, useI18n } from "@/lib/i18n";
 import { InfoPage } from "@/components/site/InfoPage";
 
 export const Route = createFileRoute("/shipping")({
-  head: () => ({
-    meta: [
-      { title: "Livraison & retours — ORRÉA" },
-      { name: "description", content: "Tarifs de livraison au Maroc, délais et politique de retour ORRÉA." },
-      { property: "og:title", content: "Livraison & retours — ORRÉA" },
-      { property: "og:description", content: "Livraison partout au Maroc, paiement à la livraison." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/shipping", title: "Livraison gratuite au Maroc & retours | ORRÉA", description: "Livraison gratuite sur tous les produits partout au Maroc, paiement à la livraison et conditions de retour ORRÉA." }),
   component: Shipping,
 });
 

@@ -26,11 +26,15 @@ export function Header() {
   const home = useRouterState({ select: (state) => state.location.pathname === "/" });
 
   const links = [
-    { to: "/shop", label: t.shop },
+    { to: "/shop", search: { f: "nouveautes" }, label: L("Nouveautés", "الجديد") },
+    { to: "/shop", search: { c: "homme" }, label: L("Homme", "رجال") },
+    { to: "/shop", search: { c: "femme" }, label: L("Femme", "نساء") },
+    { to: "/shop", search: { f: "best" }, label: L("Best-Sellers", "الأكثر مبيعاً") },
     { to: "/offres", label: L("Offres", "العروض") },
-    { to: "/categories", label: L("Catégories", "الفئات") },
+    { to: "/categories", label: L("Collections", "التشكيلات") },
     { to: "/about", label: t.about },
     { to: "/contact", label: L("Contact", "اتصل بنا") },
+    { to: "/track", label: L("Suivre ma commande", "تتبع طلبي") },
   ] as const;
 
   const submit = (e: React.FormEvent) => {

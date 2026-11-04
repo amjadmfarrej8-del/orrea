@@ -19,12 +19,10 @@ export function Header() {
   const { t, lang, setLang, L } = useI18n();
   const { count } = useCart();
   const { user } = useAuth();
-  const { data: s } = useQuery(settingsQuery);
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(false);
   const [q, setQ] = useState("");
   const navigate = useNavigate();
-  const free = s?.store.free_shipping_threshold ?? 500;
   const home = useRouterState({ select: (state) => state.location.pathname === "/" });
 
   const links = [
@@ -46,7 +44,7 @@ export function Header() {
     <>
       <header className={home ? "absolute inset-x-0 top-0 z-40 bg-transparent" : "sticky top-0 z-40 border-b border-border bg-black"}>
         <div className={`${home ? "hidden" : "block"} whitespace-nowrap bg-primary py-2 text-center text-[0.55rem] tracking-[0.08em] uppercase text-primary-foreground md:text-[0.8rem] md:tracking-[0.16em]`}>
-          {L(`Livraison offerte dès ${free} MAD`, `توصيل مجاني ابتداءً من ${free} درهم`)} · {t.cod}
+          {L("Livraison gratuite sur tous les produits", "توصيل مجاني على جميع المنتجات")} · {t.cod}
         </div>
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-5 py-4 md:px-10 lg:px-12">
           <Link to="/" className="shrink-0 text-[26px] md:text-4xl"><Logo /></Link>

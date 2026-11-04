@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
@@ -8,16 +9,8 @@ import { Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/track")({
   validateSearch: z.object({ n: z.string().max(20).optional() }),
-  head: () => ({
-    meta: [
-      { title: "Suivi de commande — ORRÉA" },
-      { name: "description", content: "Suivez votre commande ORRÉA avec votre numéro et votre téléphone." },
-      { property: "og:title", content: "Suivi de commande — ORRÉA" },
-      { property: "og:description", content: "Où en est votre commande ?" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/track", title: "Suivi de commande | ORRÉA", description: "Suivez votre commande ORRÉA avec votre numéro de commande et votre téléphone.", noindex: true }),
   component: Track,
 });
 

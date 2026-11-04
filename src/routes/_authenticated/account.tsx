@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -9,17 +10,8 @@ import { statusText } from "@/lib/orders";
 import { Field } from "@/components/site/AuthShell";
 
 export const Route = createFileRoute("/_authenticated/account")({
-  head: () => ({
-    meta: [
-      { title: "Mon compte — ORRÉA" },
-      { name: "description", content: "Votre profil et vos commandes ORRÉA." },
-      { property: "og:title", content: "Mon compte — ORRÉA" },
-      { property: "og:description", content: "Profil et commandes." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/account", title: "Mon compte | ORRÉA", description: "Vos commandes et informations ORRÉA.", noindex: true }),
   component: Account,
 });
 

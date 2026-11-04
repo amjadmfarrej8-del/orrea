@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { syncNewOrders } from "@/lib/sheets.functions";
 import { useEffect, useState } from "react";
@@ -10,17 +11,8 @@ import { useAuth } from "@/lib/auth";
 import { Summary } from "./cart";
 
 export const Route = createFileRoute("/checkout")({
-  head: () => ({
-    meta: [
-      { title: "Commande — ORRÉA" },
-      { name: "description", content: "Finalisez votre commande ORRÉA, paiement à la livraison." },
-      { property: "og:title", content: "Commande — ORRÉA" },
-      { property: "og:description", content: "Paiement à la livraison partout au Maroc." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/checkout", title: "Commande | ORRÉA", description: "Finalisez votre commande ORRÉA.", noindex: true }),
   component: Checkout,
 });
 

@@ -1,18 +1,11 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { InfoPage } from "@/components/site/InfoPage";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Politique de confidentialité — ORRÉA" },
-      { name: "description", content: "Comment ORRÉA collecte et protège vos données personnelles." },
-      { property: "og:title", content: "Confidentialité — ORRÉA" },
-      { property: "og:description", content: "Protection de vos données personnelles." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/privacy", title: "Politique de confidentialité | ORRÉA", description: "Comment ORRÉA collecte, utilise et protège vos données personnelles lors de vos commandes en ligne." }),
   component: () => {
     const { L } = useI18n();
     return (

@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { categoriesQuery, productImage, productsQuery } from "@/lib/catalog";
@@ -5,16 +6,8 @@ import { ArrowRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/categories")({
-  head: () => ({
-    meta: [
-      { title: "Catégories — ORRÉA" },
-      { name: "description", content: "Explorez les collections mode Femme et Homme ORRÉA." },
-      { property: "og:title", content: "Catégories — ORRÉA" },
-      { property: "og:description", content: "Explorez les univers mode ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  staticData: { sitemap: true },
+  head: () => pageHead({ path: "/categories", title: "Catégories — Hoodies, T-shirts, Ensembles & Jackets | ORRÉA", description: "Hoodies, t-shirts, pantalons, ensembles et jackets : explorez toutes les catégories mode homme et femme ORRÉA au Maroc." }),
   loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(categoriesQuery), context.queryClient.ensureQueryData(productsQuery)]),
   component: Categories,
 });

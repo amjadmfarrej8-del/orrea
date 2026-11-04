@@ -1,3 +1,4 @@
+import { pageHead } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -9,17 +10,8 @@ import { PackCard } from "@/components/site/PackCard";
 import { productsQuery } from "@/lib/catalog";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({
-    meta: [
-      { title: "Panier — ORRÉA" },
-      { name: "description", content: "Votre panier ORRÉA." },
-      { property: "og:title", content: "Panier — ORRÉA" },
-      { property: "og:description", content: "Votre sélection ORRÉA." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  staticData: { sitemap: false },
+  head: () => pageHead({ path: "/cart", title: "Panier | ORRÉA", description: "Votre sélection ORRÉA.", noindex: true }),
   component: CartPage,
 });
 

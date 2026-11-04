@@ -6,6 +6,7 @@ import { categoriesQuery, productsQuery } from "@/lib/catalog";
 import { useI18n } from "@/lib/i18n";
 import { ProductCard } from "@/components/site/ProductCard";
 import { PackCard, isPack } from "@/components/site/PackCard";
+import { HommeCollectionCarousel } from "@/components/site/HommeCollectionCarousel";
 
 export const Route = createFileRoute("/shop")({
   validateSearch: z.object({
@@ -81,7 +82,7 @@ function Shop() {
       </div>
       {showPacks && <div className="-mx-5 mt-12 md:-mx-10"><PackCard excludeIds={excluded} /></div>}
       {list.length === 0 && !showPacks && <p className="mt-16 text-muted-foreground">{L("La collection arrive bientôt.", "المجموعة قادمة قريباً.")}</p>}
-      {list.length > 0 && (
+      {list.length > 0 && c === "homme" ? <HommeCollectionCarousel products={list} /> : list.length > 0 && (
         <div className="mt-12 grid grid-cols-2 gap-x-3 gap-y-6 md:grid-cols-3 md:gap-x-6 md:gap-y-8 xl:grid-cols-4">
           {list.map((p) => <ProductCard key={p.id} p={p} />)}
         </div>

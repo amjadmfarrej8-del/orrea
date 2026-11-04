@@ -82,9 +82,8 @@ export function Header() {
           </div>
           <nav className="flex flex-col gap-1 px-5 pt-6">
             {links.map((l) => (
-              <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{l.label}</Link>
+              <Link key={l.to + (l as { search?: unknown }).search + ""} to={l.to} search={"search" in l ? l.search : undefined} onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{l.label}</Link>
             ))}
-            <Link to="/track" onClick={() => setOpen(false)} className="border-b border-border py-4 text-2xl" style={{ fontFamily: "var(--font-display)" }}>{L("Suivre ma commande", "تتبع طلبي")}</Link>
             <button onClick={() => { setLang(lang === "fr" ? "ar" : "fr"); setOpen(false); }} className="mt-8 self-start btn-ghost-lux">{lang === "fr" ? "عربي" : "Français"}</button>
           </nav>
         </div>

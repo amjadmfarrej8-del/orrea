@@ -26,15 +26,11 @@ function Shipping() {
   return (
     <InfoPage title={L("Livraison & retours", "التوصيل والإرجاع")}>
       <h2>{L("Livraison", "التوصيل")}</h2>
-      <p>{L("Livraison partout au Maroc en 24 à 72 h ouvrées. Paiement en espèces à la réception.", "توصيل لجميع مدن المغرب خلال 24 إلى 72 ساعة عمل. الدفع نقداً عند الاستلام.")}</p>
-      {s && (
-        <p>
-          {L("Tarif standard :", "السعر العادي:")} {formatMAD(s.store.shipping_fee, lang)} · {L("offerte dès", "مجاني ابتداءً من")} {formatMAD(s.store.free_shipping_threshold, lang)}
-        </p>
-      )}
+      <p>{L("Livraison gratuite sur tous les produits, sans minimum d'achat. Paiement en espèces à la réception.", "توصيل مجاني على جميع المنتجات، بدون حد أدنى للشراء. الدفع نقداً عند الاستلام.")}</p>
+      <p>{L("Livraison partout au Maroc en 24 à 72 h ouvrées.", "توصيل لجميع مدن المغرب خلال 24 إلى 72 ساعة عمل.")}</p>
       {!!zones.data?.length && (
         <ul className="divide-y divide-border border-y border-border">
-          {zones.data.map((z) => <li key={z.id} className="flex justify-between py-3"><span>{z.city}</span><span>{formatMAD(Number(z.fee), lang)}</span></li>)}
+          {zones.data.map((z) => <li key={z.id} className="flex justify-between py-3"><span>{z.city}</span><span>{Number(z.fee) === 0 ? L("Gratuite", "مجاني") : formatMAD(Number(z.fee), lang)}</span></li>)}
         </ul>
       )}
       <h2>{L("Retours", "الإرجاع")}</h2>

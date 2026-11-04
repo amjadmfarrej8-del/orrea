@@ -11,6 +11,7 @@ export const Route = createFileRoute("/shop")({
     c: z.string().max(60).optional(),
     q: z.string().max(80).optional(),
     sort: z.enum(["new", "price-asc", "price-desc"]).optional(),
+    f: z.enum(["nouveautes", "best"]).optional(),
   }),
   head: () => ({
     meta: [

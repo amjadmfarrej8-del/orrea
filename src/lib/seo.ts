@@ -3,7 +3,7 @@
 export const SITE_URL = "https://orrea.lovable.app";
 export const SITE_NAME = "ORRÉA";
 
-type Opts = { path: string; title: string; description: string; image?: string; type?: string; noindex?: boolean };
+type Opts = { path: string; title: string; description: string; image?: string | undefined; type?: string; noindex?: boolean | undefined };
 
 export function pageHead({ path, title, description, image, type = "website", noindex }: Opts) {
   const url = `${SITE_URL}${path}`;

@@ -38,7 +38,7 @@ export const Route = createFileRoute("/products/$slug")({
       image: d.images.length ? d.images : undefined, brand: { "@type": "Brand", name: SITE_NAME }, url: `${SITE_URL}${path}`,
     };
     // Offer only when the price is confirmed by the store — never publish unconfirmed prices.
-    if (d.price) product.offers = { "@type": "Offer", price: d.price.toFixed(2), priceCurrency: "MAD", url: `${SITE_URL}${path}`,
+    if (d.price) product["offers"] = { "@type": "Offer", price: d.price.toFixed(2), priceCurrency: "MAD", url: `${SITE_URL}${path}`,
       availability: d.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", itemCondition: "https://schema.org/NewCondition" };
     return {
       ...head,

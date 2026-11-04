@@ -26,7 +26,7 @@ import storyAsset from "@/assets/orrea-story.png.asset.json";
 import collectionHommeAsset from "@/assets/orrea-collection-homme.webp.asset.json";
 import collectionFemmeAsset from "@/assets/orrea-collection-femme.webp.asset.json";
 import bannerAsset from "@/assets/orrea-streetwear-banner.webp.asset.json";
-import heroDesktopAsset from "@/assets/orrea-hero-desktop4.webp.asset.json";
+import heroDesktopAsset from "@/assets/orrea-hero-desktop5.webp.asset.json";
 import heroTabletAsset from "@/assets/orrea-hero-tablet.webp.asset.json";
 import heroMobileAsset from "@/assets/orrea-hero-mobile.webp.asset.json";
 

@@ -35,11 +35,14 @@ const num = (v: unknown) => {
 
 /** Price is the product's unit price in MAD, as stored on the order line. */
 export function orderToRows(order: SheetOrder): SheetCell[][] {
-  const base = [order.order_number ?? "", order.customer_name ?? "", fullAddress(order.city, order.address), order.phone ?? ""];
+  const no = order.order_number ?? "";
+  const name = order.customer_name ?? "";
+  const addr = fullAddress(order.city, order.address);
+  const phone = order.phone ?? "";
   const items = order.order_items ?? [];
-  if (items.length === 0) return [[base[0], "", base[1], base[2], base[3], "", "", "", ""]];
+  if (items.length === 0) return [[no, "", name, addr, phone, "", "", "", ""]];
   return items.map((it) => [
-    base[0], it.product_name ?? "", base[1], base[2], base[3],
+    no, it.product_name ?? "", name, addr, phone,
     it.selected_size ?? "", it.selected_color ?? "", num(it.quantity), num(it.unit_price),
   ]);
 }

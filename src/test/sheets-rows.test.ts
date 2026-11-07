@@ -29,7 +29,7 @@ describe("Google Sheets order rows", () => {
 
   it("keeps the phone number as text so the leading zero stays", () => {
     const [row] = ordersToRows([{ ...order, order_items: [{ product_name: "T", selected_size: null, selected_color: null, quantity: 1, unit_price: 1 }] }]);
-    expect(row[4]).toBe("0612345678");
+    expect(row?.[4]).toBe("0612345678");
   });
 
   it("recognises the previous three-column header and moves its rows without losing data", () => {

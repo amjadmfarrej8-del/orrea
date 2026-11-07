@@ -49,7 +49,7 @@ export function formatOrderDate(iso: string | null | undefined): string {
       hour: "2-digit", minute: "2-digit", hourCycle: "h23",
     }).formatToParts(d).map((p) => [p.type, p.value]),
   );
-  return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}`;
+  return `${parts["day"]}/${parts["month"]}/${parts["year"]} ${parts["hour"]}:${parts["minute"]}`;
 }
 
 /** Price is the product's unit price in MAD, as stored on the order line. */

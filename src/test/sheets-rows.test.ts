@@ -25,8 +25,8 @@ describe("Google Sheets order rows", () => {
       ],
     }]);
     expect(rows).toEqual([
-      ["TH-0001", "Hoodie", "Amina", "Rue 4, Casablanca", "0612345678", "M", "Noir", 2, 259, "07/11/2026 18:59"],
-      ["TH-0001", "Jogger", "Amina", "Rue 4, Casablanca", "0612345678", "XL", "Beige", 1, 199, "07/11/2026 18:59"],
+      ["TH-0001", "Hoodie", "Amina", "Rue 4, Casablanca", "0612345678", "M", "Noir", 2, 259, "07/11/2026 19:59"],
+      ["TH-0001", "Jogger", "Amina", "Rue 4, Casablanca", "0612345678", "XL", "Beige", 1, 199, "07/11/2026 19:59"],
     ]);
   });
 
@@ -42,7 +42,7 @@ describe("Google Sheets order rows", () => {
   });
 
   it("writes the order date in Casablanca time", () => {
-    expect(formatOrderDate("2026-11-07T18:59:00Z")).toBe("07/11/2026 18:59");
+    expect(formatOrderDate("2026-11-07T18:59:00Z")).toBe("07/11/2026 19:59");
     expect(formatOrderDate(null)).toBe("");
   });
 

@@ -2,7 +2,8 @@
 
 ## Current
 - [x] Move privileged Google Sheets operations to a secure Lovable-hosted endpoint called from Vercel; no privileged credentials on Vercel; admin page and post-order sync verified locally
-- [ ] Verify Google Sheets on Vercel: awaiting Lovable publish, Vercel env VITE_SHEETS_API_ORIGIN, Google redirect URI, and Google client setup (tables are empty)
+- [x] Connect Google Sheets (Lovable connection), create "ORRÉA — Commandes", test row written, sync enabled
+- [ ] Verify Google Sheets on Vercel and with a real order: awaiting Lovable publish, Vercel env VITE_SHEETS_API_ORIGIN, and a product with confirmed price/stock
 - [x] Diagnose silent Google Sheets status failure and empty singleton rows; restore editable setup, error/retry, checked persistence and bounded OAuth popup; authenticated local preview and twelve regression tests pass
 - [ ] Complete Google authorization/file/sync verification: existing backend has no Google credentials or destination; awaiting original configuration and exact Vercel production URL/runtime provisioning
 - [x] Fix Google Sheets Vercel build target, production callback handling, diagnostics, and document deployment prerequisites without changing orders or credentials; six regression tests pass and callback responds in authenticated preview

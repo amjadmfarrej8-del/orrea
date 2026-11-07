@@ -6,7 +6,7 @@ const page = (ok: boolean, msg: string) => {
   const payload = JSON.stringify({ type: ok ? "googleSheetsOAuthComplete" : "googleSheetsOAuthFailed", message: msg }).replace(/<\//g, "<\\/");
   return new Response(
     `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Google</title></head><body style="font-family:sans-serif;padding:2rem"><p>${esc}</p><script>
-var m=${payload};if(window.opener&&window.opener!==window){window.opener.postMessage(m,window.location.origin);}setTimeout(function(){window.close()},800);
+var m=${payload};if(window.opener&&window.opener!==window){window.opener.postMessage(m,"*");}setTimeout(function(){window.close()},800);
 </script></body></html>`,
     { headers: { "Content-Type": "text/html; charset=utf-8" } },
   );

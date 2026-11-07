@@ -1,16 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, CheckCircle2, CircleOff, Copy, FileSpreadsheet, KeyRound, LogIn, PlugZap, RefreshCw, Search, Unplug, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import { pageHead } from "@/lib/seo";
 import { GOOGLE_POPUP_TIMEOUT_MS } from "@/lib/sheets-state";
 import { Button } from "@/components/ui/button";
-import {
-  disconnectGoogleAccount, disconnectSheets, getSheetsStatus, getSpreadsheetTabs, listSpreadsheets, loadSpreadsheet,
-  saveOAuthClient, saveSheetsConfig, setSheetsSync, startGoogleOAuth, syncSheetsNow, testSheetsConnection,
-} from "@/lib/sheets.functions";
+import { callSheets, sheetsApiOrigin } from "@/lib/sheets-client";
 
 export const Route = createFileRoute("/_authenticated/admin/sheets")({ staticData: { sitemap: false },
   head: () => pageHead({ path: "/admin/sheets", title: "Google Sheets — Administration ORRÉA", description: "Connexion Google Sheets et synchronisation des commandes ORRÉA.", noindex: true }),
@@ -25,24 +21,12 @@ const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
 function AdminSheets() {
   const qc = useQueryClient();
-  const statusFn = useServerFn(getSheetsStatus);
-  const loadFn = useServerFn(loadSpreadsheet);
-  const saveFn = useServerFn(saveSheetsConfig);
-  const testFn = useServerFn(testSheetsConnection);
-  const syncFn = useServerFn(setSheetsSync);
-  const nowFn = useServerFn(syncSheetsNow);
-  const discFn = useServerFn(disconnectSheets);
-  const saveClientFn = useServerFn(saveOAuthClient);
-  const startFn = useServerFn(startGoogleOAuth);
-  const listFn = useServerFn(listSpreadsheets);
-  const tabsFn = useServerFn(getSpreadsheetTabs);
-  const discAccFn = useServerFn(disconnectGoogleAccount);
   const [clientId, setClientId] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [editCreds, setEditCreds] = useState(false);
   const [files, setFiles] = useState<{ id: string; name: string }[] | null>(null);
 
-  const { data: st, isLoading, error: statusError, refetch } = useQuery({ queryKey: ["sheets-status"], queryFn: () => statusFn(), retry: false });
+  const { data: st, isLoading, error: statusError, refetch } = useQuery({ queryKey: ["sheets-status"], queryFn: () => callSheets("status"), retry: false });
   const refresh = () => qc.invalidateQueries({ queryKey: ["sheets-status"] });
 
   const [url, setUrl] = useState("");
@@ -64,7 +48,7 @@ function AdminSheets() {
   };
 
   const onLoad = () => run("load", async () => {
-    const r = await loadFn({ data: { url } });
+    const r = await callSheets("load-spreadsheet", { url });
     setFile(r);
     const savedTab = cfg?.sheet_name;
     setTab(savedTab && r.tabs.includes(savedTab) ? savedTab : r.tabs[0] ?? "");
@@ -72,32 +56,32 @@ function AdminSheets() {
   });
   const onSave = () => run("save", async () => {
     if (!file) return;
-    await saveFn({ data: { spreadsheetId: file.spreadsheetId, title: file.title, sheetName: tab } });
+    await callSheets("save-config", { spreadsheetId: file.spreadsheetId, title: file.title, sheetName: tab });
     toast.success("Fichier et onglet enregistrés. Testez maintenant la connexion.");
   });
   const onTest = () => run("test", async () => {
-    const r = await testFn();
+    const r = await callSheets("test");
     if (r.ok) toast.success("Connexion réussie : une ligne test a été ajoutée à votre feuille.");
     else toast.error(`Erreur de connexion : ${r.error}`);
   });
   const onToggle = () => run("toggle", async () => {
-    await syncFn({ data: { enabled: !cfg?.enabled } });
+    await callSheets("set-sync", { enabled: !cfg?.enabled });
     toast.success(cfg?.enabled ? "Synchronisation désactivée." : "Synchronisation activée : les nouvelles commandes seront envoyées.");
   });
   const onNow = () => run("now", async () => {
-    const r = await nowFn();
+    const r = await callSheets("sync-now");
     toast.success(r.sent ? `${r.sent} commande(s) envoyée(s).` : "Tout est déjà à jour.");
   });
   const onDisc = () => run("disc", async () => {
     if (!confirm("Déconnecter le fichier Google Sheets ? La boutique continuera de fonctionner normalement.")) return;
-    await discFn();
+    await callSheets("disconnect");
     setFile(null); setTab(""); setUrl("");
     toast.success("Google Sheets déconnecté.");
   });
 
   const own = st?.mode === "own";
   const onSaveClient = () => run("client", async () => {
-    await saveClientFn({ data: { clientId, clientSecret } });
+    await callSheets("save-oauth-client", { clientId, clientSecret });
     setClientSecret(""); setEditCreds(false);
     toast.success("Identifiants Google enregistrés. Connectez maintenant votre compte Google.");
   });
@@ -106,22 +90,27 @@ function AdminSheets() {
     if (!popup) { toast.error("Autorisez les fenêtres pop-up puis réessayez."); return; }
     void run("connect", async () => {
       try {
-        const { authorizationUrl } = await startFn();
+        const { authorizationUrl } = await callSheets("start-oauth");
+        const apiOrigin = sheetsApiOrigin();
         const callback = new URL(authorizationUrl).searchParams.get("redirect_uri");
-        if (!callback || new URL(callback).origin !== window.location.origin) throw new Error("L'adresse de retour Google ne correspond pas à ce site. Vérifiez la configuration de cette adresse.");
-        const done = new Promise<void>((resolve, reject) => {
+        if (!callback || new URL(callback).origin !== apiOrigin) throw new Error("L'adresse de retour Google ne correspond pas au service sécurisé. Vérifiez la configuration de cette adresse.");
+        const done = new Promise<"message" | "closed">((resolve, reject) => {
           const timeout = window.setTimeout(() => { cleanup(); reject(new Error("Connexion Google expirée. Réessayez.")); }, GOOGLE_POPUP_TIMEOUT_MS);
-          const iv = window.setInterval(() => { if (popup.closed) { cleanup(); reject(new Error("Fenêtre Google fermée avant la fin.")); } }, 600);
+          const iv = window.setInterval(() => { if (popup.closed) { cleanup(); resolve("closed"); } }, 600);
           const onMsg = (e: MessageEvent) => {
-            if (e.origin !== window.location.origin || e.source !== popup) return;
-            if (e.data?.type === "googleSheetsOAuthComplete") { cleanup(); resolve(); }
+            if (e.origin !== apiOrigin || e.source !== popup) return;
+            if (e.data?.type === "googleSheetsOAuthComplete") { cleanup(); resolve("message"); }
             else if (e.data?.type === "googleSheetsOAuthFailed") { cleanup(); reject(new Error(e.data.message)); }
           };
           const cleanup = () => { window.clearTimeout(timeout); window.clearInterval(iv); window.removeEventListener("message", onMsg); };
           window.addEventListener("message", onMsg);
         });
         popup.location.href = authorizationUrl;
-        await done;
+        if ((await done) === "closed") {
+          // The window can close before its message arrives; trust only the server-side state.
+          const after = await callSheets("status");
+          if (after.mode !== "own") throw new Error("Fenêtre Google fermée avant la fin.");
+        }
         setFile(null); setFiles(null); setTab(""); setUrl("");
         toast.success("Compte Google connecté ✓");
       } catch (e) { popup.close(); throw e; }
@@ -129,17 +118,17 @@ function AdminSheets() {
   };
   const onDiscAccount = () => run("discacc", async () => {
     if (!confirm("Déconnecter ce compte Google ? La boutique continuera de fonctionner normalement.")) return;
-    await discAccFn(); setFiles(null); setFile(null);
+    await callSheets("disconnect-google"); setFiles(null); setFile(null);
     toast.success("Compte Google déconnecté.");
   });
   const onList = () => run("list", async () => {
-    const r = await listFn();
+    const r = await callSheets("list-spreadsheets");
     setFiles(r.files);
     if (!r.files.length) toast.info("Aucun fichier Google Sheets trouvé sur ce compte.");
   });
   const onPick = (id: string) => run("tabs", async () => {
     if (!id) return;
-    const r = await tabsFn({ data: { spreadsheetId: id } });
+    const r = await callSheets("spreadsheet-tabs", { spreadsheetId: id });
     setFile(r);
     const savedTab = cfg?.sheet_name;
     setTab(savedTab && r.tabs.includes(savedTab) ? savedTab : r.tabs[0] ?? "");

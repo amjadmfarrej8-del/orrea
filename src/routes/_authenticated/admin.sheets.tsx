@@ -5,6 +5,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, CheckCircle2, CircleOff, Copy, FileSpreadsheet, KeyRound, LogIn, PlugZap, RefreshCw, Search, Unplug, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import { pageHead } from "@/lib/seo";
+import { GOOGLE_POPUP_TIMEOUT_MS } from "@/lib/sheets-state";
+import { Button } from "@/components/ui/button";
 import {
   disconnectGoogleAccount, disconnectSheets, getSheetsStatus, getSpreadsheetTabs, listSpreadsheets, loadSpreadsheet,
   saveOAuthClient, saveSheetsConfig, setSheetsSync, startGoogleOAuth, syncSheetsNow, testSheetsConnection,
@@ -40,7 +42,7 @@ function AdminSheets() {
   const [editCreds, setEditCreds] = useState(false);
   const [files, setFiles] = useState<{ id: string; name: string }[] | null>(null);
 
-  const { data: st, isLoading } = useQuery({ queryKey: ["sheets-status"], queryFn: () => statusFn() });
+  const { data: st, isLoading, error: statusError, refetch } = useQuery({ queryKey: ["sheets-status"], queryFn: () => statusFn(), retry: false });
   const refresh = () => qc.invalidateQueries({ queryKey: ["sheets-status"] });
 
   const [url, setUrl] = useState("");
@@ -105,14 +107,17 @@ function AdminSheets() {
     void run("connect", async () => {
       try {
         const { authorizationUrl } = await startFn();
+        const callback = new URL(authorizationUrl).searchParams.get("redirect_uri");
+        if (!callback || new URL(callback).origin !== window.location.origin) throw new Error("L'adresse de retour Google ne correspond pas à ce site. Vérifiez la configuration de cette adresse.");
         const done = new Promise<void>((resolve, reject) => {
+          const timeout = window.setTimeout(() => { cleanup(); reject(new Error("Connexion Google expirée. Réessayez.")); }, GOOGLE_POPUP_TIMEOUT_MS);
           const iv = window.setInterval(() => { if (popup.closed) { cleanup(); reject(new Error("Fenêtre Google fermée avant la fin.")); } }, 600);
           const onMsg = (e: MessageEvent) => {
             if (e.origin !== window.location.origin || e.source !== popup) return;
             if (e.data?.type === "googleSheetsOAuthComplete") { cleanup(); resolve(); }
             else if (e.data?.type === "googleSheetsOAuthFailed") { cleanup(); reject(new Error(e.data.message)); }
           };
-          const cleanup = () => { window.clearInterval(iv); window.removeEventListener("message", onMsg); };
+          const cleanup = () => { window.clearTimeout(timeout); window.clearInterval(iv); window.removeEventListener("message", onMsg); };
           window.addEventListener("message", onMsg);
         });
         popup.location.href = authorizationUrl;
@@ -139,7 +144,10 @@ function AdminSheets() {
     const savedTab = cfg?.sheet_name;
     setTab(savedTab && r.tabs.includes(savedTab) ? savedTab : r.tabs[0] ?? "");
   });
-  const copy = (t: string) => { void navigator.clipboard.writeText(t); toast.success("Copié"); };
+  const copy = async (t: string) => {
+    try { await navigator.clipboard.writeText(t); toast.success("Copié"); }
+    catch { toast.error("Copie indisponible. Sélectionnez et copiez l'adresse affichée."); }
+  };
 
   const connected = linked && configured && cfg?.last_test_ok === true;
 
@@ -151,14 +159,22 @@ function AdminSheets() {
         Cette fonctionnalité est optionnelle : la boutique fonctionne normalement sans connexion.
       </p>
 
+      {statusError && (
+        <div role="alert" className="mt-6 border border-destructive p-4 text-sm">
+          <p>Impossible de charger Google Sheets : {errMsg(statusError)}</p>
+          <Button variant="outline" className="mt-3" onClick={() => void refetch()}><RefreshCw className="me-2 h-4 w-4" /> Réessayer</Button>
+        </div>
+      )}
+      {st && !st.encKeyReady && <p role="alert" className="mt-4 text-sm text-destructive">La clé de chiffrement existante est indisponible sur ce site. Rétablissez-la sans la remplacer.</p>}
+
       {/* Statut */}
       <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border border-border bg-background p-5">
         <div className="flex items-center gap-3">
           {connected ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <CircleOff className="h-5 w-5 text-muted-foreground" />}
           <div>
-            <p className="text-sm font-medium">Statut : {isLoading ? "…" : connected ? "Connecté" : "Non connecté"}</p>
+            <p className="text-sm font-medium">Statut : {isLoading ? "…" : statusError ? "Indisponible" : connected ? "Connecté" : "Non connecté"}</p>
             <p className="text-xs text-muted-foreground">
-              {!linked ? "Aucun compte Google n'est connecté."
+              {statusError ? "Le statut de la connexion ne peut pas être vérifié." : !linked ? "Aucun compte Google n'est connecté."
                 : !configured ? `Compte Google connecté ✓${st?.googleEmail ? ` (${st.googleEmail})` : ""} — choisissez votre fichier et votre onglet.`
                 : cfg?.last_test_ok ? `Envoi vers « ${cfg.spreadsheet_title} » › ${cfg.sheet_name}`
                 : "Fichier choisi — testez la connexion."}
@@ -198,7 +214,7 @@ function AdminSheets() {
             <input className={inputCls} value={clientId} onChange={(e) => setClientId(e.target.value)} placeholder="xxxx.apps.googleusercontent.com" />
             <input className={inputCls} type="password" value={clientSecret} onChange={(e) => setClientSecret(e.target.value)} placeholder="Code secret client (GOCSPX-…)" />
             <div className="flex gap-2">
-              <button onClick={onSaveClient} disabled={!clientId || !clientSecret || !!busy} className="btn-lux flex-1 !py-2.5 text-xs disabled:opacity-50">
+              <button onClick={onSaveClient} disabled={!clientId || !clientSecret || !st.encKeyReady || !!busy} className="btn-lux flex-1 !py-2.5 text-xs disabled:opacity-50">
                 {busy === "client" ? "Enregistrement…" : "Enregistrer les identifiants"}
               </button>
               {editCreds && <button onClick={() => setEditCreds(false)} className="text-xs underline">Annuler</button>}

@@ -31,7 +31,9 @@ export const Route = createFileRoute("/api/public/google-oauth/callback")({ stat
             return page(false, "Lien de connexion expiré. Réessayez depuis l'Admin.");
           }
           if (!cfg?.oauth_client_id || !sec.client_secret_enc || !sec.oauth_redirect_uri) return page(false, "Identifiants Google manquants.");
-          await admin.from("google_oauth_secrets").update({ oauth_state: null, oauth_state_expires: null }).eq("id", 1);
+          const { requireSavedRow } = await import("@/lib/sheets-state");
+          const consumed = await admin.from("google_oauth_secrets").update({ oauth_state: null, oauth_state_expires: null }).eq("id", 1).eq("oauth_state", state).gt("oauth_state_expires", new Date().toISOString()).select("id").single();
+          requireSavedRow(consumed, "Validation de la connexion Google");
           const tok = await exchangeToken({
             grant_type: "authorization_code", code,
             client_id: cfg.oauth_client_id,
@@ -42,11 +44,13 @@ export const Route = createFileRoute("/api/public/google-oauth/callback")({ stat
           let email: string | null = null;
           const ui = await fetch("https://openidconnect.googleapis.com/v1/userinfo", { headers: { Authorization: `Bearer ${tok.access_token}` } });
           if (ui.ok) email = ((await ui.json()) as { email?: string }).email ?? null;
-          await admin.from("google_oauth_secrets").update({ refresh_token_enc: await encrypt(tok.refresh_token), updated_at: new Date().toISOString() }).eq("id", 1);
-          await admin.from("google_sheets_config").update({
+          const tokenWrite = await admin.from("google_oauth_secrets").update({ refresh_token_enc: await encrypt(tok.refresh_token), updated_at: new Date().toISOString() }).eq("id", 1).select("id").single();
+          requireSavedRow(tokenWrite, "Enregistrement de la connexion Google");
+          const configWrite = await admin.from("google_sheets_config").update({
             google_email: email, oauth_connected_at: new Date().toISOString(),
             spreadsheet_id: null, spreadsheet_title: null, sheet_name: null, enabled: false, last_test_ok: null, last_test_at: null,
-          }).eq("id", 1);
+          }).eq("id", 1).select("id").single();
+          requireSavedRow(configWrite, "Enregistrement du compte Google");
           return page(true, "Compte Google connecté. Vous pouvez fermer cette fenêtre.");
         } catch (e) {
           console.error("google oauth callback", e);

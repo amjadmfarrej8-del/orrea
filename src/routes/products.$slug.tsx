@@ -97,7 +97,7 @@ function ProductPage() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(320px,0.7fr)] lg:gap-10">
         <div className="min-w-0">
           <Button variant="ghost" aria-label={L("Agrandir la photo", "تكبير الصورة")} className="block h-auto w-full cursor-zoom-in rounded-none bg-studio p-0 hover:bg-studio" onClick={() => setZoom(images[currentPhoto] ?? null)}>
-            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="h-[82svh] min-h-[28rem] w-full object-contain object-center lg:h-[calc(100svh-88px)]" />
+            <img src={images[currentPhoto]} alt={name} width={912} height={1104} fetchPriority="high" className="mx-auto block h-[82svh] min-h-[28rem] w-auto max-w-full object-contain object-center lg:h-[calc(100svh-88px)]" />
           </Button>
           {images.length > 1 && (
             <div className="mt-2 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">

@@ -29,6 +29,10 @@ import bannerAsset from "@/assets/orrea-streetwear-banner.webp";
 import heroDesktopAsset from "@/assets/orrea-hero-desktop5.webp";
 import heroTabletAsset from "@/assets/orrea-hero-tablet.webp";
 import heroMobileAsset from "@/assets/orrea-hero-mobile.webp";
+import doudouneNoireAsset from "@/assets/orrea-doudoune-noire-v2.webp";
+import doudouneVioletteAsset from "@/assets/orrea-doudoune-violette-v2.webp";
+import jeanDechireAsset from "@/assets/orrea-jean-dechire.webp";
+import jeanVintageAsset from "@/assets/orrea-jean-vintage.webp";
 
 const files = import.meta.glob("@/assets/t-*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const localImages: Record<string, string> = Object.fromEntries(
@@ -42,6 +46,10 @@ Object.assign(localImages, {
   "orrea-hero-tablet": heroTabletAsset,
   "orrea-hero-mobile": heroMobileAsset,
   "orrea-story": storyAsset,
+  "orrea-doudoune-noire": doudouneNoireAsset,
+  "orrea-doudoune-violette": doudouneVioletteAsset,
+  "orrea-jean-dechire": jeanDechireAsset,
+  "orrea-jean-vintage": jeanVintageAsset,
   "fashion-campaign": fashionCampaign,
   "fashion-femme": streetwearFemme,
   "fashion-homme": streetwearHomme,

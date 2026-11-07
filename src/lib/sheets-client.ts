@@ -1,7 +1,7 @@
 // Browser caller for the secure Google Sheets endpoint (hosted on Lovable).
 // On Vercel, VITE_SHEETS_API_ORIGIN points at the Lovable-published site; elsewhere the current origin is used.
 import { supabase } from "@/integrations/supabase/client";
-import { PUBLIC_SHEETS_ACTIONS, SHEETS_API_PATH } from "@/lib/sheets-api";
+import { PUBLIC_SHEETS_ACTIONS, resolveSheetsApiOrigin, SHEETS_API_PATH } from "@/lib/sheets-api";
 import type { adminActions } from "@/lib/sheets-core.server";
 
 type Admin = typeof adminActions;
@@ -10,11 +10,7 @@ type Input<A> = A extends keyof Admin ? Parameters<Admin[A]>[0]["data"] : Record
 type Output<A> = A extends keyof Admin ? Awaited<ReturnType<Admin[A]>> : { ok: boolean; sent: number };
 
 export function sheetsApiOrigin(): string {
-  const configured = import.meta.env["VITE_SHEETS_API_ORIGIN"] as string | undefined;
-  if (configured) {
-    try { return new URL(configured).origin; } catch { /* fall through */ }
-  }
-  return window.location.origin;
+  return resolveSheetsApiOrigin(import.meta.env["VITE_SHEETS_API_ORIGIN"] as string | undefined, window.location.origin);
 }
 
 export async function callSheets<A extends SheetsAction>(action: A, data?: Input<A>): Promise<Output<A>> {

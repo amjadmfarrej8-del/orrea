@@ -1,6 +1,7 @@
 # THÉRAVÉN roadmap
 
 ## Current
+- [ ] Diagnose and fix unresponsive Google Sheets in preview and Vercel without replacing credentials; verify authenticated controls, OAuth callback and sync dependencies
 - [x] Fix Google Sheets Vercel build target, production callback handling, diagnostics, and document deployment prerequisites without changing orders or credentials; six regression tests pass and callback responds in authenticated preview
 - [ ] Verify Google Sheets on Vercel: awaiting production URL, deployment logs and securely provisioned server runtime credentials
 

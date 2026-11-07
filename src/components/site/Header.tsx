@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
-  const src = data?.theme.logo_url || logoAsset.url;
+  const src = data?.theme.logo_url || logoAsset;
   return <img src={src} alt="ORRÉA" className={`h-8 w-auto ${className}`} />;
 }
 

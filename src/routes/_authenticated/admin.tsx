@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, redirect } from "@tanstack/react-router"
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import logoAsset from "@/assets/orrea-logo.png.asset.json";
+import logoAsset from "@/assets/orrea-logo.png";
 
 export const Route = createFileRoute("/_authenticated/admin")({ staticData: { sitemap: false },
   beforeLoad: async ({ context }) => {

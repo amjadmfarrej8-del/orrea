@@ -47,6 +47,7 @@ import { Route as AuthenticatedAdminShippingRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminThemeRouteImport } from './routes/_authenticated/admin.theme'
 import { Route as AuthenticatedAdminProductsIdRouteImport } from './routes/_authenticated/admin.products.$id'
 import { Route as ApiPublicGoogleOauthCallbackRouteImport } from './routes/api/public/google-oauth/callback'
+import { Route as ApiPublicSheetsActionRouteImport } from './routes/api/public/sheets/$action'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -249,6 +250,11 @@ const ApiPublicGoogleOauthCallbackRoute =
     path: '/api/public/google-oauth/callback',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicSheetsActionRoute = ApiPublicSheetsActionRouteImport.update({
+  id: '/api/public/sheets/$action',
+  path: '/api/public/sheets/$action',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -288,6 +294,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
   '/api/public/google-oauth/callback': typeof ApiPublicGoogleOauthCallbackRoute
+  '/api/public/sheets/$action': typeof ApiPublicSheetsActionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -326,6 +333,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
   '/api/public/google-oauth/callback': typeof ApiPublicGoogleOauthCallbackRoute
+  '/api/public/sheets/$action': typeof ApiPublicSheetsActionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -367,6 +375,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
   '/api/public/google-oauth/callback': typeof ApiPublicGoogleOauthCallbackRoute
+  '/api/public/sheets/$action': typeof ApiPublicSheetsActionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -408,6 +417,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/products/$id'
     | '/api/public/google-oauth/callback'
+    | '/api/public/sheets/$action'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -446,6 +456,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/products/$id'
     | '/api/public/google-oauth/callback'
+    | '/api/public/sheets/$action'
   id:
     | '__root__'
     | '/'
@@ -486,6 +497,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/_authenticated/admin/products/$id'
     | '/api/public/google-oauth/callback'
+    | '/api/public/sheets/$action'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -511,6 +523,7 @@ export interface RootRouteChildren {
   TrackRoute: typeof TrackRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   ApiPublicGoogleOauthCallbackRoute: typeof ApiPublicGoogleOauthCallbackRoute
+  ApiPublicSheetsActionRoute: typeof ApiPublicSheetsActionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -781,6 +794,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicGoogleOauthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/sheets/$action': {
+      id: '/api/public/sheets/$action'
+      path: '/api/public/sheets/$action'
+      fullPath: '/api/public/sheets/$action'
+      preLoaderRoute: typeof ApiPublicSheetsActionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -869,6 +889,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrackRoute: TrackRoute,
   ProductsSlugRoute: ProductsSlugRoute,
   ApiPublicGoogleOauthCallbackRoute: ApiPublicGoogleOauthCallbackRoute,
+  ApiPublicSheetsActionRoute: ApiPublicSheetsActionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

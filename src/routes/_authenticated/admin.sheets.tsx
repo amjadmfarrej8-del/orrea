@@ -4,13 +4,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { AlertTriangle, CheckCircle2, CircleOff, Copy, FileSpreadsheet, KeyRound, LogIn, PlugZap, RefreshCw, Search, Unplug, UserRound } from "lucide-react";
 import { toast } from "sonner";
+import { pageHead } from "@/lib/seo";
 import {
   disconnectGoogleAccount, disconnectSheets, getSheetsStatus, getSpreadsheetTabs, listSpreadsheets, loadSpreadsheet,
   saveOAuthClient, saveSheetsConfig, setSheetsSync, startGoogleOAuth, syncSheetsNow, testSheetsConnection,
 } from "@/lib/sheets.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/sheets")({ staticData: { sitemap: false },
-  head: () => ({ meta: [{ title: "Google Sheets — Administration ORRÉA" }, { name: "robots", content: "noindex" }] }),
+  head: () => pageHead({ path: "/admin/sheets", title: "Google Sheets — Administration ORRÉA", description: "Connexion Google Sheets et synchronisation des commandes ORRÉA.", noindex: true }),
   component: AdminSheets,
 });
 
@@ -63,7 +64,8 @@ function AdminSheets() {
   const onLoad = () => run("load", async () => {
     const r = await loadFn({ data: { url } });
     setFile(r);
-    setTab(r.tabs.includes(cfg?.sheet_name ?? "") ? cfg!.sheet_name! : r.tabs[0] ?? "");
+    const savedTab = cfg?.sheet_name;
+    setTab(savedTab && r.tabs.includes(savedTab) ? savedTab : r.tabs[0] ?? "");
     toast.success(`Fichier trouvé : ${r.title}`);
   });
   const onSave = () => run("save", async () => {
@@ -134,7 +136,8 @@ function AdminSheets() {
     if (!id) return;
     const r = await tabsFn({ data: { spreadsheetId: id } });
     setFile(r);
-    setTab(r.tabs.includes(cfg?.sheet_name ?? "") ? cfg!.sheet_name! : r.tabs[0] ?? "");
+    const savedTab = cfg?.sheet_name;
+    setTab(savedTab && r.tabs.includes(savedTab) ? savedTab : r.tabs[0] ?? "");
   });
   const copy = (t: string) => { void navigator.clipboard.writeText(t); toast.success("Copié"); };
 

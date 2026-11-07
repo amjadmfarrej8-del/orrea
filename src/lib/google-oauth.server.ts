@@ -35,10 +35,12 @@ export async function getAdmin(): Promise<Admin> {
 }
 
 export async function loadOwnOAuth(admin: Admin) {
-  const [{ data: cfg }, { data: sec }] = await Promise.all([
+  const [{ data: cfg, error: configError }, { data: sec, error: secretError }] = await Promise.all([
     admin.from("google_sheets_config").select("oauth_client_id, google_email").eq("id", 1).single(),
     admin.from("google_oauth_secrets").select("*").eq("id", 1).single(),
   ]);
+  if (configError) throw new Error(`Configuration Google Sheets indisponible : ${configError.message}`);
+  if (secretError) throw new Error(`Configuration Google OAuth indisponible : ${secretError.message}`);
   return {
     clientId: cfg?.oauth_client_id ?? null,
     email: cfg?.google_email ?? null,

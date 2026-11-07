@@ -62,9 +62,6 @@ async function readJson(res: Response, label: string) {
   return text ? JSON.parse(text) : {};
 }
 
-const b64 = (u: Uint8Array) => btoa(String.fromCharCode(...u));
-const unb64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
-
 /** Own Google account (OAuth) first; falls back to the managed connection. */
 async function sheetsApi(): Promise<{ api: Api; drive: Api | null; mode: "own" | "managed" }> {
   const { ownAccessToken } = await import("@/lib/google-oauth.server");
@@ -362,6 +359,3 @@ export const adminActions = {
 export async function syncNewOrdersPublic() {
   return runSync(await getAdmin());
 }
-
-// Keep helper names referenced for tree-shaking parity with google-oauth.server.
-void b64; void unb64;

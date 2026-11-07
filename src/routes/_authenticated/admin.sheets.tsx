@@ -220,7 +220,7 @@ function AdminSheets() {
         </h2>
         <p className="mt-3 text-sm">
           {own ? <>Connecté : <b>{st?.googleEmail ?? "compte Google"}</b></>
-            : st?.mode === "managed" ? "Connexion Lovable active (ancienne méthode). Connectez votre propre compte pour gérer tout depuis ici."
+            : st?.mode === "managed" ? "Compte Google connecté ✓ — collez le lien de votre fichier Google Sheets ci-dessous."
             : "Aucun compte Google connecté."}
         </p>
         <div className="mt-4 flex flex-wrap gap-2">

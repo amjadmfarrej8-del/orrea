@@ -3,6 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getRequest } from "@tanstack/react-start/server";
 import { fullAddress } from "@/lib/orders";
 import { googleCallbackUrl } from "@/lib/google-oauth-origin";
+import { requireSavedRow, syncActivation } from "@/lib/sheets-state";
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_sheets/v4";
 const HEADERS = ["Nom complet", "Numéro de téléphone", "Adresse complète"];
@@ -81,12 +82,18 @@ async function runSync(admin: Admin) {
   if (!cfg?.enabled || !cfg.spreadsheet_id || !cfg.sheet_name || !cfg.enabled_at) {
     return { sent: 0, skipped: true };
   }
-  const { data: orders } = await admin
+  const { data: alreadySent, error: ledgerError } = await admin.from("google_sheets_sync").select("order_id").eq("status", "synced");
+  if (ledgerError) throw new Error(ledgerError.message);
+  let eligibleOrders = admin
     .from("orders")
     .select("id, customer_name, phone, city, address, created_at")
-    .gte("created_at", cfg.enabled_at)
+    .gte("created_at", cfg.enabled_at);
+  if (alreadySent?.length) eligibleOrders = eligibleOrders.not("id", "in", `(${alreadySent.map((row) => row.order_id).join(",")})`);
+  const { data: orders, error: ordersError } = await eligibleOrders
     .order("created_at", { ascending: true })
     .limit(200);
+  if (ordersError) throw new Error(ordersError.message);
+  if (!orders?.length) return { sent: 0, skipped: false };
   const { data: done } = await admin
     .from("google_sheets_sync")
     .select("order_id, status, updated_at")
@@ -142,7 +149,8 @@ export const getSheetsStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { data: cfg } = await context.supabase.from("google_sheets_config").select("*").eq("id", 1).single();
+    const { data: cfg, error: configError } = await context.supabase.from("google_sheets_config").select("*").eq("id", 1).maybeSingle();
+    if (configError) throw new Error(`Configuration Google Sheets : ${configError.message}`);
     const [{ count: synced }, { count: errors }] = await Promise.all([
       context.supabase.from("google_sheets_sync").select("order_id", { count: "exact", head: true }).eq("status", "synced"),
       context.supabase.from("google_sheets_sync").select("order_id", { count: "exact", head: true }).eq("status", "error"),
@@ -191,11 +199,11 @@ export const saveSheetsConfig = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     if (!data.sheetName) throw new Error("Choisissez un onglet.");
-    const { error } = await context.supabase.from("google_sheets_config").update({
+    const saved = await context.supabase.from("google_sheets_config").update({
       spreadsheet_id: data.spreadsheetId, spreadsheet_title: data.title, sheet_name: data.sheetName,
       last_test_ok: null, last_test_at: null, last_error: null, updated_at: new Date().toISOString(),
-    }).eq("id", 1);
-    if (error) throw new Error(error.message);
+    }).eq("id", 1).select("id").single();
+    requireSavedRow(saved, "Enregistrement du fichier");
     return { ok: true };
   });
 
@@ -229,7 +237,7 @@ export const setSheetsSync = createServerFn({ method: "POST" })
     const { data: cfg } = await context.supabase.from("google_sheets_config").select("*").eq("id", 1).single();
     if (data.enabled && !cfg?.last_test_ok) throw new Error("Testez la connexion avec succès avant d'activer.");
     const now = new Date().toISOString();
-    const patch = data.enabled ? { enabled: true, enabled_at: now, updated_at: now } : { enabled: false, updated_at: now };
+    const patch = syncActivation(data.enabled, cfg?.enabled_at, now);
     const { error } = await context.supabase.from("google_sheets_config").update(patch).eq("id", 1);
     if (error) throw new Error(error.message);
     return { ok: true };
@@ -278,8 +286,11 @@ export const saveOAuthClient = createServerFn({ method: "POST" })
     if (data.clientSecret.length < 10) throw new Error("Code secret client invalide.");
     const { getAdmin, encrypt } = await import("@/lib/google-oauth.server");
     const admin = await getAdmin();
-    await admin.from("google_oauth_secrets").update({ client_secret_enc: await encrypt(data.clientSecret), refresh_token_enc: null, updated_at: new Date().toISOString() }).eq("id", 1);
-    await admin.from("google_sheets_config").update({ oauth_client_id: data.clientId, google_email: null, oauth_connected_at: null }).eq("id", 1);
+    const encryptedSecret = await encrypt(data.clientSecret);
+    const configWrite = await admin.from("google_sheets_config").upsert({ id: 1, oauth_client_id: data.clientId }, { onConflict: "id" }).select("id").single();
+    requireSavedRow(configWrite, "Enregistrement du client Google");
+    const secretWrite = await admin.from("google_oauth_secrets").upsert({ id: 1, client_secret_enc: encryptedSecret, updated_at: new Date().toISOString() }, { onConflict: "id" }).select("id").single();
+    requireSavedRow(secretWrite, "Enregistrement des identifiants Google");
     return { ok: true };
   });
 
@@ -296,11 +307,11 @@ export const startGoogleOAuth = createServerFn({ method: "POST" })
       VERCEL_URL: process.env['VERCEL_URL'], VERCEL_PROJECT_PRODUCTION_URL: process.env['VERCEL_PROJECT_PRODUCTION_URL'],
     });
     const state = Array.from(crypto.getRandomValues(new Uint8Array(24)), (b) => b.toString(16).padStart(2, "0")).join("");
-    const { error: stateError } = await admin.from("google_oauth_secrets").update({
+    const stateWrite = await admin.from("google_oauth_secrets").update({
       oauth_state: state, oauth_redirect_uri: redirectUri,
       oauth_state_expires: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
-    }).eq("id", 1);
-    if (stateError) throw new Error(`Enregistrement de la connexion Google : ${stateError.message}`);
+    }).eq("id", 1).select("id").single();
+    requireSavedRow(stateWrite, "Enregistrement de la connexion Google");
     const p = new URLSearchParams({
       client_id: own.clientId, redirect_uri: redirectUri, response_type: "code",
       scope: GOOGLE_SCOPES.join(" "), access_type: "offline", prompt: "consent select_account",

@@ -2,6 +2,9 @@
 
 ## Changes made
 
+- Follow-up diagnosis (2026-11-07): authenticated status failed with “Cannot coerce the result to a single JSON object” because both required singleton rows were absent. The page hid that error and disabled all controls. Optional reads now accept absent setup, errors have a visible retry action, and credential setup creates missing rows without clearing existing refresh tokens.
+- Restored explicit administrator policies for configuration/sync, keeping encrypted credentials inaccessible to browser roles. OAuth state consumption is conditional, popup waiting has a ten-minute deadline, and callback writes must confirm persistence before reporting success.
+- Synchronization excludes already-sent orders before its 200-order limit and keeps the original activation window when resumed. Existing Google append/ledger reconciliation limitations are not an exactly-once guarantee.
 - Explicit Nitro `vercel` output in `vite.config.ts`. Lovable's build wrapper retains its managed target.
 - Shared callback construction for the status page and Google authorization request. Removed the obsolete THÉRAVÉN callback suggestion.
 - Optional Vercel-only `GOOGLE_OAUTH_ORIGIN` for deployments whose incoming request URL uses an internal host. Without it, the current request origin is used. Untrusted forwarded production hosts are ignored.
@@ -68,4 +71,4 @@ Callback origin regression tests are included in `src/test/google-oauth-origin.t
 The existing checkout starts synchronization from a browser request; this compatibility fix does not introduce scheduled processing, rebuild the integration, or change order handling. Existing 200-order batching and append/ledger recovery limitations remain separate from hosting compatibility.
 Full Google consent, spreadsheet reads and order writes on Vercel remain unverified until the production host and secure runtime dependencies are available. An empty or signed-out page is not proof of successful synchronization.
 
-The available backend currently contains zero rows in `google_sheets_config`, `google_oauth_secrets` and `google_sheets_sync`. No rows were removed or replaced during this work. This does not match the reported working connection and must be reconciled with the backend actually used by that deployment before production verification. Authenticated preview access to `/admin/sheets` and the callback's missing-code handling were verified; neither establishes successful Google access.
+The available backend still contains zero rows in `google_sheets_config`, `google_oauth_secrets` and `google_sheets_sync`. No rows or credentials were removed or replaced during this work. Authenticated local preview now successfully reads status and displays editable Google setup fields instead of a silent disabled interface. No real Google authorization, file read or order sync can be verified without the original connection/configuration. No Vercel URL was supplied; production deployment and its runtime credentials remain unverified.

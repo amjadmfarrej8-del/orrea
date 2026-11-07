@@ -2,12 +2,14 @@
 // managed privileged backend access and the token-encryption key. Never import from browser code.
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import { fullAddress } from "@/lib/orders";
+import {
+  SHEET_HEADERS, SHEET_LAST_COLUMN, isCurrentHeader, isLegacyHeader, legacyRowToCurrent, ordersToRows,
+  type SheetCell, type SheetOrder,
+} from "@/lib/sheets-rows";
 import { googleCallbackUrl } from "@/lib/google-oauth-origin";
 import { requireSavedRow, syncActivation } from "@/lib/sheets-state";
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_sheets/v4";
-const HEADERS = ["Nom complet", "Numéro de téléphone", "Adresse complète"];
 
 type Api = (path: string, init?: RequestInit) => Promise<any>;
 type Admin = Awaited<typeof import("@/integrations/supabase/client.server")>["supabaseAdmin"];
@@ -94,20 +96,30 @@ function parseSpreadsheetId(input: unknown): string {
   return id;
 }
 
+/** Writes the header row; a sheet using the earlier 3-column layout is moved into the new columns without losing rows. */
 async function ensureHeaders(gw: Api, spreadsheetId: string, sheet: string) {
-  const r = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A1:C1")}`);
+  const L = SHEET_LAST_COLUMN;
+  const r = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A1:${L}1`)}`);
   const first = (r.values?.[0] ?? []) as string[];
-  if (first.length === 0) {
-    await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A1:C1")}?valueInputOption=RAW`, {
-      method: "PUT",
-      body: JSON.stringify({ values: [HEADERS] }),
+  if (isCurrentHeader(first)) return;
+  if (isLegacyHeader(first)) {
+    const all = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A2:C")}`);
+    const rows = ((all.values ?? []) as unknown[][]).map(legacyRowToCurrent);
+    const values: SheetCell[][] = [[...SHEET_HEADERS], ...rows];
+    await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A1:${L}${values.length}`)}?valueInputOption=RAW`, {
+      method: "PUT", body: JSON.stringify({ values }),
     });
+    return;
   }
+  await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A1:${L}1`)}?valueInputOption=RAW`, {
+    method: "PUT", body: JSON.stringify({ values: [[...SHEET_HEADERS]] }),
+  });
 }
 
-async function appendRows(gw: Api, spreadsheetId: string, sheet: string, rows: string[][]) {
+async function appendRows(gw: Api, spreadsheetId: string, sheet: string, rows: SheetCell[][]) {
+  if (rows.length === 0) return;
   await gw(
-    `/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A:C")}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
+    `/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A:${SHEET_LAST_COLUMN}`)}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
     { method: "POST", body: JSON.stringify({ values: rows }) },
   );
 }
@@ -122,7 +134,7 @@ async function runSync(admin: Admin) {
   if (ledgerError) throw new Error(ledgerError.message);
   let eligibleOrders = admin
     .from("orders")
-    .select("id, customer_name, phone, city, address, created_at")
+    .select("id, order_number, customer_name, phone, city, address, created_at, order_items(product_name, selected_size, selected_color, quantity, unit_price)")
     .gte("created_at", cfg.enabled_at);
   if (alreadySent?.length) eligibleOrders = eligibleOrders.not("id", "in", `(${alreadySent.map((row) => row.order_id).join(",")})`);
   const { data: orders, error: ordersError } = await eligibleOrders
@@ -163,7 +175,7 @@ async function runSync(admin: Admin) {
     await appendRows(
       gw, cfg.spreadsheet_id,
       cfg.sheet_name,
-      claimed.map((o) => [o.customer_name ?? "", o.phone ?? "", fullAddress(o.city, o.address)]),
+      ordersToRows(claimed as SheetOrder[]),
     );
     await admin.from("google_sheets_sync").update({ status: "synced", error: null, synced_at: now, updated_at: now }).in("order_id", ids);
     await admin.from("google_sheets_config").update({ last_sync_at: now, last_error: null }).eq("id", 1);
@@ -245,7 +257,9 @@ async function testSheetsConnection({ user }: Ctx) {
     const { api: gw } = await sheetsApi();
     await ensureHeaders(gw, cfg.spreadsheet_id, cfg.sheet_name);
     await appendRows(gw, cfg.spreadsheet_id, cfg.sheet_name, [[
-      "TEST ORRÉA", "0600000000", `Commande test — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}`,
+      "TEST", "Produit test", "TEST ORRÉA",
+      `Commande test — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}`,
+      "0600000000", "M", "Noir", 1, 0,
     ]]);
     await user.supabase.from("google_sheets_config").update({ last_test_at: now, last_test_ok: true, last_error: null }).eq("id", 1);
     return { ok: true as const, error: null };

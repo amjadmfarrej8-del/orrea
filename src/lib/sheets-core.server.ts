@@ -3,7 +3,8 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import {
-  SHEET_HEADERS, SHEET_LAST_COLUMN, isCurrentHeader, isLegacyHeader, legacyRowToCurrent, ordersToRows,
+  DATE_COLUMN, SHEET_HEADERS, SHEET_LAST_COLUMN, formatOrderDate, isCurrentHeader, isLegacyHeader,
+  isPreviousHeader, legacyRowToCurrent, ordersToRows,
   type SheetCell, type SheetOrder,
 } from "@/lib/sheets-rows";
 import { googleCallbackUrl } from "@/lib/google-oauth-origin";
@@ -102,6 +103,10 @@ async function ensureHeaders(gw: Api, spreadsheetId: string, sheet: string) {
   const r = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A1:${L}1`)}`);
   const first = (r.values?.[0] ?? []) as string[];
   if (isCurrentHeader(first)) return;
+  if (isPreviousHeader(first)) {
+    await addDateColumn(gw, spreadsheetId, sheet);
+    return;
+  }
   if (isLegacyHeader(first)) {
     const all = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A2:C")}`);
     const rows = ((all.values ?? []) as unknown[][]).map(legacyRowToCurrent);
@@ -114,6 +119,27 @@ async function ensureHeaders(gw: Api, spreadsheetId: string, sheet: string) {
   await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `A1:${L}1`)}?valueInputOption=RAW`, {
     method: "PUT", body: JSON.stringify({ values: [[...SHEET_HEADERS]] }),
   });
+}
+
+/** Adds the "Date commande" header and fills it for rows already in the sheet, matched by order number. */
+async function addDateColumn(gw: Api, spreadsheetId: string, sheet: string) {
+  const col = await gw(`/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, "A2:A")}`);
+  const numbers = ((col.values ?? []) as unknown[][]).map((r) => String(r[0] ?? "").trim());
+  const wanted = [...new Set(numbers.filter((n) => n && n !== "TEST"))];
+  const dates = new Map<string, string>();
+  if (wanted.length) {
+    const admin = await getAdmin();
+    for (let i = 0; i < wanted.length; i += 200) {
+      const { data, error } = await admin.from("orders").select("order_number, created_at").in("order_number", wanted.slice(i, i + 200));
+      if (error) throw new Error(error.message);
+      for (const o of data ?? []) if (o.order_number) dates.set(o.order_number, formatOrderDate(o.created_at));
+    }
+  }
+  const values: SheetCell[][] = [[SHEET_HEADERS[9]], ...numbers.map((n) => [dates.get(n) ?? ""])];
+  await gw(
+    `/spreadsheets/${spreadsheetId}/values/${rangeFor(sheet, `${DATE_COLUMN}1:${DATE_COLUMN}${values.length}`)}?valueInputOption=RAW`,
+    { method: "PUT", body: JSON.stringify({ values }) },
+  );
 }
 
 async function appendRows(gw: Api, spreadsheetId: string, sheet: string, rows: SheetCell[][]) {
@@ -259,7 +285,7 @@ async function testSheetsConnection({ user }: Ctx) {
     await appendRows(gw, cfg.spreadsheet_id, cfg.sheet_name, [[
       "TEST", "Produit test", "TEST ORRÉA",
       `Commande test — ${new Date().toLocaleString("fr-FR", { timeZone: "Africa/Casablanca" })}`,
-      "0600000000", "M", "Noir", 1, 0,
+      "0600000000", "M", "Noir", 1, 0, formatOrderDate(now),
     ]]);
     await user.supabase.from("google_sheets_config").update({ last_test_at: now, last_test_ok: true, last_error: null }).eq("id", 1);
     return { ok: true as const, error: null };

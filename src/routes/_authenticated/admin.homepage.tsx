@@ -10,10 +10,10 @@ import { AField, Card, ImageUpload, Input, PageTitle, Textarea } from "@/compone
 export const Route = createFileRoute("/_authenticated/admin/homepage")({ staticData: { sitemap: false }, head: () => ({ meta: [{ title: "Éditeur accueil — Administration ORRÉA" }, { name: "description", content: "Administration ORRÉA : éditeur accueil." }, { property: "og:title", content: "Éditeur accueil — Administration ORRÉA" }, { property: "og:description", content: "Administration ORRÉA : éditeur accueil." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: HomepageBuilder });
 
 const typeLabel: Record<string, string> = {
-  hero: "Bannière principale", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", collections: "Choisir Votre Collection", banner: "Bandeau pleine largeur", offers: "Offres (packs)", featured: "Produits sélectionnés",
+  hero: "Bannière principale", countdown: "New Drop (compte à rebours)", promo: "Bandeau promotionnel", panel: "Panneau publicitaire", benefits: "Avantages", categories: "Catégories", collections: "Choisir Votre Collection", banner: "Bandeau pleine largeur", offers: "Offres (packs)", featured: "Produits sélectionnés",
   story: "Histoire de la marque", bestsellers: "Best-sellers", new: "Nouveautés", reviews: "Avis clientes", newsletter: "Newsletter & Instagram",
 };
-const hasText = new Set(["hero", "story", "newsletter", "panel"]);
+const hasText = new Set(["hero", "story", "newsletter", "panel", "countdown"]);
 const hasImage = new Set(["hero", "story", "panel", "banner"]);
 const hasButton = new Set(["hero", "panel"]);
 
@@ -74,6 +74,16 @@ function HomepageBuilder() {
                   </>
                 )}
                 {hasImage.has(sec.type) && <ImageUpload label="Image (vide = image par défaut)" value={sec.image ?? ""} onChange={(v) => upd(sec.id, { image: v })} />}
+                {sec.type === "countdown" && (
+                  <>
+                    <AField label="Date et heure de lancement (vide = déjà en ligne)">
+                      <Input type="datetime-local" value={sec.launch_at ?? ""} onChange={(e) => upd(sec.id, { launch_at: e.target.value })} />
+                    </AField>
+                    <AField label="Lien du bouton « Découvrir » (ex. /shop?f=nouveautes)">
+                      <Input value={sec.link ?? ""} onChange={(e) => upd(sec.id, { link: e.target.value })} />
+                    </AField>
+                  </>
+                )}
                 {sec.type === "featured" && (
                   <div className="md:col-span-2">
                     <p className="eyebrow mb-2">Produits affichés (aucun = produits « mis en avant »)</p>

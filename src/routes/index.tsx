@@ -12,6 +12,7 @@ import { categoriesQuery, productImage, productsQuery, type Product } from "@/li
 import { useI18n } from "@/lib/i18n";
 import { settingsQuery, waLink, type Section } from "@/lib/settings";
 import { HommeCollectionCarousel } from "@/components/site/HommeCollectionCarousel";
+import { CountdownDrop } from "@/components/site/CountdownDrop";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CategoryGrid } from "./categories";
 import { Button } from "@/components/ui/button";
@@ -100,6 +101,8 @@ function SectionView({ sec }: { sec: Section }) {
         </section>
       );
     }
+    case "countdown":
+      return <CountdownDrop sec={sec} />;
     case "promo":
       return <div className="bg-champagne/25 px-5 py-4 text-center text-sm tracking-[0.08em]">{title}</div>;
     case "benefits": {

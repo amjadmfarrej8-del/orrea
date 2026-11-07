@@ -15,10 +15,11 @@ export type Section = {
   id: string; type: string; visible: boolean;
   title_fr?: string | undefined; title_ar?: string | undefined; text_fr?: string | undefined; text_ar?: string | undefined;
   button_fr?: string | undefined; button_ar?: string | undefined; link?: string | undefined; image?: string | undefined; image_desktop?: string | undefined; image_tablet?: string | undefined; product_ids?: string[] | undefined;
+  launch_at?: string | undefined;
 };
 export type Settings = { theme: Theme; store: Store; seo: Seo; homepage: { sections: Section[] } };
 
-export const SECTION_TYPES = ["hero", "promo", "panel", "benefits", "categories", "collections", "banner", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
+export const SECTION_TYPES = ["hero", "countdown", "promo", "panel", "benefits", "categories", "collections", "banner", "offers", "featured", "story", "bestsellers", "new", "reviews", "newsletter"] as const;
 
 export const defaultSettings: Settings = {
   theme: { background: "#080808", foreground: "#F5F5F5", primary: "#FF6500", primary_hover: "#E85500", secondary: "#141414", accent: "#252525", champagne: "#FF6500", radius: 2, logo_url: "", favicon_url: "", display_font: "Cormorant Garamond", body_font: "Jost" },
@@ -26,6 +27,7 @@ export const defaultSettings: Settings = {
   seo: { title_fr: "ORRÉA — Streetwear homme & mode femme en ligne au Maroc", title_ar: "ORRÉA — أزياء النساء والرجال", description_fr: "ORRÉA, mode en ligne au Maroc : hoodies, t-shirts, ensembles, pantalons et jackets pour homme et femme. Livraison gratuite et paiement à la livraison.", description_ar: "ORRÉA، منظور جديد للأناقة. اكتشفوا عالمي النساء والرجال.", og_image: "" },
   homepage: { sections: [
     { id: "hero", type: "hero", visible: true, title_fr: "MOVE WITH PRESENCE", title_ar: "تحرّك بحضور", text_fr: "STYLE / QUALITY / ATTITUDE", text_ar: "أسلوب / جودة / شخصية", image: "streetwear-campaign", image_desktop: "streetwear-campaign", button_fr: "Découvrir la collection", button_ar: "اكتشفوا المجموعة", link: "/shop" },
+    { id: "countdown", type: "countdown", visible: true, title_fr: "NEW DROP", title_ar: "NEW DROP", text_fr: "A NEW COLLECTION IS COMING", text_ar: "مجموعة جديدة قادمة", launch_at: "", link: "/shop?f=nouveautes" },
     { id: "benefits", type: "benefits", visible: true },
     { id: "categories", type: "categories", visible: true, title_fr: "Nos Collections", title_ar: "مجموعاتنا" },
     { id: "featured", type: "featured", visible: true, title_fr: "L’Essentiel", title_ar: "الأساسيات" },

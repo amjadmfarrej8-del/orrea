@@ -1,10 +1,10 @@
 export const GOOGLE_CALLBACK_PATH = "/api/public/google-oauth/callback";
 
 type HostingEnvironment = {
-  VERCEL?: string;
-  GOOGLE_OAUTH_ORIGIN?: string;
-  VERCEL_URL?: string;
-  VERCEL_PROJECT_PRODUCTION_URL?: string;
+  VERCEL?: string | undefined;
+  GOOGLE_OAUTH_ORIGIN?: string | undefined;
+  VERCEL_URL?: string | undefined;
+  VERCEL_PROJECT_PRODUCTION_URL?: string | undefined;
 };
 
 /** Keep redirects on the deployment that opened Google; never trust arbitrary forwarded hosts. */

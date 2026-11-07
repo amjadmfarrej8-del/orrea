@@ -29,6 +29,13 @@
       "when": 1793751636998,
       "tag": "0003_free_delivery_all_products",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1794064443668,
+      "tag": "0004_restore_sheets_admin_access",
+      "breakpoints": true
     }
   ]
 }

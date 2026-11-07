@@ -8,8 +8,24 @@ const DEFAULT_ALLOWED = [
   /^https:\/\/([a-z0-9-]+\.)*lovable\.app$/i,
   /^https:\/\/([a-z0-9-]+\.)*lovableproject\.com$/i,
   /^https:\/\/orrea(-[a-z0-9-]+)?\.vercel\.app$/i,
+  /^https:\/\/(www\.)?orrea\.ma$/i,
   /^http:\/\/localhost(:\d+)?$/i,
 ];
+
+/** Published Lovable host that runs the privileged Sheets endpoint. */
+export const DEFAULT_SHEETS_API_ORIGIN = "https://orrea.lovable.app";
+
+/** Lovable hosts and localhost serve the endpoint themselves; any other host (Vercel, orrea.ma) calls the Lovable host. */
+export function resolveSheetsApiOrigin(configured: string | undefined, current: string): string {
+  if (configured) {
+    try { return new URL(configured).origin; } catch { /* fall through */ }
+  }
+  try {
+    const host = new URL(current).hostname;
+    if (host === "localhost" || /(^|\.)lovable\.app$/i.test(host) || /(^|\.)lovableproject\.com$/i.test(host)) return new URL(current).origin;
+  } catch { /* fall through */ }
+  return DEFAULT_SHEETS_API_ORIGIN;
+}
 
 /** Extra origins (custom Vercel domains) come from a comma-separated server setting. */
 export function parseAllowedOrigins(raw: string | undefined): string[] {

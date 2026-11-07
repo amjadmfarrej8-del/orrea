@@ -28,3 +28,4 @@
 - Public page head tags are built with `pageHead()` in src/lib/seo.ts and every route declares `staticData.sitemap`; keeps canonical/og:url/hreflang self-referencing and the router-derived /sitemap.xml accurate.
 - Product JSON-LD emits an Offer only for confirmed prices; never publish unconfirmed prices to search engines.
 - Only the homepage Nouvelle Collection row uses Embla with auto-scroll; Homme and all other collections retain their product grids. Reuse unchanged ProductCard and pause offscreen, on interaction and for reduced motion to keep rendering lightweight.
+- Google Sheets retains its existing server functions, encrypted database credentials and sync ledger; Vercel uses the Nitro Vercel preset and deployment-local OAuth callbacks, while Lovable keeps its managed runtime. Never rotate the token-encryption key during a hosting change because existing credentials depend on it.

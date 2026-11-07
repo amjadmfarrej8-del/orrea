@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getRequest } from "@tanstack/react-start/server";
 import { fullAddress } from "@/lib/orders";
+import { googleCallbackUrl } from "@/lib/google-oauth-origin";
 
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_sheets/v4";
 const HEADERS = ["Nom complet", "Numéro de téléphone", "Adresse complète"];
@@ -149,10 +150,10 @@ export const getSheetsStatus = createServerFn({ method: "GET" })
     const { getAdmin, loadOwnOAuth } = await import("@/lib/google-oauth.server");
     const own = await loadOwnOAuth(await getAdmin());
     const ownConnected = !!own.clientId && own.hasSecret && own.hasRefresh;
-    const req = getRequest();
-    const u = new URL(req.url);
-    const fh = u.hostname === "localhost" ? req.headers.get("x-forwarded-host") : null;
-    const origin = fh ? `https://${fh}` : u.origin;
+    const redirectUri = googleCallbackUrl(getRequest(), {
+      VERCEL: process.env['VERCEL'], GOOGLE_OAUTH_ORIGIN: process.env['GOOGLE_OAUTH_ORIGIN'],
+      VERCEL_URL: process.env['VERCEL_URL'], VERCEL_PROJECT_PRODUCTION_URL: process.env['VERCEL_PROJECT_PRODUCTION_URL'],
+    });
     return {
       linked: ownConnected || managedLinked(),
       mode: ownConnected ? "own" : managedLinked() ? "managed" : null,
@@ -160,7 +161,7 @@ export const getSheetsStatus = createServerFn({ method: "GET" })
       oauthClientId: own.clientId,
       oauthReady: !!own.clientId && own.hasSecret,
       encKeyReady: !!process.env['GOOGLE_TOKEN_ENC_KEY'],
-      redirectUris: Array.from(new Set([`${origin}/api/public/google-oauth/callback`, "https://theravene.lovable.app/api/public/google-oauth/callback"])),
+      redirectUris: [redirectUri],
       config: cfg ? { ...cfg } : null, synced: synced ?? 0, errors: errors ?? 0,
     };
   });
@@ -290,15 +291,16 @@ export const startGoogleOAuth = createServerFn({ method: "POST" })
     const admin = await getAdmin();
     const own = await loadOwnOAuth(admin);
     if (!own.clientId || !own.hasSecret) throw new Error("Enregistrez d'abord l'ID client et le code secret Google.");
-    const req = getRequest();
-    const u = new URL(req.url);
-    const fh = u.hostname === "localhost" ? req.headers.get("x-forwarded-host") : null;
-    const redirectUri = `${fh ? `https://${fh}` : u.origin}/api/public/google-oauth/callback`;
+    const redirectUri = googleCallbackUrl(getRequest(), {
+      VERCEL: process.env['VERCEL'], GOOGLE_OAUTH_ORIGIN: process.env['GOOGLE_OAUTH_ORIGIN'],
+      VERCEL_URL: process.env['VERCEL_URL'], VERCEL_PROJECT_PRODUCTION_URL: process.env['VERCEL_PROJECT_PRODUCTION_URL'],
+    });
     const state = Array.from(crypto.getRandomValues(new Uint8Array(24)), (b) => b.toString(16).padStart(2, "0")).join("");
-    await admin.from("google_oauth_secrets").update({
+    const { error: stateError } = await admin.from("google_oauth_secrets").update({
       oauth_state: state, oauth_redirect_uri: redirectUri,
       oauth_state_expires: new Date(Date.now() + 10 * 60 * 1000).toISOString(),
     }).eq("id", 1);
+    if (stateError) throw new Error(`Enregistrement de la connexion Google : ${stateError.message}`);
     const p = new URLSearchParams({
       client_id: own.clientId, redirect_uri: redirectUri, response_type: "code",
       scope: GOOGLE_SCOPES.join(" "), access_type: "offline", prompt: "consent select_account",

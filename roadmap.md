@@ -1,5 +1,9 @@
 # THÉRAVÉN roadmap
 
+## Current
+- [x] Fix Google Sheets Vercel build target, production callback handling, diagnostics, and document deployment prerequisites without changing orders or credentials; six regression tests pass and callback responds in authenticated preview
+- [ ] Verify Google Sheets on Vercel: awaiting production URL, deployment logs and securely provisioned server runtime credentials
+
 ## Done
 - [x] Keep carousel only in homepage Nouvelle Collection; restore Homme grid and verify both on mobile and desktop
 - [x] Add individual color-image management and verify uploaded photos, persistence, editing, deletion and storefront selection

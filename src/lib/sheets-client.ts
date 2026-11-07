@@ -28,7 +28,8 @@ export async function callSheets<A extends SheetsAction>(action: A, data?: Input
   let res: Response;
   try {
     res = await fetch(`${sheetsApiOrigin()}${SHEETS_API_PATH}/${action}`, {
-      method: "POST", headers, body: JSON.stringify(data ?? {}), credentials: "omit",
+      method: "POST", headers, // same-origin keeps the private-preview access cookie; cross-origin (Vercel → Lovable) sends no cookies.
+      body: JSON.stringify(data ?? {}), credentials: "same-origin",
     });
   } catch {
     throw new Error("Service Google Sheets injoignable. Vérifiez votre connexion ou la configuration du site.");

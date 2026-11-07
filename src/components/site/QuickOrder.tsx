@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { formatMAD, useI18n } from "@/lib/i18n";
 import { quickOrderSchema } from "@/lib/clothing";
-import { syncNewOrders } from "@/lib/sheets.functions";
+import { callSheets } from "@/lib/sheets-client";
 
 export function QuickOrder({ productId, price, freeShipping, size, color, disabled }: { productId: string; price: number; freeShipping: boolean; size: string; color: string; disabled: boolean }) {
   const { L, lang } = useI18n();
@@ -31,7 +31,7 @@ export function QuickOrder({ productId, price, freeShipping, size, color, disabl
       setResult(data as { order_number: string; total: number });
       void qc.invalidateQueries({ queryKey: ["products"] });
       void qc.invalidateQueries({ queryKey: ["product"] });
-      void syncNewOrders().catch(() => {});
+      void callSheets("sync-new-orders").catch(() => {});
     } catch (err) {
       const message = err instanceof Error ? err.message : String((err as { message?: string })?.message || "");
       setError(message.includes("out_of_stock") ? L("Cet article n’est plus disponible.", "المنتج غير متوفر.") : message.includes("invalid_size") || message.includes("invalid_color") ? L("Choisissez une taille et une couleur disponibles.", "اختاروا المقاس واللون.") : L("La commande n’a pas été enregistrée. Réessayez.", "لم يتم تسجيل الطلب. حاولوا مجدداً."));

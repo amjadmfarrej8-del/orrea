@@ -6,12 +6,12 @@ import { useCart } from "@/lib/cart";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth";
 import { settingsQuery } from "@/lib/settings";
-import logoAsset from "@/assets/orrea-logo.png.asset.json";
+import logoAsset from "@/assets/orrea-logo.png";
 import { Button } from "@/components/ui/button";
 
 export function Logo({ className = "" }: { className?: string }) {
   const { data } = useQuery(settingsQuery);
-  const src = data?.theme.logo_url || logoAsset.url;
+  const src = data?.theme.logo_url || logoAsset;
   return <img src={src} alt="ORRÉA" className={`h-8 w-auto ${className}`} />;
 }
 
